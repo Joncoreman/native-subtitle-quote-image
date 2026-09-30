@@ -93,6 +93,8 @@ python3 skills/native-subtitle-quote-image/scripts/check_environment.py --url-mo
 
 ## 两种字幕模式
 
+如果你没有指定模式，Agent 会先问“您当前是选择原生字幕还是脚本字幕？”，并用一句话解释两者区别，再按你的选择处理。
+
 | | 原生字幕 | 脚本字幕 |
 |---|---|---|
 | **什么时候用** | 关掉播放器的 CC 后，字幕仍然烧在画面里 | 要把已核对的台词、翻译或观点画到真实画面上 |

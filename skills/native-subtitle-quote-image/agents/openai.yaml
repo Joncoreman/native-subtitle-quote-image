@@ -1,4 +1,4 @@
 interface:
   display_name: "原生字幕拼图"
   short_description: "读取视频，选句取帧，生成紧凑的原生或脚本字幕3:4拼图"
-  default_prompt: "使用 $native-subtitle-quote-image 把这个视频或链接做成紧凑字幕拼图；先检查来源、字幕类型和环境，明确原生或脚本字幕模式，再选句、取帧、渲染并质检。"
+  default_prompt: "使用 $native-subtitle-quote-image 把这个视频或链接做成紧凑字幕拼图；若用户未指定模式，先问‘您当前是选择原生字幕还是脚本字幕？’，简述两者区别并等待选择；随后检查来源、字幕类型和环境，再选句、取帧、渲染并质检。"

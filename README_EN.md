@@ -93,6 +93,8 @@ Use $native-subtitle-quote-image to turn this video with burned-in subtitles int
 
 ## Two subtitle modes
 
+If you have not chosen a mode, the agent first asks whether you want native or scripted subtitles, briefly explains the difference, and waits for your choice.
+
 | | Native subtitles | Scripted subtitles |
 |---|---|---|
 | **Use it when** | Subtitles stay in the frame after the player's CC is turned off | You want reviewed quotes, translations, or points drawn onto real frames |
