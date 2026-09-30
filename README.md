@@ -1,32 +1,28 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/native-subtitle-quote-image-icon.png" alt="原生字幕拼图项目图标" width="120">
-
-  <h1>原生字幕拼图</h1>
-
-  <p><strong>把视频里的一段话，做成一张能直接发的 3:4 字幕长图。</strong></p>
-  <p>原生字幕不重绘 · 脚本字幕不冒充原字幕</p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-zh-dark.png">
+    <img src="assets/banner-zh-light.png" alt="原生字幕拼图：把视频里的一段话，做成一张能直接发的 3:4 字幕长图。原生字幕不重绘，脚本字幕不冒充原字幕。" width="820">
+  </picture>
 
   <p>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&style=flat-square&label=test" alt="测试状态"></a>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?style=flat-square&label=release" alt="最新版本"></a>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="GitHub Stars"></a>
     <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="MIT License"></a>
-    <img src="https://img.shields.io/badge/Agent_Skills-open_format-f97316?style=flat-square" alt="开放 Agent Skills 格式">
     <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.10+">
+    <a href="README_EN.md"><img src="https://img.shields.io/badge/README-English-2563eb?style=flat-square" alt="English README"></a>
   </p>
 
-  <p><strong>中文</strong> · <a href="README_EN.md">English</a></p>
-
   <p>
-    <a href="#快速开始">快速开始</a> ·
-    <a href="#两种字幕模式">两种模式</a> ·
-    <a href="#用一句话调用">使用</a> ·
-    <a href="#命令行">命令行</a> ·
-    <a href="#适合与不适合">适用范围</a> ·
-    <a href="#更多说明">更多说明</a> ·
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">反馈</a>
+    <a href="#快速开始"><kbd>&nbsp;快速开始&nbsp;</kbd></a>&nbsp;
+    <a href="#两种字幕模式"><kbd>&nbsp;两种模式&nbsp;</kbd></a>&nbsp;
+    <a href="#用一句话调用"><kbd>&nbsp;使用&nbsp;</kbd></a>&nbsp;
+    <a href="#命令行"><kbd>&nbsp;命令行&nbsp;</kbd></a>&nbsp;
+    <a href="#适合与不适合"><kbd>&nbsp;适用范围&nbsp;</kbd></a>&nbsp;
+    <a href="#更多说明"><kbd>&nbsp;更多说明&nbsp;</kbd></a>&nbsp;
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><kbd>&nbsp;反馈&nbsp;</kbd></a>
   </p>
 
   <br>

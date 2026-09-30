@@ -1,32 +1,28 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/native-subtitle-quote-image-icon.png" alt="Native Subtitle Quote Image project icon" width="120">
-
-  <h1>Native Subtitle Quote Image</h1>
-
-  <p><strong>Turn a moment from any video into a ready-to-post 3:4 subtitle quote image.</strong></p>
-  <p>Native subtitles are never redrawn · Scripted subtitles are never passed off as native</p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-en-dark.png">
+    <img src="assets/banner-en-light.png" alt="Native Subtitle Quote Image: turn any video moment into a ready-to-post 3:4 quote image. Native subtitles are never redrawn; scripted subtitles are never passed off as native." width="820">
+  </picture>
 
   <p>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&style=flat-square&label=test" alt="Test status"></a>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?style=flat-square&label=release" alt="Latest release"></a>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="GitHub Stars"></a>
     <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="MIT License"></a>
-    <img src="https://img.shields.io/badge/Agent_Skills-open_format-f97316?style=flat-square" alt="Open Agent Skills format">
     <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.10+">
+    <a href="README.md"><img src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-e11d48?style=flat-square" alt="中文 README"></a>
   </p>
 
-  <p><a href="README.md">中文</a> · <strong>English</strong></p>
-
   <p>
-    <a href="#quick-start">Quick start</a> ·
-    <a href="#two-subtitle-modes">Two modes</a> ·
-    <a href="#one-prompt-away">Usage</a> ·
-    <a href="#command-line">CLI</a> ·
-    <a href="#scope">Scope</a> ·
-    <a href="#more-details">More</a> ·
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">Feedback</a>
+    <a href="#quick-start"><kbd>&nbsp;Quick start&nbsp;</kbd></a>&nbsp;
+    <a href="#two-subtitle-modes"><kbd>&nbsp;Two modes&nbsp;</kbd></a>&nbsp;
+    <a href="#one-prompt-away"><kbd>&nbsp;Usage&nbsp;</kbd></a>&nbsp;
+    <a href="#command-line"><kbd>&nbsp;CLI&nbsp;</kbd></a>&nbsp;
+    <a href="#scope"><kbd>&nbsp;Scope&nbsp;</kbd></a>&nbsp;
+    <a href="#more-details"><kbd>&nbsp;More&nbsp;</kbd></a>&nbsp;
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><kbd>&nbsp;Feedback&nbsp;</kbd></a>
   </p>
 
   <br>
