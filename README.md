@@ -1,9 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/banner-zh.webp" alt="原生字幕拼图：把视频里的一段话，做成一张能直接发的 3:4 字幕长图。原生字幕不重绘，脚本字幕不冒充原字幕。" width="880">
-
-  <p><sub>横幅里的三张图都是<strong>脚本字幕模式</strong>：真实视频帧 + 已审核的中文台词，画面原本不带这些中文字幕。</sub></p>
+  <img src="assets/banner-zh.webp" alt="原生字幕拼图：视频胶片、字幕条、时间轴和拼图画框环绕标题的手绘横幅" width="880">
 
   <p>
     <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?color=369eff&logo=github&labelColor=black&style=flat-square" alt="最新版本"></a>
@@ -311,7 +309,7 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 
 <br>
 
-首屏横幅由 `scripts/render_banners.py` 生成，中英文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改文案时编辑脚本顶部的 `COPY`，换展示图时编辑 `SHOWCASE`，然后运行：
+首屏横幅由 `scripts/render_banners.py` 生成，中英文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改标题时编辑脚本顶部的 `COPY`，改边缘插画时替换 `assets/banner-ornaments.png`，然后运行：
 
 ```bash
 python3 scripts/render_banners.py

@@ -2,9 +2,8 @@
 """重新生成 README 首屏横幅（中文、英文各一张），需要本机安装 Chrome 或 Chromium。
 
 横幅自带深色背景，GitHub 浅色、深色主题共用一张。
-改文案：编辑下方 COPY；换展示图：编辑 SHOWCASE。然后运行 `python3 scripts/render_banners.py`。
-渲染时从 Google Fonts 加载 Noto Sans SC 与 Inter，需要联网。
-输出为带透明圆角的 WebP，比 PNG 小一个数量级。
+改标题：编辑下方 COPY；改边缘插画：替换 assets/banner-ornaments.png。
+运行 `python3 scripts/render_banners.py`；渲染时从 Google Fonts 加载手写字体，需要联网。
 """
 
 import argparse
@@ -19,36 +18,23 @@ from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ICON = ROOT / "assets" / "native-subtitle-quote-image-icon.png"
+BACKGROUND = ROOT / "assets" / "banner-ornaments.png"
 OUT_DIR = ROOT / "assets"
-WIDTH, HEIGHT, SCALE = 900, 400, 2
+WIDTH, HEIGHT, SCALE = 1120, 350, 2
 WEBP_QUALITY = 90
-
-# 扇形叠放的三张成品图：左、中、右。中间一张在最上层。
-SHOWCASE = [
-    ROOT / "examples" / "gallery" / "agi-capability-to-value.jpg",
-    ROOT / "examples" / "demo-native-subtitle-collage.jpg",
-    ROOT / "examples" / "gallery" / "smaller-coding-models.jpg",
-]
 
 COPY = {
     "zh": {
-        "kicker": "NATIVE SUBTITLE QUOTE IMAGE",
         "title": "原生字幕拼图",
-        "title_size": 50,
-        "tagline": "把视频里的一段话，<br>做成一张能直接发的 3:4 字幕长图",
-        "rule": "原生字幕不重绘 · 脚本字幕不冒充原字幕",
+        "title_size": 86,
+        "font": "'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif",
     },
     "en": {
-        "kicker": "原生字幕拼图",
-        "title": "Native Subtitle<br>Quote Image",
-        "title_size": 42,
-        "tagline": "Turn any video moment into<br>a ready-to-post 3:4 quote image",
-        "rule": "Native never redrawn · Scripted never faked",
+        "title": "NATIVE SUBTITLE<br>QUOTE IMAGE",
+        "title_size": 70,
+        "font": "'Kalam', cursive",
     },
 }
-
-ACCENT = "#e8542f"
 
 CHROME_CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -59,34 +45,21 @@ CHROME_CANDIDATES = [
 CHROME_COMMANDS = ["google-chrome", "google-chrome-stable", "chromium", "chromium-browser", "chrome"]
 
 
-def build_html(lang, icon_src="icon.png", showcase_srcs=("s1.jpg", "s2.jpg", "s3.jpg")):
+def build_html(lang, background_src="background.png"):
     copy = COPY[lang]
-    left, middle, right = showcase_srcs
     return f"""<!doctype html><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;800&family=Inter:wght@500;800&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Noto+Sans+SC:wght@700&family=ZCOOL+KuaiLe&display=block" rel="stylesheet">
 <style>
 html,body{{margin:0;background:transparent}}
-.card{{position:relative;width:{WIDTH - 2}px;height:{HEIGHT - 2}px;border-radius:20px;overflow:hidden;
- background:radial-gradient(600px 300px at 85% 30%,rgba(232,84,47,.22),transparent 60%),linear-gradient(160deg,#1a2029,#0d1117 70%);
- border:1px solid #30363d;color:#f0f6fc;font-family:Inter,'Noto Sans SC',sans-serif}}
-.txt{{position:absolute;left:52px;top:0;bottom:0;width:420px;display:flex;flex-direction:column;justify-content:center}}
-.row{{display:flex;align-items:center;gap:12px;margin-bottom:18px}}
-.row img{{width:44px}}
-.row b{{font-size:13px;font-weight:500;letter-spacing:.18em;color:#9198a1}}
-h1{{font-size:{copy['title_size']}px;font-weight:800;line-height:1.15;margin:0 0 14px;letter-spacing:-.01em}}
-p{{font-size:17px;line-height:1.6;color:#b1bac4;margin:0 0 20px}}
-.rule{{font-size:13px;font-weight:500;color:#9198a1}}
-.rule i{{display:inline-block;width:7px;height:7px;border-radius:50%;background:{ACCENT};margin-right:8px;vertical-align:1px}}
-.fan img{{position:absolute;width:190px;border-radius:10px;box-shadow:0 20px 40px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08)}}
-.fan .l{{right:250px;top:78px;transform:rotate(-8deg)}}
-.fan .m{{right:140px;top:48px;z-index:2}}
-.fan .r{{right:40px;top:78px;transform:rotate(8deg)}}
+.card{{position:relative;width:{WIDTH}px;height:{HEIGHT}px;overflow:hidden;
+ background:#111113 url('{background_src}') center/cover no-repeat;
+ display:flex;align-items:center;justify-content:center}}
+h1{{max-width:780px;margin:0;text-align:center;white-space:nowrap;
+ font-family:{copy['font']};font-size:{copy['title_size']}px;font-weight:700;
+ line-height:1.08;letter-spacing:.005em;color:#ddd9ff;
+ text-shadow:0 2px 1px rgba(0,0,0,.42)}}
 </style>
-<body><div class="card">
-<div class="txt"><div class="row"><img src="{icon_src}" alt=""><b>{copy['kicker']}</b></div>
-<h1>{copy['title']}</h1><p>{copy['tagline']}</p><div class="rule"><i></i>{copy['rule']}</div></div>
-<div class="fan"><img class="l" src="{left}" alt=""><img class="m" src="{middle}" alt=""><img class="r" src="{right}" alt=""></div>
-</div></body>
+<body><div class="card"><h1>{copy['title']}</h1></div></body>
 """
 
 
@@ -139,9 +112,7 @@ def main():
     args.out_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
-        shutil.copyfile(ICON, tmp / "icon.png")
-        for index, image in enumerate(SHOWCASE, start=1):
-            shutil.copyfile(image, tmp / f"s{index}.jpg")
+        shutil.copyfile(BACKGROUND, tmp / "background.png")
         for lang in args.lang or sorted(COPY):
             html_path = tmp / f"{lang}.html"
             html_path.write_text(build_html(lang), encoding="utf-8")
