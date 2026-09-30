@@ -339,6 +339,16 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 GitHub Actions runs the checks on Python 3.10 and 3.13 for every push and pull request.
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=chengyi-ai%2Fnative-subtitle-quote-image&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=chengyi-ai/native-subtitle-quote-image&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=chengyi-ai/native-subtitle-quote-image&type=date&legend=top-left" />
+    <img alt="GitHub Star History for chengyi-ai/native-subtitle-quote-image" src="https://api.star-history.com/chart?repos=chengyi-ai/native-subtitle-quote-image&type=date&legend=top-left" />
+  </picture>
+</a>
+
 ## License
 
 Code and Skill instructions are released under the [MIT License](LICENSE). No additional rights are granted for input videos, generated images, or third-party content appearing in them.
