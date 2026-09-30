@@ -308,6 +308,21 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 </details>
 
 <details>
+<summary><strong>修改首屏横幅</strong></summary>
+
+<br>
+
+首屏横幅由 `scripts/render_banners.py` 生成，中英文各有深浅两色，共四张 PNG，放在 `assets/` 里。改文案时编辑脚本顶部的 `COPY`，然后运行：
+
+```bash
+python3 scripts/render_banners.py
+```
+
+需要本机装有 Chrome 或 Chromium，渲染时会从 Google Fonts 加载字体。找不到浏览器时，用 `--chrome /path/to/chrome` 指定。
+
+</details>
+
+<details>
 <summary><strong>项目验证</strong></summary>
 
 <br>
