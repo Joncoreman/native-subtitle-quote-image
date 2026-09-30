@@ -1,37 +1,28 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-zh-dark.png">
-    <img src="assets/banner-zh-light.png" alt="原生字幕拼图：把视频里的一段话，做成一张能直接发的 3:4 字幕长图。原生字幕不重绘，脚本字幕不冒充原字幕。" width="820">
-  </picture>
+  <img src="assets/banner-zh.webp" alt="原生字幕拼图：把视频里的一段话，做成一张能直接发的 3:4 字幕长图。原生字幕不重绘，脚本字幕不冒充原字幕。" width="880">
+
+  <p><sub>横幅里的三张图都是<strong>脚本字幕模式</strong>：真实视频帧 + 已审核的中文台词，画面原本不带这些中文字幕。</sub></p>
 
   <p>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&style=flat-square&label=test" alt="测试状态"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?style=flat-square&label=release" alt="最新版本"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="GitHub Stars"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="MIT License"></a>
-    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.10+">
-    <a href="README_EN.md"><img src="https://img.shields.io/badge/README-English-2563eb?style=flat-square" alt="English README"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&style=flat-square&labelColor=21262d&color=30363d" alt="测试状态"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?label=release&style=flat-square&labelColor=21262d&color=30363d" alt="最新版本"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square&labelColor=21262d&color=30363d" alt="GitHub Stars"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square&labelColor=21262d&color=30363d" alt="MIT License"></a>
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white&style=flat-square&labelColor=21262d&color=30363d" alt="Python 3.10+">
+    <a href="README_EN.md"><img src="https://img.shields.io/badge/README-English-30363d?style=flat-square&labelColor=21262d&color=30363d" alt="English README"></a>
   </p>
 
   <p>
-    <a href="#快速开始"><kbd>&nbsp;快速开始&nbsp;</kbd></a>&nbsp;
-    <a href="#两种字幕模式"><kbd>&nbsp;两种模式&nbsp;</kbd></a>&nbsp;
-    <a href="#用一句话调用"><kbd>&nbsp;使用&nbsp;</kbd></a>&nbsp;
-    <a href="#命令行"><kbd>&nbsp;命令行&nbsp;</kbd></a>&nbsp;
-    <a href="#适合与不适合"><kbd>&nbsp;适用范围&nbsp;</kbd></a>&nbsp;
-    <a href="#更多说明"><kbd>&nbsp;更多说明&nbsp;</kbd></a>&nbsp;
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><kbd>&nbsp;反馈&nbsp;</kbd></a>
+    <a href="#快速开始">快速开始</a> ·
+    <a href="#两种字幕模式">两种模式</a> ·
+    <a href="#用一句话调用">使用</a> ·
+    <a href="#命令行">命令行</a> ·
+    <a href="#适合与不适合">适用范围</a> ·
+    <a href="#更多说明">更多说明</a> ·
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">反馈</a>
   </p>
-
-  <br>
-
-  <img src="examples/demo-native-subtitle-collage.jpg" alt="脚本字幕拼图示例：METR 任务时长趋势" width="260">
-  <img src="examples/gallery/agi-capability-to-value.jpg" alt="脚本字幕拼图示例：AI 能力正在变成价值" width="260">
-  <img src="examples/gallery/smaller-coding-models.jpg" alt="脚本字幕拼图示例：更小的编程模型" width="260">
-
-  <p><sub>以上都是<strong>脚本字幕模式</strong>：真实视频帧 + 已审核的中文台词。画面原本不带这些中文字幕。原图 1080×1440。</sub></p>
 </div>
 
 <br>
@@ -312,7 +303,7 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 
 <br>
 
-首屏横幅由 `scripts/render_banners.py` 生成，中英文各有深浅两色，共四张 PNG，放在 `assets/` 里。改文案时编辑脚本顶部的 `COPY`，然后运行：
+首屏横幅由 `scripts/render_banners.py` 生成，中英文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改文案时编辑脚本顶部的 `COPY`，换展示图时编辑 `SHOWCASE`，然后运行：
 
 ```bash
 python3 scripts/render_banners.py

@@ -1,37 +1,28 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-en-dark.png">
-    <img src="assets/banner-en-light.png" alt="Native Subtitle Quote Image: turn any video moment into a ready-to-post 3:4 quote image. Native subtitles are never redrawn; scripted subtitles are never passed off as native." width="820">
-  </picture>
+  <img src="assets/banner-en.webp" alt="Native Subtitle Quote Image: turn any video moment into a ready-to-post 3:4 quote image. Native subtitles are never redrawn; scripted subtitles are never passed off as native." width="880">
+
+  <p><sub>All three images in the banner use <strong>scripted-subtitle mode</strong>: real video frames plus reviewed Chinese copy. The source frames did not contain these Chinese subtitles.</sub></p>
 
   <p>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&style=flat-square&label=test" alt="Test status"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?style=flat-square&label=release" alt="Latest release"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="GitHub Stars"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square" alt="MIT License"></a>
-    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.10+">
-    <a href="README.md"><img src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-e11d48?style=flat-square" alt="中文 README"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&style=flat-square&labelColor=21262d&color=30363d" alt="Test status"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?label=release&style=flat-square&labelColor=21262d&color=30363d" alt="Latest release"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?style=flat-square&labelColor=21262d&color=30363d" alt="GitHub Stars"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?style=flat-square&labelColor=21262d&color=30363d" alt="MIT License"></a>
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white&style=flat-square&labelColor=21262d&color=30363d" alt="Python 3.10+">
+    <a href="README.md"><img src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-30363d?style=flat-square&labelColor=21262d&color=30363d" alt="中文 README"></a>
   </p>
 
   <p>
-    <a href="#quick-start"><kbd>&nbsp;Quick start&nbsp;</kbd></a>&nbsp;
-    <a href="#two-subtitle-modes"><kbd>&nbsp;Two modes&nbsp;</kbd></a>&nbsp;
-    <a href="#one-prompt-away"><kbd>&nbsp;Usage&nbsp;</kbd></a>&nbsp;
-    <a href="#command-line"><kbd>&nbsp;CLI&nbsp;</kbd></a>&nbsp;
-    <a href="#scope"><kbd>&nbsp;Scope&nbsp;</kbd></a>&nbsp;
-    <a href="#more-details"><kbd>&nbsp;More&nbsp;</kbd></a>&nbsp;
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><kbd>&nbsp;Feedback&nbsp;</kbd></a>
+    <a href="#quick-start">Quick start</a> ·
+    <a href="#two-subtitle-modes">Two modes</a> ·
+    <a href="#one-prompt-away">Usage</a> ·
+    <a href="#command-line">CLI</a> ·
+    <a href="#scope">Scope</a> ·
+    <a href="#more-details">More</a> ·
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">Feedback</a>
   </p>
-
-  <br>
-
-  <img src="examples/demo-native-subtitle-collage.jpg" alt="Scripted subtitle example: METR task-length trend" width="260">
-  <img src="examples/gallery/agi-capability-to-value.jpg" alt="Scripted subtitle example: AI capability becoming value" width="260">
-  <img src="examples/gallery/smaller-coding-models.jpg" alt="Scripted subtitle example: smaller coding models" width="260">
-
-  <p><sub>All three use <strong>scripted-subtitle mode</strong>: real video frames plus reviewed Chinese copy. The source frames did not contain these Chinese subtitles. Originals are 1080×1440.</sub></p>
 </div>
 
 <br>
@@ -312,7 +303,7 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 
 <br>
 
-The header banners are generated by `scripts/render_banners.py`: Chinese and English, each in light and dark, stored as four PNGs in `assets/`. To change the copy, edit `COPY` at the top of the script and run:
+The header banners are generated by `scripts/render_banners.py`: one WebP each for Chinese and English, stored in `assets/`. They carry their own dark background, so GitHub's light and dark themes share them. To change the copy, edit `COPY` at the top of the script; to change the showcased images, edit `SHOWCASE`. Then run:
 
 ```bash
 python3 scripts/render_banners.py

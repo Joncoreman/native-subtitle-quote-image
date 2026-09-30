@@ -13,22 +13,24 @@ SPEC.loader.exec_module(MODULE)
 
 
 class BannerHtmlTests(unittest.TestCase):
-    def test_every_language_and_theme_builds(self):
+    def test_every_language_builds(self):
         for lang, copy in MODULE.COPY.items():
-            for theme, colors in MODULE.THEMES.items():
-                with self.subTest(lang=lang, theme=theme):
-                    html = MODULE.build_html(lang, theme)
-                    self.assertIn(copy["title"], html)
-                    self.assertIn(copy["tagline"], html)
-                    for pill in copy["pills"]:
-                        self.assertIn(pill, html)
-                    self.assertIn(colors["fg"], html)
+            with self.subTest(lang=lang):
+                html = MODULE.build_html(lang)
+                for key in ("kicker", "title", "tagline", "rule"):
+                    self.assertIn(copy[key], html)
+                for src in ("s1.jpg", "s2.jpg", "s3.jpg"):
+                    self.assertIn(f'src="{src}"', html)
+
+    def test_showcase_images_exist(self):
+        self.assertEqual(len(MODULE.SHOWCASE), 3)
+        for path in MODULE.SHOWCASE:
+            self.assertTrue(path.is_file(), path)
 
     def test_committed_banners_exist(self):
         for lang in MODULE.COPY:
-            for theme in MODULE.THEMES:
-                path = ROOT / "assets" / f"banner-{lang}-{theme}.png"
-                self.assertTrue(path.is_file(), path)
+            path = ROOT / "assets" / f"banner-{lang}.webp"
+            self.assertTrue(path.is_file(), path)
 
 
 class FindChromeTests(unittest.TestCase):
