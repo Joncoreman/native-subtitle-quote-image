@@ -3,31 +3,21 @@
 <div align="center">
   <img src="assets/banner-en.webp" alt="Native Subtitle Quote Image: a hand-drawn banner with filmstrip, subtitle bars, timeline, and quote-image frame around the title" width="880">
 
+  <p><strong>Turn real video frames into ready-to-post 3:4 subtitle quote images</strong><br>
+  <sub>Native subtitles stay untouched · Scripted subtitles are clearly identified</sub></p>
+
   <p>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?color=369eff&logo=github&labelColor=black&style=flat-square" alt="Latest release"></a>
-    <img src="https://img.shields.io/badge/python-3.10%2B-ffd43b?logo=python&logoColor=white&labelColor=black&style=flat-square" alt="Python 3.10+">
-    <a href="skills/native-subtitle-quote-image"><img src="https://img.shields.io/badge/agent%20skills-open%20format-f97316?labelColor=black&style=flat-square" alt="Open Agent Skills format"></a>
-    <a href=".codex-plugin/plugin.json"><img src="https://img.shields.io/badge/codex-plugin-10a37f?labelColor=black&style=flat-square" alt="Codex plugin"></a>
-    <br>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&logo=githubactions&logoColor=white&labelColor=black&style=flat-square" alt="Test status"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/release-date/chengyi-ai/native-subtitle-quote-image?labelColor=black&style=flat-square" alt="Release date"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/commits/main"><img src="https://img.shields.io/github/last-commit/chengyi-ai/native-subtitle-quote-image?color=7c3aed&labelColor=black&style=flat-square" alt="Last commit"></a>
-    <a href="README.md"><img src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-e11d48?labelColor=black&style=flat-square" alt="中文 README"></a>
-    <br>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/network/members"><img src="https://img.shields.io/github/forks/chengyi-ai/native-subtitle-quote-image?color=8ae8ff&labelColor=black&style=flat-square" alt="GitHub forks"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?color=ffcb47&labelColor=black&style=flat-square" alt="GitHub stars"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><img src="https://img.shields.io/github/issues/chengyi-ai/native-subtitle-quote-image?color=ff80eb&labelColor=black&style=flat-square" alt="GitHub issues"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?color=white&labelColor=black&style=flat-square" alt="MIT License"></a>
+    <a href="#quick-start"><strong>Quick start</strong></a> &nbsp;·&nbsp;
+    <a href="#what-it-does">What it does</a> &nbsp;·&nbsp;
+    <a href="#two-subtitle-modes">Two modes</a> &nbsp;·&nbsp;
+    <a href="README.md">中文</a>
   </p>
 
   <p>
-    <a href="#quick-start">Quick start</a> ·
-    <a href="#two-subtitle-modes">Two modes</a> ·
-    <a href="#one-prompt-away">Usage</a> ·
-    <a href="#command-line">CLI</a> ·
-    <a href="#scope">Scope</a> ·
-    <a href="#more-details">More</a> ·
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">Feedback</a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?color=369eff&logo=github&labelColor=black&style=flat-square" alt="Latest release"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&logo=githubactions&logoColor=white&labelColor=black&style=flat-square" alt="Test status"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?color=ffcb47&labelColor=black&style=flat-square" alt="GitHub stars"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?color=white&labelColor=black&style=flat-square" alt="MIT License"></a>
   </p>
 </div>
 
@@ -240,6 +230,21 @@ Prefer footage you created and subtitled, licensed material, or public video tha
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 
 ## More details
+
+<details>
+<summary><strong>Project status and tech details</strong></summary>
+
+<p>
+  <img src="https://img.shields.io/badge/python-3.10%2B-ffd43b?logo=python&logoColor=white&labelColor=black&style=flat-square" alt="Python 3.10+">
+  <a href="skills/native-subtitle-quote-image"><img src="https://img.shields.io/badge/agent%20skills-open%20format-f97316?labelColor=black&style=flat-square" alt="Open Agent Skills format"></a>
+  <a href=".codex-plugin/plugin.json"><img src="https://img.shields.io/badge/codex-plugin-10a37f?labelColor=black&style=flat-square" alt="Codex plugin"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/release-date/chengyi-ai/native-subtitle-quote-image?labelColor=black&style=flat-square" alt="Release date"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/commits/main"><img src="https://img.shields.io/github/last-commit/chengyi-ai/native-subtitle-quote-image?color=7c3aed&labelColor=black&style=flat-square" alt="Last commit"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/network/members"><img src="https://img.shields.io/github/forks/chengyi-ai/native-subtitle-quote-image?color=8ae8ff&labelColor=black&style=flat-square" alt="GitHub forks"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><img src="https://img.shields.io/github/issues/chengyi-ai/native-subtitle-quote-image?color=ff80eb&labelColor=black&style=flat-square" alt="GitHub issues"></a>
+</p>
+
+</details>
 
 <details>
 <summary><strong>Components</strong></summary>

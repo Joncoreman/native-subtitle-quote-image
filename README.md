@@ -3,31 +3,21 @@
 <div align="center">
   <img src="assets/banner-zh.webp" alt="原生字幕拼图：视频胶片、字幕条、时间轴和拼图画框环绕标题的手绘横幅" width="880">
 
+  <p><strong>把真实视频帧，做成可直接发布的 3:4 字幕长图</strong><br>
+  <sub>原生字幕不重绘 · 脚本字幕不冒充原字幕</sub></p>
+
   <p>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?color=369eff&logo=github&labelColor=black&style=flat-square" alt="最新版本"></a>
-    <img src="https://img.shields.io/badge/python-3.10%2B-ffd43b?logo=python&logoColor=white&labelColor=black&style=flat-square" alt="Python 3.10+">
-    <a href="skills/native-subtitle-quote-image"><img src="https://img.shields.io/badge/agent%20skills-open%20format-f97316?labelColor=black&style=flat-square" alt="开放 Agent Skills 格式"></a>
-    <a href=".codex-plugin/plugin.json"><img src="https://img.shields.io/badge/codex-plugin-10a37f?labelColor=black&style=flat-square" alt="Codex plugin"></a>
-    <br>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&logo=githubactions&logoColor=white&labelColor=black&style=flat-square" alt="测试状态"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/release-date/chengyi-ai/native-subtitle-quote-image?labelColor=black&style=flat-square" alt="发布日期"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/commits/main"><img src="https://img.shields.io/github/last-commit/chengyi-ai/native-subtitle-quote-image?color=7c3aed&labelColor=black&style=flat-square" alt="最近提交"></a>
-    <a href="README_EN.md"><img src="https://img.shields.io/badge/README-English-2563eb?labelColor=black&style=flat-square" alt="English README"></a>
-    <br>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/network/members"><img src="https://img.shields.io/github/forks/chengyi-ai/native-subtitle-quote-image?color=8ae8ff&labelColor=black&style=flat-square" alt="GitHub forks"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?color=ffcb47&labelColor=black&style=flat-square" alt="GitHub stars"></a>
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><img src="https://img.shields.io/github/issues/chengyi-ai/native-subtitle-quote-image?color=ff80eb&labelColor=black&style=flat-square" alt="GitHub issues"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?color=white&labelColor=black&style=flat-square" alt="MIT License"></a>
+    <a href="#快速开始"><strong>快速开始</strong></a> &nbsp;·&nbsp;
+    <a href="#能做什么">了解能力</a> &nbsp;·&nbsp;
+    <a href="#两种字幕模式">两种模式</a> &nbsp;·&nbsp;
+    <a href="README_EN.md">English</a>
   </p>
 
   <p>
-    <a href="#快速开始">快速开始</a> ·
-    <a href="#两种字幕模式">两种模式</a> ·
-    <a href="#用一句话调用">使用</a> ·
-    <a href="#命令行">命令行</a> ·
-    <a href="#适合与不适合">适用范围</a> ·
-    <a href="#更多说明">更多说明</a> ·
-    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues">反馈</a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/v/release/chengyi-ai/native-subtitle-quote-image?color=369eff&logo=github&labelColor=black&style=flat-square" alt="最新版本"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/actions/workflows/validate.yml"><img src="https://img.shields.io/github/actions/workflow/status/chengyi-ai/native-subtitle-quote-image/validate.yml?branch=main&label=test&logo=githubactions&logoColor=white&labelColor=black&style=flat-square" alt="测试状态"></a>
+    <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/stargazers"><img src="https://img.shields.io/github/stars/chengyi-ai/native-subtitle-quote-image?color=ffcb47&labelColor=black&style=flat-square" alt="GitHub stars"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/chengyi-ai/native-subtitle-quote-image?color=white&labelColor=black&style=flat-square" alt="MIT License"></a>
   </p>
 </div>
 
@@ -240,6 +230,21 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 <div align="right"><a href="#readme-top">↑ 回到顶部</a></div>
 
 ## 更多说明
+
+<details>
+<summary><strong>项目状态与技术信息</strong></summary>
+
+<p>
+  <img src="https://img.shields.io/badge/python-3.10%2B-ffd43b?logo=python&logoColor=white&labelColor=black&style=flat-square" alt="Python 3.10+">
+  <a href="skills/native-subtitle-quote-image"><img src="https://img.shields.io/badge/agent%20skills-open%20format-f97316?labelColor=black&style=flat-square" alt="开放 Agent Skills 格式"></a>
+  <a href=".codex-plugin/plugin.json"><img src="https://img.shields.io/badge/codex-plugin-10a37f?labelColor=black&style=flat-square" alt="Codex plugin"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/release-date/chengyi-ai/native-subtitle-quote-image?labelColor=black&style=flat-square" alt="发布日期"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/commits/main"><img src="https://img.shields.io/github/last-commit/chengyi-ai/native-subtitle-quote-image?color=7c3aed&labelColor=black&style=flat-square" alt="最近提交"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/network/members"><img src="https://img.shields.io/github/forks/chengyi-ai/native-subtitle-quote-image?color=8ae8ff&labelColor=black&style=flat-square" alt="GitHub forks"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><img src="https://img.shields.io/github/issues/chengyi-ai/native-subtitle-quote-image?color=ff80eb&labelColor=black&style=flat-square" alt="GitHub issues"></a>
+</p>
+
+</details>
 
 <details>
 <summary><strong>依赖组件一览</strong></summary>
