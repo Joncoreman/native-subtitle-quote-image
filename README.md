@@ -355,6 +355,8 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   </picture>
 </a>
 
+<a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="chengyi-ai%2Fnative-subtitle-quote-image | Trendshift" width="250" height="55"/></a>
+
 ## 开源许可
 
 代码与 Skill 指令采用 [MIT License](LICENSE)。示例图片只用于展示输出效果；输入视频、生成图片及其中出现的第三方内容，不因本许可证获得额外授权。

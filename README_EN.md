@@ -355,6 +355,8 @@ GitHub Actions runs these checks on Python 3.10 and 3.13 for every push and pull
   </picture>
 </a>
 
+<a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="chengyi-ai%2Fnative-subtitle-quote-image | Trendshift" width="250" height="55"/></a>
+
 ## License
 
 Code and Skill instructions are released under the [MIT License](LICENSE). The demo images only illustrate the Skill's output; no additional rights are granted for input videos, generated images, or third-party content appearing in them.
