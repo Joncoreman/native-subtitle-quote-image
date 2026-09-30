@@ -21,8 +21,6 @@
   </p>
 </div>
 
-<br>
-
 ## What it does
 
 - **Video in, images out**: start from a local file or a YouTube URL. The Skill finds quotes, extracts exact frames, lays out the collage, and checks every image before delivering 3:4 JPGs.
