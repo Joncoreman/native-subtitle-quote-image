@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -183,6 +183,73 @@ class HelperTests(unittest.TestCase):
         self.assertNotEqual(proc.returncode, 0)
         self.assertIn("视频不存在或不是文件", proc.stderr)
         self.assertNotIn("Traceback", proc.stderr)
+
+
+class NaturalGeometryTests(unittest.TestCase):
+    def test_crop_and_same_width_keep_exact_source_pixels(self):
+        frame = Image.new("RGB", (1280, 720), "black")
+        ImageDraw.Draw(frame).ellipse((100, 100, 300, 300), fill="white")
+        cropped, y0, y1 = MODULE.crop_band(frame, 0, 0.72)
+        result = MODULE.scale_to_width(cropped, 1280)
+        self.assertEqual((y0, y1), (0, 518))
+        self.assertEqual(result.size, (1280, 518))
+        self.assertEqual(result.tobytes(), frame.crop((0, 0, 1280, 518)).tobytes())
+
+    def test_scaling_preserves_circle_geometry(self):
+        frame = Image.new("RGB", (1280, 518), "black")
+        ImageDraw.Draw(frame).ellipse((100, 100, 300, 300), fill="white")
+        result = MODULE.scale_to_width(frame, 640)
+        bounds = result.convert("L").point(lambda p: 255 if p > 127 else 0).getbbox()
+        self.assertEqual(result.size, (640, 259))
+        self.assertLessEqual(abs((bounds[2] - bounds[0]) - (bounds[3] - bounds[1])), 1)
+
+    def test_native_natural_retains_full_width_and_band_height(self):
+        frame = Image.new("RGB", (640, 360), "#336699")
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+            MODULE, "grab_frame", return_value=frame
+        ):
+            out = Path(tmp) / "native.jpg"
+            MODULE.render_one("unused", [0, 1, 2, 3, 4], out, (3, 4), None,
+                              0.78, 0.96, None, layout="natural")
+            with Image.open(out) as rendered:
+                # 主图 345 + 四条 (345 - 280)，没有填满固定画布。
+                self.assertEqual(rendered.size, (640, 605))
+
+    def test_scripted_crop_does_not_stretch_hero_back_to_source_height(self):
+        frame = Image.new("RGB", (1280, 720), "black")
+        ImageDraw.Draw(frame).ellipse((100, 100, 300, 300), fill="white")
+        lines = [{"t": index, "text": f"Line {index}"} for index in range(5)]
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+            MODULE, "grab_frame", return_value=frame
+        ), mock.patch.object(MODULE, "draw_scripted_subtitle") as draw_text:
+            out = Path(tmp) / "script.jpg"
+            MODULE.scripted_render_one("unused", lines, out, (3, 4), None,
+                                       0.88, None, None, None,
+                                       layout="natural", frame_bottom=0.72)
+            with Image.open(out) as rendered:
+                self.assertEqual(rendered.size, (1280, 806))
+                bounds = rendered.crop((0, 0, 1280, 518)).convert("L").point(
+                    lambda p: 255 if p > 127 else 0
+                ).getbbox()
+                self.assertEqual(bounds[2] - bounds[0], bounds[3] - bounds[1])
+            self.assertEqual([call.args[1] for call in draw_text.call_args_list],
+                             [line["text"] for line in lines])
+
+    def test_cli_rejects_conflicting_layout_and_invalid_crop_before_io(self):
+        for options, message in [
+            (["--layout", "natural", "--aspect", "3:4"], "不接受"),
+            (["--layout", "natural", "--hero-fraction", "0.7"], "不接受"),
+            (["--frame-top", "0.8", "--frame-bottom", "0.2"], "裁切必须满足"),
+        ]:
+            with self.subTest(options=options):
+                proc = subprocess.run(
+                    [sys.executable, str(SCRIPT), "render-script", "unused.mp4",
+                     "--script", "unused.json", "--out", "unused.jpg", *options],
+                    capture_output=True, text=True,
+                )
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(message, proc.stderr)
+                self.assertNotIn("Traceback", proc.stderr)
 
 
 class CliIntegrationTests(unittest.TestCase):
@@ -361,6 +428,20 @@ class CliIntegrationTests(unittest.TestCase):
             )
             with Image.open(scripted_output) as rendered:
                 self.assertEqual(rendered.size, (300, 400))
+
+            for command, inputs, expected in [
+                ("render", ["--manifest", str(manifest), "--out-dir", str(tmp_path / "natural")], (640, 605)),
+                ("render-script", ["--script", str(script), "--out", str(tmp_path / "natural-script.jpg"),
+                                   "--frame-bottom", "0.72"], (640, 403)),
+            ]:
+                subprocess.run(
+                    [sys.executable, str(SCRIPT), command, str(video), *inputs, "--layout", "natural"],
+                    check=True, capture_output=True, text=True,
+                )
+                natural_path = (tmp_path / "natural" / "01_合成测试.jpg" if command == "render"
+                                else tmp_path / "natural-script.jpg")
+                with Image.open(natural_path) as rendered:
+                    self.assertEqual(rendered.size, expected)
 
             repeated = subprocess.run(
                 [

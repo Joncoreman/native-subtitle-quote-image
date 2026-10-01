@@ -185,6 +185,20 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   --script script.json --out output.jpg --aspect 3:4 --width 1440
 ```
 
+**保留人物原比例与横屏构图（v2.2.0）**：两种字幕模式都支持 `--layout natural`。不指定宽度时保留源宽度，图片高度按实际内容计算，不强制 3:4；指定 `--width` 也只做等比缩放。
+
+```bash
+# 原生字幕：保留画面像素，不重绘文字
+python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render VIDEO \
+  --manifest manifest.json --out-dir output-natural --layout natural
+
+# 脚本字幕：仅裁去不需要的底部区域，不把剩余画面拉高
+python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render-script VIDEO \
+  --script script.json --out natural.jpg --layout natural --frame-bottom 0.72
+```
+
+`0.72` 是示例裁切边界，需按视频实测；默认 `--frame-top 0 --frame-bottom 1` 保留全帧。`--band-center` 相对裁切后的画面。原比例布局不与 `--aspect` / `--hero-fraction` 合用。“原比例”只描述画面几何，脚本字幕仍是后期绘制；默认固定 3:4 用法保持兼容。
+
 <details>
 <summary><code>script.json</code> 的格式</summary>
 

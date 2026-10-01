@@ -275,8 +275,41 @@ def choose_hero_fraction(strip_count, requested=None):
     return min(0.82, max(0.48, 1.0 - strip_count * 0.075))
 
 
-def render_one(video, times, out_path, aspect, out_width, top, bottom, hero_fraction):
+def scale_to_width(image, width):
+    """只等比缩放；同宽时保留原始像素，不把裁切区域拉回源高度。"""
+    if width == image.width:
+        return image.copy()
+    height = max(1, round(image.height * width / image.width))
+    return image.resize((width, height), Image.Resampling.LANCZOS)
+
+
+def save_stack(parts, out_path):
+    canvas = Image.new("RGB", (parts[0].width, sum(p.height for p in parts)), "black")
+    y = 0
+    for part in parts:
+        canvas.paste(part, (0, y))
+        y += part.height
+    canvas.save(out_path, quality=93, subsampling=0)
+    print(f"完成: {out_path} ({canvas.width}x{canvas.height})")
+    print("原比例布局: 仅裁切与等比缩放，高度随内容计算，条间距 0")
+
+
+def render_one(
+    video, times, out_path, aspect, out_width, top, bottom, hero_fraction,
+    layout="fixed",
+):
     times = normalize_times(times)
+    if layout == "natural":
+        first = grab_frame(video, times[0])
+        _, _, subtitle_bottom = crop_band(first, top, bottom)
+        width = out_width or first.width
+        parts = [scale_to_width(first.crop((0, 0, first.width, subtitle_bottom)), width)]
+        for seconds in times[1:]:
+            band, _, _ = crop_band(grab_frame(video, seconds), top, bottom)
+            parts.append(scale_to_width(band, width))
+        save_stack(parts, out_path)
+        return
+    out_width = out_width or 1440
     aw, ah = aspect
     out_height = round(out_width * ah / aw)
     strip_count = len(times) - 1
@@ -328,7 +361,40 @@ def scripted_render_one(
     hero_fraction,
     font_path,
     font_size,
+    layout="fixed",
+    frame_top=0.0,
+    frame_bottom=1.0,
 ):
+    def source_frame(seconds):
+        frame = grab_frame(video, seconds)
+        return crop_band(frame, frame_top, frame_bottom)[0]
+
+    first_frame = source_frame(lines[0]["t"])
+    out_width = out_width or (first_frame.width if layout == "natural" else 1440)
+    if layout == "natural":
+        hero = scale_to_width(first_frame, out_width)
+        # 1280 像素宽的源画面默认采样 72 像素条高，不依赖总画布高度。
+        source_strip_height = min(first_frame.height, max(1, round(first_frame.width * 0.05625)))
+        strip_height = max(1, round(source_strip_height * out_width / first_frame.width))
+        base_font = font_size or max(16, round(strip_height * 0.62))
+        draw_scripted_subtitle(
+            hero, lines[0]["text"], hero.height - strip_height // 2,
+            font_path, base_font, round(out_width * 0.92),
+        )
+        parts = [hero]
+        for line in lines[1:]:
+            frame = source_frame(line["t"])
+            height = min(frame.height, max(1, round(frame.width * 0.05625)))
+            center = round(frame.height * band_center)
+            y0 = max(0, min(frame.height - height, center - height // 2))
+            strip = scale_to_width(frame.crop((0, y0, frame.width, y0 + height)), out_width)
+            draw_scripted_subtitle(
+                strip, line["text"], strip.height // 2,
+                font_path, base_font, round(out_width * 0.92),
+            )
+            parts.append(strip)
+        save_stack(parts, out_path)
+        return
     aw, ah = aspect
     out_height = round(out_width * ah / aw)
     strip_count = len(lines) - 1
@@ -340,7 +406,6 @@ def scripted_render_one(
     strip_heights[-1] += remaining - sum(strip_heights)
     base_font = font_size or max(24, round(out_width / 18))
 
-    first_frame = grab_frame(video, lines[0]["t"])
     hero = ImageOps.fit(
         first_frame,
         (out_width, hero_height),
@@ -359,7 +424,7 @@ def scripted_render_one(
 
     strips = []
     for line, strip_height in zip(lines[1:], strip_heights):
-        frame = grab_frame(video, line["t"])
+        frame = source_frame(line["t"])
         source_height = max(
             1, round(frame.width * strip_height / out_width)
         )
@@ -409,7 +474,7 @@ def contact_sheet(paths, out_path, columns=4):
     for index, path in enumerate(paths):
         with Image.open(path) as opened:
             image = opened.convert("RGB")
-            thumb = ImageOps.fit(image, (thumb_w, thumb_h), Image.Resampling.LANCZOS)
+            thumb = ImageOps.pad(image, (thumb_w, thumb_h), Image.Resampling.LANCZOS, color="#111111")
         sheet.paste(thumb, ((index % columns) * thumb_w, (index // columns) * thumb_h))
     sheet.save(out_path, quality=92, subsampling=0)
 
@@ -611,6 +676,7 @@ def command_render(args):
             args.band_top,
             args.band_bottom,
             args.hero_fraction,
+            args.layout,
         )
 
     if manifest_path != manifest_target:
@@ -647,6 +713,9 @@ def command_render_script(args):
         args.hero_fraction,
         font_path,
         args.font_size,
+        args.layout,
+        args.frame_top,
+        args.frame_bottom,
     )
 
 
@@ -693,8 +762,10 @@ def main():
     render.add_argument("video")
     render.add_argument("--manifest", required=True)
     render.add_argument("--out-dir", required=True)
-    render.add_argument("--aspect", type=parse_aspect, default=parse_aspect("3:4"))
-    render.add_argument("--width", type=int, default=1440)
+    render.add_argument("--aspect", type=parse_aspect, help="固定布局比例，默认 3:4")
+    render.add_argument("--layout", choices=("fixed", "natural"), default="fixed",
+                        help="fixed: 固定画布；natural: 保留宽度，按裁切内容自动计算高度")
+    render.add_argument("--width", type=int, help="固定布局默认 1440；原比例布局默认源宽度")
     render.add_argument("--band-top", type=float, default=0.78)
     render.add_argument("--band-bottom", type=float, default=0.96)
     render.add_argument(
@@ -712,8 +783,12 @@ def main():
     scripted.add_argument("video")
     scripted.add_argument("--script", required=True)
     scripted.add_argument("--out", required=True)
-    scripted.add_argument("--aspect", type=parse_aspect, default=parse_aspect("3:4"))
-    scripted.add_argument("--width", type=int, default=1440)
+    scripted.add_argument("--aspect", type=parse_aspect, help="固定布局比例，默认 3:4")
+    scripted.add_argument("--layout", choices=("fixed", "natural"), default="fixed",
+                          help="fixed: 固定画布；natural: 保留宽度，按裁切内容自动计算高度")
+    scripted.add_argument("--width", type=int, help="固定布局默认 1440；原比例布局默认源宽度")
+    scripted.add_argument("--frame-top", type=float, default=0.0, help="源画面上裁切边界，默认 0")
+    scripted.add_argument("--frame-bottom", type=float, default=1.0, help="源画面下裁切边界，默认 1；只裁切不拉伸")
     scripted.add_argument(
         "--band-center",
         type=float,
@@ -733,8 +808,16 @@ def main():
     args = parser.parse_args()
     if hasattr(args, "band_top") and not 0 <= args.band_top < args.band_bottom <= 1:
         raise SystemExit("字幕区域必须满足 0 <= top < bottom <= 1")
-    if getattr(args, "width", 1) <= 0:
+    if getattr(args, "width", None) is not None and args.width <= 0:
         raise SystemExit("--width 必须为正数")
+    if hasattr(args, "frame_top") and not 0 <= args.frame_top < args.frame_bottom <= 1:
+        raise SystemExit("源画面裁切必须满足 0 <= frame-top < frame-bottom <= 1")
+    if getattr(args, "layout", None) == "natural" and (
+        args.aspect is not None or args.hero_fraction is not None
+    ):
+        raise SystemExit("--layout natural 不接受 --aspect 或 --hero-fraction；高度由内容决定")
+    if hasattr(args, "aspect") and args.aspect is None:
+        args.aspect = parse_aspect("3:4")
     if hasattr(args, "band_center") and not 0.1 <= args.band_center <= 0.98:
         raise SystemExit("--band-center 必须在 0.10–0.98 之间")
     if getattr(args, "font_size", None) is not None and args.font_size < 12:

@@ -185,6 +185,20 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   --script script.json --out output.jpg --aspect 3:4 --width 1440
 ```
 
+**Preserve source proportions and the wide composition (v2.2.0)**: both subtitle modes support `--layout natural`. Without `--width`, the source width is retained and the height follows the stacked content instead of a forced 3:4 canvas. An explicit width uses proportional scaling only.
+
+```bash
+# Native subtitles: retain frame pixels, without redrawing text
+python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render VIDEO \
+  --manifest manifest.json --out-dir output-natural --layout natural
+
+# Scripted subtitles: crop the unwanted bottom region, without stretching it back
+python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render-script VIDEO \
+  --script script.json --out natural.jpg --layout natural --frame-bottom 0.72
+```
+
+`0.72` is an example crop boundary, not a universal preset. The defaults `--frame-top 0 --frame-bottom 1` keep the full frame. `--band-center` refers to the cropped frame. Natural layout cannot be combined with `--aspect` or `--hero-fraction`. Source proportions describe geometry, not subtitle provenance: scripted subtitles remain post-rendered. Existing fixed 3:4 commands stay compatible.
+
 <details>
 <summary><code>script.json</code> format</summary>
 
