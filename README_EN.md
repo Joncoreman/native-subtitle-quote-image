@@ -226,6 +226,7 @@ Defaults worth knowing:
 
 - Both renderers adjust hero height to the number of subtitle strips. See the [compact visual style guide](skills/native-subtitle-quote-image/references/visual-style.md).
 - Native one-line subtitles are previewed from the `0.78–0.96` band of the source height.
+- Each image takes at most 7 timestamps (1 hero + 6 strips) in both modes; split longer passages into several images.
 - Existing images are never overwritten unless you pass `--overwrite`.
 - Run `--help` for all options.
 
@@ -240,6 +241,25 @@ Defaults worth knowing:
 | You have the right to process and publish the video and generated frames | You want low-resolution footage "enhanced" into genuinely high-resolution footage |
 
 Prefer footage you created and subtitled, licensed material, or public video that clearly permits reuse. Confirm usage rights again before publishing.
+
+<details>
+<summary><strong>Can't find videos with burned-in subtitles?</strong></summary>
+
+<br>
+
+Many videos carry subtitles as a switchable player track (CC). The downloaded frames are clean, so native mode can't use them.
+
+**Check first**: turn off player captions and look at the frame, or download the video and run `sample` for a contact sheet. Only subtitles that remain in the pixels are burned in. Getting a VTT/SRT file does not mean the frames contain subtitles.
+
+**Where they are easier to find**:
+
+- Your own edits: export from CapCut, Premiere, or similar with subtitles burned in. Most reliable, and no rights questions.
+- Interviews, shows, or launch videos where the publisher added subtitles themselves.
+- Interview or podcast clips with hard-coded subtitles on video platforms. These are often re-uploads, so confirm usage rights before publishing.
+
+**Still nothing?** Switch to script mode. Use the video's subtitle track or a Whisper transcript to locate timestamps, write reviewed copy into `script.json`, and run `render-script`. The output is labeled as added subtitles and never passes as the original.
+
+</details>
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 

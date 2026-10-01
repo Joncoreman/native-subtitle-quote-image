@@ -226,6 +226,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 - 两种渲染器都会根据字幕条数自动调整主图比例，详见[紧凑型视觉规范](skills/native-subtitle-quote-image/references/visual-style.md)。
 - 原生单行字幕默认从视频高度的 `0.78–0.96` 区域开始预览。
+- 每张图最多 7 个时间点（1 个主画面 + 6 个字幕条），两种模式相同；台词更多时拆成多张图。
 - 默认不覆盖已有图片；确实要替换时加 `--overwrite`。
 - 完整参数用 `--help` 查看。
 
@@ -240,6 +241,25 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 | 你有权处理和发布这段视频及生成的画面 | 想把低清视频"增强"成真实的高清画质 |
 
 素材优先用自己拍摄并加过字幕的视频、已获授权的素材，或明确允许再利用的公开视频。公开发布前，请再确认一遍素材使用权。
+
+<details>
+<summary><strong>找不到带烧录字幕的视频怎么办</strong></summary>
+
+<br>
+
+很多视频的字幕是播放器里可开关的字幕轨（CC），下载下来的画面是干净的，这类视频做不了原生模式。
+
+**先判断**：关掉播放器字幕再看画面；或者下载后用 `sample` 生成候选帧总览，画面里仍有字幕才是烧录字幕。只下载到 VTT/SRT 字幕文件，不代表画面里有字幕。
+
+**更容易找到的来源**：
+
+- 自己剪辑的视频：用剪映、Premiere 等导出时把字幕烧进画面，最稳，也没有版权顾虑。
+- 发布方自己加了中文字幕的访谈、节目或发布会视频。
+- 平台上带中文硬字幕的访谈、播客切片。这类视频常是二次搬运，发布前务必确认使用权。
+
+**还是找不到**：改用脚本字幕模式。用视频自带的字幕轨或 Whisper 文字稿定位时间点，核对台词后写进 `script.json`，再运行 `render-script`。成品会标明是后期字幕，不冒充原字幕。
+
+</details>
 
 <div align="right"><a href="#readme-top">↑ 回到顶部</a></div>
 

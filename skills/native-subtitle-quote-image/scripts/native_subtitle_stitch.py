@@ -23,6 +23,9 @@ except ImportError:
     if not FFMPEG:
         sys.exit("找不到 ffmpeg；请安装 ffmpeg 或 imageio-ffmpeg")
 
+# 每张图最多 1 个主画面 + 6 个字幕条；再多字幕条会被压到不可读。
+MAX_TIMES_PER_IMAGE = 7
+
 
 def ffmpeg(args, context="FFmpeg 处理失败"):
     try:
@@ -209,8 +212,10 @@ def normalize_script_lines(data, duration):
     lines = data.get("lines") if isinstance(data, dict) else None
     if not isinstance(lines, list) or len(lines) < 2:
         raise SystemExit("台词脚本必须包含至少 2 项的 lines 数组")
-    if len(lines) > 7:
-        raise SystemExit("台词脚本最多支持 7 个时间点；请拆成多张图")
+    if len(lines) > MAX_TIMES_PER_IMAGE:
+        raise SystemExit(
+            f"台词脚本最多支持 {MAX_TIMES_PER_IMAGE} 个时间点；请拆成多张图"
+        )
     normalized = []
     previous = -1.0
     for index, item in enumerate(lines):
@@ -239,6 +244,10 @@ def normalize_script_lines(data, duration):
 def normalize_times(values, label="时间点"):
     if not isinstance(values, list) or len(values) < 2:
         raise SystemExit(f"{label}必须是至少包含 2 项的数组")
+    if len(values) > MAX_TIMES_PER_IMAGE:
+        raise SystemExit(
+            f"{label}最多支持 {MAX_TIMES_PER_IMAGE} 个时间点；请拆成多张图"
+        )
     times = [
         validate_time(value, f"{label}[{index}]")
         for index, value in enumerate(values)
