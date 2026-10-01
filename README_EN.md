@@ -23,7 +23,7 @@
 
 ## What it does
 
-- **Video in, images out**: start from a local file or a YouTube URL. The Skill finds quotes, extracts exact frames, lays out the collage, and checks every image before delivering 3:4 JPGs.
+- **Video in, images out**: start from a local file or a YouTube URL. The Skill finds quotes, extracts exact frames, lays out the collage, and checks every image before delivering native or scripted subtitle JPGs, with content-driven or explicit aspect ratios.
 - **Two subtitle modes, never mixed**: native mode only crops subtitles already burned into the frame; scripted mode draws your reviewed copy onto real frames and labels it as post-produced.
 - **Compact layout**: native subtitles are stacked as source pixels and scaled together, without enlarging the first line separately. Scripted fixed layouts keep about 70% for the hero. Strips sit flush with no gaps.
 - **Agent-first, script-friendly**: call it with one sentence in Codex, Claude Code, or another agent, or run the Python scripts directly.
@@ -115,7 +115,7 @@ flowchart LR
   D --> E{Lock mode}
   E -->|Native| F[Crop subtitle<br>strips from frames]
   E -->|Scripted| G[Draw reviewed<br>copy]
-  F --> H[Render 3:4<br>QA every image]
+  F --> H[Render by mode<br>QA every image]
   G --> H
 ```
 
@@ -141,7 +141,7 @@ Three ways to work:
 
 The agent checks the source, subtitle type, and candidate frames, locks the mode, then delivers:
 
-- 3:4 JPG files;
+- JPG files matching the selected layout;
 - `原生字幕时间点.json` for native mode, or a `lines` JSON for scripted mode;
 - `final_contact_sheet.jpg` for multi-image deliveries.
 
@@ -198,7 +198,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 `0.72` is an example crop boundary, not a universal preset. The defaults `--frame-top 0 --frame-bottom 1` keep the full frame. `--band-center` refers to the cropped frame. Natural layout cannot be combined with `--aspect` or `--hero-fraction`. Source proportions describe geometry, not subtitle provenance: scripted subtitles remain post-rendered.
 
-**Native default layout fix (v2.2.1)**: `render` now defaults to content-driven height and source width when neither layout nor aspect is supplied. Explicit `--aspect 3:4 --width 1440` still produces 1440×1920, but the entire collage is proportionally padded with black borders instead of independently filling each panel. This preserves complete subtitles and their relative size. Native `--hero-fraction` only adjusts the source hero crop, bounded by available pixels. Scripted rendering still defaults to fixed 3:4. Never force the output ratio with non-proportional resizing.
+**Native default layout fix (v2.2.2)**: `render` now defaults to content-driven height and source width when neither layout nor aspect is supplied. Explicit `--aspect 3:4 --width 1440` still produces 1440×1920, but the entire collage is proportionally padded with black borders instead of independently filling each panel. This preserves complete subtitles and their relative size. Native `--hero-fraction` only adjusts the source hero crop, bounded by available pixels. Scripted rendering still defaults to fixed 3:4. Never force the output ratio with non-proportional resizing.
 
 <details>
 <summary><code>script.json</code> format</summary>
@@ -227,6 +227,7 @@ Defaults worth knowing:
 
 - Both renderers adjust hero height to the number of subtitle strips. See the [compact visual style guide](skills/native-subtitle-quote-image/references/visual-style.md).
 - Native one-line subtitles are previewed from the `0.78–0.96` band of the source height.
+- Each image takes at most 7 timestamps (1 hero + 6 strips) in both modes; split longer passages into several images.
 - Existing images are never overwritten unless you pass `--overwrite`.
 - Run `--help` for all options.
 
@@ -241,6 +242,25 @@ Defaults worth knowing:
 | You have the right to process and publish the video and generated frames | You want low-resolution footage "enhanced" into genuinely high-resolution footage |
 
 Prefer footage you created and subtitled, licensed material, or public video that clearly permits reuse. Confirm usage rights again before publishing.
+
+<details>
+<summary><strong>Can't find videos with burned-in subtitles?</strong></summary>
+
+<br>
+
+Many videos carry subtitles as a switchable player track (CC). The downloaded frames are clean, so native mode can't use them.
+
+**Check first**: turn off player captions and look at the frame, or download the video and run `sample` for a contact sheet. Only subtitles that remain in the pixels are burned in. Getting a VTT/SRT file does not mean the frames contain subtitles.
+
+**Where they are easier to find**:
+
+- Your own edits: export from CapCut, Premiere, or similar with subtitles burned in. Most reliable, and no rights questions.
+- Interviews, shows, or launch videos where the publisher added subtitles themselves.
+- Interview or podcast clips with hard-coded subtitles on video platforms. These are often re-uploads, so confirm usage rights before publishing.
+
+**Still nothing?** Switch to script mode. Use the video's subtitle track or a Whisper transcript to locate timestamps, write reviewed copy into `script.json`, and run `render-script`. The output is labeled as added subtitles and never passes as the original.
+
+</details>
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 
