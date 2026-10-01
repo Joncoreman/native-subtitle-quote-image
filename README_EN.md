@@ -398,6 +398,12 @@ GitHub Actions runs these checks on Python 3.10 and 3.13 for every push and pull
   <a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="chengyi-ai%2Fnative-subtitle-quote-image | Trendshift" width="250" height="55"/></a>
 </p>
 
+## AI collaboration credit
+
+<a href="https://github.com/codex"><img src="https://avatars.githubusercontent.com/u/267193182?v=4" width="48" height="48" alt="Codex GitHub avatar" /></a>
+
+[Codex](https://github.com/codex), OpenAI's AI coding assistant, helped implement [natural-proportion layouts](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/9) and [uniform native-subtitle scaling with regression tests](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/11). [Chengyi](https://github.com/chengyi-ai) maintains the project. This credit records AI-assisted work and does not imply official endorsement by OpenAI.
+
 ## License
 
 Code and Skill instructions are released under the [MIT License](LICENSE). The demo images only illustrate the Skill's output; no additional rights are granted for input videos, generated images, or third-party content appearing in them.
