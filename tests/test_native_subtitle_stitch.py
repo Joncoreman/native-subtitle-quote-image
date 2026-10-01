@@ -92,6 +92,12 @@ class HelperTests(unittest.TestCase):
                 3,
             )
 
+    def test_native_times_share_script_mode_cap(self):
+        times = MODULE.normalize_times([index / 10 for index in range(7)])
+        self.assertEqual(len(times), 7)
+        with self.assertRaisesRegex(SystemExit, "最多支持 7"):
+            MODULE.normalize_times([index / 10 for index in range(8)])
+
     def test_cjk_detection_covers_chinese_japanese_and_korean(self):
         self.assertTrue(MODULE.contains_cjk("中文"))
         self.assertTrue(MODULE.contains_cjk("かな"))
