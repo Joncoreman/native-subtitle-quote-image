@@ -74,14 +74,14 @@ class UpdateCheckTests(unittest.TestCase):
                 now=self.now,
                 cache_path=cache,
                 fetcher=lambda: {
-                    "latest_version": "2.2.1",
-                    "release_url": "https://example.test/v2.2.1",
+                    "latest_version": "9.9.9",
+                    "release_url": "https://example.test/v9.9.9",
                 },
             )
             saved = json.loads(cache.read_text(encoding="utf-8"))
         self.assertEqual(result["status"], "update_available")
         self.assertFalse(result["from_cache"])
-        self.assertEqual(saved["latest_version"], "2.2.1")
+        self.assertEqual(saved["latest_version"], "9.9.9")
 
     def test_network_failure_is_non_blocking(self):
         with tempfile.TemporaryDirectory() as tmp:

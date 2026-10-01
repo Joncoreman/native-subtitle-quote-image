@@ -3,7 +3,7 @@
 <div align="center">
   <img src="assets/banner-en.webp" alt="Native Subtitle Quote Image: a hand-drawn banner with filmstrip, subtitle bars, timeline, and quote-image frame around the title" width="880">
 
-  <p><strong>Turn real video frames into ready-to-post 3:4 subtitle quote images</strong><br>
+  <p><strong>Turn real video frames into native or scripted subtitle quote images</strong><br>
   <sub>Native subtitles stay untouched · Scripted subtitles are clearly identified</sub></p>
 
   <p>
@@ -25,7 +25,7 @@
 
 - **Video in, images out**: start from a local file or a YouTube URL. The Skill finds quotes, extracts exact frames, lays out the collage, and checks every image before delivering 3:4 JPGs.
 - **Two subtitle modes, never mixed**: native mode only crops subtitles already burned into the frame; scripted mode draws your reviewed copy onto real frames and labels it as post-produced.
-- **Compact layout**: with one hero frame and four subtitle strips, the hero takes about 70% of the height and the strips sit flush with no gaps. The ratio adapts to the number of strips.
+- **Compact layout**: native subtitles are stacked as source pixels and scaled together, without enlarging the first line separately. Scripted fixed layouts keep about 70% for the hero. Strips sit flush with no gaps.
 - **Agent-first, script-friendly**: call it with one sentence in Codex, Claude Code, or another agent, or run the Python scripts directly.
 
 <p align="center">
@@ -174,7 +174,6 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ban
 
 python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render VIDEO \
   --manifest manifest.json --out-dir output-v1 \
-  --aspect 3:4 --width 1440 \
   --band-top 0.78 --band-bottom 0.96
 ```
 
@@ -197,7 +196,9 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   --script script.json --out natural.jpg --layout natural --frame-bottom 0.72
 ```
 
-`0.72` is an example crop boundary, not a universal preset. The defaults `--frame-top 0 --frame-bottom 1` keep the full frame. `--band-center` refers to the cropped frame. Natural layout cannot be combined with `--aspect` or `--hero-fraction`. Source proportions describe geometry, not subtitle provenance: scripted subtitles remain post-rendered. Existing fixed 3:4 commands stay compatible.
+`0.72` is an example crop boundary, not a universal preset. The defaults `--frame-top 0 --frame-bottom 1` keep the full frame. `--band-center` refers to the cropped frame. Natural layout cannot be combined with `--aspect` or `--hero-fraction`. Source proportions describe geometry, not subtitle provenance: scripted subtitles remain post-rendered.
+
+**Native default layout fix (v2.2.1)**: `render` now defaults to content-driven height and source width when neither layout nor aspect is supplied. Explicit `--aspect 3:4 --width 1440` still produces 1440×1920, but the entire collage is proportionally padded with black borders instead of independently filling each panel. This preserves complete subtitles and their relative size. Native `--hero-fraction` only adjusts the source hero crop, bounded by available pixels. Scripted rendering still defaults to fixed 3:4. Never force the output ratio with non-proportional resizing.
 
 <details>
 <summary><code>script.json</code> format</summary>
