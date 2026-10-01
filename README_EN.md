@@ -29,10 +29,12 @@
 - **Agent-first, script-friendly**: call it with one sentence in Codex, Claude Code, or another agent, or run the Python scripts directly.
 
 <p align="center">
-  <img src="examples/demo-output-overview.jpg" alt="Overview of a full batch of outputs" width="720">
+  <img src="examples/demo-output-overview.jpg" alt="Three v2.3.0 natural-layout examples with post-rendered Chinese subtitles" width="960">
   <br>
-  <sub>One task's full output: several 3:4 images plus an overview sheet for picking favorites.</sub>
+  <sub>Rendered with v2.3.0 in natural layout, without stretching people. Chinese text in this set is post-rendered scripted subtitles, not native video subtitles.</sub>
 </p>
+
+Full-size examples: [Coding models](examples/gallery/smaller-coding-models.jpg) · [Capability and value](examples/gallery/agi-capability-to-value.jpg) · [Task duration](examples/gallery/task-duration.jpg). [Sources and reproduction](examples/README.md)
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 
