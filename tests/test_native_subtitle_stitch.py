@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -196,8 +196,8 @@ class HelperTests(unittest.TestCase):
 class NaturalGeometryTests(unittest.TestCase):
     def test_native_subtitles_have_same_size_in_hero_and_every_strip(self):
         for frame_size in [(1280, 720), (720, 1280)]:
-            for layout in ["natural", "fixed"]:
-                with self.subTest(frame_size=frame_size, layout=layout):
+            for layout, fit in [("natural", "crop"), ("fixed", "pad"), ("fixed", "crop")]:
+                with self.subTest(frame_size=frame_size, layout=layout, fit=fit):
                     w, h = frame_size
                     frame = Image.new("RGB", frame_size, "black")
                     # 宽度覆盖近全帧，模拟长字幕，能同时抓出裁字和字号不一致。
@@ -210,7 +210,7 @@ class NaturalGeometryTests(unittest.TestCase):
                     ):
                         out = Path(tmp) / "uniform.jpg"
                         MODULE.render_one("unused", [0, 1, 2, 3, 4], out, (3, 4), 1080,
-                                          0.78, 0.96, None, layout=layout)
+                                          0.78, 0.96, None, layout=layout, fit=fit)
                         with Image.open(out) as opened:
                             mask = opened.convert("L").point(lambda p: 255 if p > 127 else 0)
                             runs = []
@@ -233,7 +233,13 @@ class NaturalGeometryTests(unittest.TestCase):
                                 source_height = int(h * 0.96) + 4 * (int(h * 0.96) - int(h * 0.78))
                                 scale = min(1080 / w, 1440 / source_height)
                                 expected_width = (round(w * 0.97) - round(w * 0.03) + 1) * scale
-                                self.assertLessEqual(abs(min(widths) - expected_width), 2)
+                                if fit == "pad":
+                                    self.assertLessEqual(abs(min(widths) - expected_width), 2)
+                                else:
+                                    # 长字幕只允许裁到安全边界：不小于留边版，也不碰画布边缘。
+                                    self.assertGreaterEqual(min(widths), expected_width - 2)
+                                    self.assertGreater(min(r[2] for r in runs), 0)
+                                    self.assertLess(max(r[3] for r in runs), opened.width)
                             else:
                                 self.assertGreater(min(widths), 1080 * 0.9)
 
@@ -301,6 +307,98 @@ class NaturalGeometryTests(unittest.TestCase):
                 self.assertNotEqual(proc.returncode, 0)
                 self.assertIn(message, proc.stderr)
                 self.assertNotIn("Traceback", proc.stderr)
+
+    def test_cli_rejects_invalid_native_fit_options_before_io(self):
+        for options, message in [
+            (["--layout", "natural", "--fit", "crop"], "不接受 --fit"),
+            (["--layout", "natural", "--crop-center", "0.4"], "不接受 --fit"),
+            (["--crop-center", "1.5"], "0–1"),
+            (["--fit", "pad", "--crop-center", "0.4"], "只用于 --fit crop"),
+        ]:
+            with self.subTest(options=options):
+                proc = subprocess.run(
+                    [sys.executable, str(SCRIPT), "render", "unused.mp4",
+                     "--manifest", "unused.json", "--out-dir", "unused", *options],
+                    capture_output=True, text=True,
+                )
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(message, proc.stderr)
+                self.assertNotIn("Traceback", proc.stderr)
+
+
+def subtitle_band(width, height, left, right, background="#5a5a5a"):
+    """灰底上画白色黑描边的竖笔画，模拟烧录字幕。"""
+    band = Image.new("RGB", (width, height), background)
+    draw = ImageDraw.Draw(band)
+    for x in range(left, right - 3, 9):
+        draw.rectangle((x, height * 0.3, x + 3, height * 0.7), fill="white",
+                       outline="black", width=1)
+    return band
+
+
+class SideCropTests(unittest.TestCase):
+    def assertSubtitlesInside(self, canvas):
+        """白色笔画的左右边界都不能贴到画布边缘，否则说明字被裁了。"""
+        bright = canvas.convert("L").point(lambda p: 255 if p > 200 else 0)
+        bounds = bright.getbbox()
+        self.assertIsNotNone(bounds)
+        self.assertGreater(bounds[0], 0)
+        self.assertLess(bounds[2], canvas.width)
+
+    def test_subtitle_extent_finds_text_and_ignores_plain_band(self):
+        extent = MODULE.subtitle_extent(subtitle_band(640, 40, 200, 440))
+        self.assertIsNotNone(extent)
+        self.assertLessEqual(abs(extent[0] - 200), 3)
+        self.assertLessEqual(abs(extent[1] - 436), 6)
+        self.assertIsNone(MODULE.subtitle_extent(Image.new("RGB", (640, 40), "#5a5a5a")))
+
+    def stack_with_subtitles(self, left, right, strips=4):
+        hero = Image.new("RGB", (640, 300), "#336699")
+        hero.paste(subtitle_band(640, 40, left, right), (0, 260))
+        bands = [subtitle_band(640, 40, left, right) for _ in range(strips)]
+        stack = MODULE.stack_parts([hero, *bands])
+        extents = [MODULE.subtitle_extent(b) for b in [hero.crop((0, 260, 640, 300)), *bands]]
+        return stack, extents
+
+    def test_narrow_subtitles_fill_canvas_without_black_bars(self):
+        stack, extents = self.stack_with_subtitles(260, 380)
+        canvas, note = MODULE.fit_fixed_canvas(stack, extents, (300, 400))
+        self.assertEqual(canvas.size, (300, 400))
+        self.assertIn("无黑边", note)
+        for y in (2, 397):
+            self.assertGreater(max(canvas.getpixel((150, y))), 40)
+
+    def test_wide_subtitles_limit_crop_and_keep_text(self):
+        stack, extents = self.stack_with_subtitles(60, 580)
+        canvas, note = MODULE.fit_fixed_canvas(stack, extents, (300, 400))
+        self.assertIn("只裁去", note)
+        padded = ImageOps.pad(stack, (300, 400), color="black")
+        # 裁得比留边版少黑边，但所有字幕边界都在画布内。
+        self.assertLess(canvas.convert("L").getbbox()[1], padded.convert("L").getbbox()[1])
+        self.assertSubtitlesInside(canvas)
+
+    def test_unknown_subtitle_or_pad_mode_falls_back_to_padding(self):
+        stack, extents = self.stack_with_subtitles(260, 380)
+        expected = ImageOps.pad(stack, (300, 400), method=Image.Resampling.LANCZOS, color="black")
+        for fit, items, message in [
+            ("crop", [extents[0], None, *extents[2:]], "第 2 句"),
+            ("pad", extents, "--fit pad"),
+        ]:
+            with self.subTest(fit=fit):
+                canvas, note = MODULE.fit_fixed_canvas(stack, items, (300, 400), fit)
+                self.assertIn(message, note)
+                self.assertEqual(canvas.tobytes(), expected.tobytes())
+
+    def test_crop_center_moves_window_but_never_cuts_subtitles(self):
+        hero = Image.new("RGB", (640, 300), "#336699")
+        ImageDraw.Draw(hero).rectangle((0, 0, 100, 259), fill="#ff0000")
+        stack = MODULE.stack_parts([hero, *[subtitle_band(640, 40, 260, 380)] * 4])
+        extents = [(260, 380)] * 5
+        left, _ = MODULE.fit_fixed_canvas(stack, extents, (300, 400), crop_center=0.0)
+        centered, _ = MODULE.fit_fixed_canvas(stack, extents, (300, 400), crop_center=0.5)
+        # 期望窗口靠左时会尽量左移，但仍须容纳字幕左右安全边界。
+        self.assertLess(left.getpixel((5, 100))[2], centered.getpixel((5, 100))[2])
+        self.assertSubtitlesInside(left)
 
 
 class CliIntegrationTests(unittest.TestCase):
