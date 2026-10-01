@@ -72,11 +72,12 @@ python3 -m pip install -r "<SKILL_DIR>/requirements.txt"
 
 ## 共同的默认版式
 
-- 默认输出 3:4、1440×1920。
+- 原生字幕默认使用内容自适应布局：保留源宽度，高度为主图和字幕条之和，整图统一等比缩放。用户未指定比例时，不主动添加 `--aspect 3:4`。
+- 脚本字幕默认输出 3:4、1440×1920。
 - 默认使用 5 个严格递增的时间点：第一帧是主画面，其余四帧是字幕条。
 - 两种模式每张图最多 7 个时间点（1 个主画面 + 6 个字幕条）；台词更多时拆成多张图，不压缩字幕条。
-- 4 个字幕条时，主画面约占 70%，每条约占 7.5%，条间距为 0。台词较少时把多余高度留给主画面，不拉高字幕条。
-- 只有自动布局确实不适用时，才传 `--hero-fraction`。
+- 脚本固定布局的 4 个字幕条时，主画面约占 70%，每条约占 7.5%。原生模式不强制这个比例，第一句和后续字幕必须保持同一缩放倍数；原视频字号不同则保留差异，不重绘文字。两种模式条间距都为 0。
+- 原生模式显式 `--aspect 3:4` 或 `--layout fixed` 时，将整张拼图等比放进固定画布，比例不匹配处留黑边；不得单独放大主图来填满。`--hero-fraction` 只调整源主图裁切高度，受真实帧高度限制，不保证占最终含边画布的该比例。脚本模式只有自动布局确实不适用时才传它。
 - 不覆盖已有成品。只有用户明确要替换时才添加 `--overwrite`。
 - 源视频低清时可输出 1440×1920 版面，但必须说明这不等于真实清晰度提升。
 
@@ -88,7 +89,7 @@ python3 -m pip install -r "<SKILL_DIR>/requirements.txt"
 - 不传 `--width` 时保留源宽度；传入宽度时仅等比缩放。裁切后禁止把画面 resize 回原来的宽高，也禁止把成品直接拉成 1440×1920。
 - 原生字幕模式保留从画面顶部到 `--band-bottom` 的主图和完整字幕条；不重绘文字。
 - 脚本字幕模式可用 `--frame-top` / `--frame-bottom` 仅裁去不需要的源画面区域，默认保留全帧。先预览边界，不能裁掉人物关键部位；`--band-center` 相对裁切后的画面。
-- `natural` 不与 `--aspect` / `--hero-fraction` 合用；固定布局的 70% 主图验收比例不适用于它。两种布局都不得非等比拉伸。
+- `natural` 不与 `--aspect` / `--hero-fraction` 合用；70% 主图验收只适用于脚本固定布局。两种布局都不得非等比拉伸。
 
 ```bash
 python3 "<SKILL_DIR>/scripts/native_subtitle_stitch.py" render-script VIDEO \
@@ -150,7 +151,6 @@ python3 "<SKILL_DIR>/scripts/native_subtitle_stitch.py" band VIDEO -t 61.2 \
 ```bash
 python3 "<SKILL_DIR>/scripts/native_subtitle_stitch.py" render VIDEO \
   --manifest manifest.json --out-dir OUTPUT_DIR \
-  --aspect 3:4 --width 1440 \
   --band-top 0.78 --band-bottom 0.96
 ```
 
@@ -194,7 +194,7 @@ python3 "<SKILL_DIR>/scripts/native_subtitle_stitch.py" render-script VIDEO \
 - 字幕完整、稳定、无重复，时间顺序与原视频一致。
 - 原生模式没有改字；脚本模式的文字与已审核 JSON 一致。
 - 主体完整，没有异常切脸、巨大空白、无关 UI 或变形。
-- 固定布局默认四个字幕条时，主画面约占 68–72%；原比例布局按真实裁切高度验收。两者条与条紧凑相接，没有额外间距。
+- 原生模式检查第一句与后续字幕是否使用同一缩放倍数、没有横向裁字；固定画布允许外侧留边。脚本固定布局默认四条时主图约占 68–72%；内容块之间没有额外间距。
 - 脚本模式的字号、描边、对比度在原尺寸与手机缩略图中都可读。
 - 文件数量、尺寸、比例、JSON 和总览一致。
 

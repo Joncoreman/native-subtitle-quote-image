@@ -144,11 +144,12 @@ class HelperTests(unittest.TestCase):
                 0.68,
                 0.96,
                 0.42,
+                layout="fixed",
             )
             with Image.open(out) as rendered:
                 self.assertEqual(rendered.size, (300, 400))
 
-    def test_render_one_auto_layout_gives_hero_seventy_percent(self):
+    def test_render_one_default_keeps_source_geometry_not_seventy_percent(self):
         def fake_frame(_video, seconds):
             color = "#cc0000" if seconds == 0 else "#0033cc"
             return Image.new("RGB", (640, 360), color)
@@ -168,8 +169,9 @@ class HelperTests(unittest.TestCase):
                 None,
             )
             with Image.open(out) as rendered:
-                self.assertGreater(rendered.getpixel((10, 279))[0], 180)
-                self.assertGreater(rendered.getpixel((10, 280))[2], 150)
+                self.assertEqual(rendered.size, (300, 284))
+                self.assertGreater(rendered.getpixel((10, 160))[0], 180)
+                self.assertGreater(rendered.getpixel((10, 164))[2], 150)
 
     def test_missing_input_is_readable_without_traceback(self):
         proc = subprocess.run(
@@ -192,6 +194,49 @@ class HelperTests(unittest.TestCase):
 
 
 class NaturalGeometryTests(unittest.TestCase):
+    def test_native_subtitles_have_same_size_in_hero_and_every_strip(self):
+        for frame_size in [(1280, 720), (720, 1280)]:
+            for layout in ["natural", "fixed"]:
+                with self.subTest(frame_size=frame_size, layout=layout):
+                    w, h = frame_size
+                    frame = Image.new("RGB", frame_size, "black")
+                    # 宽度覆盖近全帧，模拟长字幕，能同时抓出裁字和字号不一致。
+                    ImageDraw.Draw(frame).rectangle(
+                        (round(w * 0.03), round(h * 0.88), round(w * 0.97), round(h * 0.91)),
+                        fill="white",
+                    )
+                    with tempfile.TemporaryDirectory() as tmp, mock.patch.object(
+                        MODULE, "grab_frame", return_value=frame
+                    ):
+                        out = Path(tmp) / "uniform.jpg"
+                        MODULE.render_one("unused", [0, 1, 2, 3, 4], out, (3, 4), 1080,
+                                          0.78, 0.96, None, layout=layout)
+                        with Image.open(out) as opened:
+                            mask = opened.convert("L").point(lambda p: 255 if p > 127 else 0)
+                            runs = []
+                            for y in range(mask.height):
+                                bounds = mask.crop((0, y, mask.width, y + 1)).getbbox()
+                                if bounds is not None:
+                                    if not runs or runs[-1][1] != y:
+                                        runs.append([y, y + 1, bounds[0], bounds[2]])
+                                    else:
+                                        runs[-1][1] = y + 1
+                                        runs[-1][2] = min(runs[-1][2], bounds[0])
+                                        runs[-1][3] = max(runs[-1][3], bounds[2])
+                            self.assertEqual(len(runs), 5)
+                            heights = [r[1] - r[0] for r in runs]
+                            widths = [r[3] - r[2] for r in runs]
+                            self.assertLessEqual(max(heights) - min(heights), 1)
+                            self.assertLessEqual(max(widths) - min(widths), 1)
+                            if layout == "fixed":
+                                self.assertEqual(opened.size, (1080, 1440))
+                                source_height = int(h * 0.96) + 4 * (int(h * 0.96) - int(h * 0.78))
+                                scale = min(1080 / w, 1440 / source_height)
+                                expected_width = (round(w * 0.97) - round(w * 0.03) + 1) * scale
+                                self.assertLessEqual(abs(min(widths) - expected_width), 2)
+                            else:
+                                self.assertGreater(min(widths), 1080 * 0.9)
+
     def test_crop_and_same_width_keep_exact_source_pixels(self):
         frame = Image.new("RGB", (1280, 720), "black")
         ImageDraw.Draw(frame).ellipse((100, 100, 300, 300), fill="white")
@@ -395,7 +440,7 @@ class CliIntegrationTests(unittest.TestCase):
             self.assertTrue((out_dir / "final_contact_sheet.jpg").is_file())
             self.assertTrue((out_dir / "原生字幕时间点.json").is_file())
             with Image.open(output) as rendered:
-                self.assertEqual(rendered.size, (300, 400))
+                self.assertEqual(rendered.size, (300, 284))
 
             script = tmp_path / "script.json"
             script.write_text(
@@ -448,6 +493,16 @@ class CliIntegrationTests(unittest.TestCase):
                                 else tmp_path / "natural-script.jpg")
                 with Image.open(natural_path) as rendered:
                     self.assertEqual(rendered.size, expected)
+
+            fixed_dir = tmp_path / "explicit-fixed"
+            subprocess.run(
+                [sys.executable, str(SCRIPT), "render", str(video),
+                 "--manifest", str(manifest), "--out-dir", str(fixed_dir),
+                 "--aspect", "3:4", "--width", "300"],
+                check=True, capture_output=True, text=True,
+            )
+            with Image.open(fixed_dir / "01_合成测试.jpg") as rendered:
+                self.assertEqual(rendered.size, (300, 400))
 
             repeated = subprocess.run(
                 [

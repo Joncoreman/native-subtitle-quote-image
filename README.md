@@ -3,7 +3,7 @@
 <div align="center">
   <img src="assets/banner-zh.webp" alt="原生字幕拼图：视频胶片、字幕条、时间轴和拼图画框环绕标题的手绘横幅" width="880">
 
-  <p><strong>把真实视频帧，做成可直接发布的 3:4 字幕长图</strong><br>
+  <p><strong>把真实视频帧，做成保留原字幕或绘制台词的长图</strong><br>
   <sub>原生字幕不重绘 · 脚本字幕不冒充原字幕</sub></p>
 
   <p>
@@ -23,9 +23,9 @@
 
 ## 能做什么
 
-- **从视频直接出图**：本地文件或 YouTube 链接进来，经过找句子、精确取帧、拼图、逐张质检，出来就是能发的 3:4 JPG。
+- **从视频直接出图**：本地文件或 YouTube 链接进来，经过找句子、精确取帧、拼图、逐张质检，输出原生或脚本字幕 JPG，可按内容布局或指定比例。
 - **两种字幕，从不混用**：原生模式只裁切画面里本来就有的字幕；脚本模式把你审核过的台词画到真实画面上，并标明是后期字幕。
-- **版式紧凑**：1 张主图配 4 条字幕时，主图约占 70% 高度，字幕条之间没有空隙。条数变了，比例会自动调整。
+- **版式紧凑**：原生字幕先拼源像素，再统一缩放，第一句不会被单独放大；脚本固定布局的主图约占 70%。字幕条之间没有空隙。
 - **Agent 能用，脚本也能单独跑**：在 Codex、Claude Code 等 Agent 里用一句话调用；也可以直接运行 Python 脚本。
 
 <p align="center">
@@ -115,7 +115,7 @@ flowchart LR
   D --> E{锁定模式}
   E -->|原生| F[裁切画面<br>里的字幕条]
   E -->|脚本| G[绘制已<br>审核台词]
-  F --> H[3:4 渲染<br>逐张质检]
+  F --> H[按模式渲染<br>逐张质检]
   G --> H
 ```
 
@@ -141,7 +141,7 @@ Skill 支持三种工作方式：
 
 Agent 会先检查来源、字幕类型和候选帧，确定模式后再生成：
 
-- 逐张 3:4 JPG；
+- 逐张 JPG，比例符合所选布局；
 - 原生模式的 `原生字幕时间点.json`，或脚本模式的 `lines` JSON；
 - 多图任务的 `final_contact_sheet.jpg` 总览图。
 
@@ -174,7 +174,6 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ban
 
 python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py render VIDEO \
   --manifest manifest.json --out-dir output-v1 \
-  --aspect 3:4 --width 1440 \
   --band-top 0.78 --band-bottom 0.96
 ```
 
@@ -197,7 +196,9 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   --script script.json --out natural.jpg --layout natural --frame-bottom 0.72
 ```
 
-`0.72` 是示例裁切边界，需按视频实测；默认 `--frame-top 0 --frame-bottom 1` 保留全帧。`--band-center` 相对裁切后的画面。原比例布局不与 `--aspect` / `--hero-fraction` 合用。“原比例”只描述画面几何，脚本字幕仍是后期绘制；默认固定 3:4 用法保持兼容。
+`0.72` 是示例裁切边界，需按视频实测；默认 `--frame-top 0 --frame-bottom 1` 保留全帧。`--band-center` 相对裁切后的画面。原比例布局不与 `--aspect` / `--hero-fraction` 合用。“原比例”只描述画面几何，脚本字幕仍是后期绘制。
+
+**默认原生布局修正（v2.2.2）**：`render` 不传布局或比例时，默认按内容计算高度、保留源宽度。明确加 `--aspect 3:4 --width 1440` 时仍输出 1440×1920，但对整张拼图统一等比留黑边，保留完整字幕，不分别填满主图和字幕条。原生模式的 `--hero-fraction` 仅调整源主图裁切高度，受源帧限制；脚本字幕仍默认固定 3:4。输出比例不匹配时，不能用非等比 resize 硬改。
 
 <details>
 <summary><code>script.json</code> 的格式</summary>

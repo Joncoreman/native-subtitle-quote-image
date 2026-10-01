@@ -292,12 +292,19 @@ def scale_to_width(image, width):
     return image.resize((width, height), Image.Resampling.LANCZOS)
 
 
-def save_stack(parts, out_path):
+def stack_parts(parts):
+    if any(part.width != parts[0].width for part in parts):
+        raise SystemExit("源帧宽度不一致；请先检查视频旋转或分辨率变化")
     canvas = Image.new("RGB", (parts[0].width, sum(p.height for p in parts)), "black")
     y = 0
     for part in parts:
         canvas.paste(part, (0, y))
         y += part.height
+    return canvas
+
+
+def save_stack(parts, out_path):
+    canvas = stack_parts(parts)
     canvas.save(out_path, quality=93, subsampling=0)
     print(f"完成: {out_path} ({canvas.width}x{canvas.height})")
     print("原比例布局: 仅裁切与等比缩放，高度随内容计算，条间距 0")
@@ -305,59 +312,35 @@ def save_stack(parts, out_path):
 
 def render_one(
     video, times, out_path, aspect, out_width, top, bottom, hero_fraction,
-    layout="fixed",
+    layout="natural",
 ):
     times = normalize_times(times)
-    if layout == "natural":
-        first = grab_frame(video, times[0])
-        _, _, subtitle_bottom = crop_band(first, top, bottom)
-        width = out_width or first.width
-        parts = [scale_to_width(first.crop((0, 0, first.width, subtitle_bottom)), width)]
-        for seconds in times[1:]:
-            band, _, _ = crop_band(grab_frame(video, seconds), top, bottom)
-            parts.append(scale_to_width(band, width))
-        save_stack(parts, out_path)
-        return
-    out_width = out_width or 1440
-    aw, ah = aspect
-    out_height = round(out_width * ah / aw)
-    strip_count = len(times) - 1
-    hero_fraction = choose_hero_fraction(strip_count, hero_fraction)
-    hero_height = round(out_height * hero_fraction)
-    remaining = out_height - hero_height
-    base_strip = remaining // strip_count
-    strip_heights = [base_strip] * strip_count
-    strip_heights[-1] += remaining - sum(strip_heights)
-
     first = grab_frame(video, times[0])
-    _, _, subtitle_bottom = crop_band(first, top, bottom)
-    wanted_hero_source_h = min(
-        subtitle_bottom,
-        max(1, round(first.width * hero_height / out_width)),
-    )
-    hero_source = first.crop(
-        (0, subtitle_bottom - wanted_hero_source_h, first.width, subtitle_bottom)
-    )
-    hero = fit_lower(hero_source, (out_width, hero_height), vertical=0.75)
-
-    strips = []
-    for seconds, height in zip(times[1:], strip_heights):
-        frame = grab_frame(video, seconds)
-        band, _, _ = crop_band(frame, top, bottom)
-        strips.append(fit_lower(band, (out_width, height), vertical=0.72))
-
-    canvas = Image.new("RGB", (out_width, out_height), "black")
-    canvas.paste(hero, (0, 0))
-    y = hero_height
-    for strip in strips:
-        canvas.paste(strip, (0, y))
-        y += strip.height
+    first_band, _, subtitle_bottom = crop_band(first, top, bottom)
+    bands = [crop_band(grab_frame(video, seconds), top, bottom)[0] for seconds in times[1:]]
+    hero_source_height = subtitle_bottom
+    if hero_fraction is not None:
+        # 显式比例只决定源画面裁切窗口，不能改变第一句字幕的缩放倍数。
+        requested_height = round(sum(b.height for b in bands) * hero_fraction / (1 - hero_fraction))
+        hero_source_height = min(subtitle_bottom, max(first_band.height, requested_height))
+    hero = first.crop((0, subtitle_bottom - hero_source_height, first.width, subtitle_bottom))
+    # 先拼源像素，再对整张画布缩放：所有原生字幕只经历同一个几何变换。
+    source_stack = stack_parts([hero, *bands])
+    if layout == "natural":
+        width = out_width or first.width
+        canvas = scale_to_width(source_stack, width)
+    else:
+        width = out_width or 1440
+        aw, ah = aspect
+        canvas = ImageOps.pad(
+            source_stack, (width, round(width * ah / aw)),
+            method=Image.Resampling.LANCZOS, color="black",
+        )
     canvas.save(out_path, quality=93, subsampling=0)
-    print(f"完成: {out_path} ({out_width}x{out_height})")
-    print(
-        f"布局: 主画面 {hero_fraction:.1%}，"
-        f"字幕条 {strip_count} 个，条间距 0"
-    )
+    print(f"完成: {out_path} ({canvas.width}x{canvas.height})")
+    print(f"原生字幕: 整图统一等比缩放，字幕条 {len(bands)} 个，条间距 0")
+    if layout == "fixed":
+        print("固定画布: 比例不匹配时留黑边，不裁掉字幕或单独放大主图")
 
 
 def scripted_render_one(
@@ -772,15 +755,15 @@ def main():
     render.add_argument("--manifest", required=True)
     render.add_argument("--out-dir", required=True)
     render.add_argument("--aspect", type=parse_aspect, help="固定布局比例，默认 3:4")
-    render.add_argument("--layout", choices=("fixed", "natural"), default="fixed",
-                        help="fixed: 固定画布；natural: 保留宽度，按裁切内容自动计算高度")
+    render.add_argument("--layout", choices=("fixed", "natural"),
+                        help="默认 natural；显式 --aspect 时用 fixed，整图等比留边")
     render.add_argument("--width", type=int, help="固定布局默认 1440；原比例布局默认源宽度")
     render.add_argument("--band-top", type=float, default=0.78)
     render.add_argument("--band-bottom", type=float, default=0.96)
     render.add_argument(
         "--hero-fraction",
         type=float,
-        help="主画面高度比例；默认按字幕条数量自动保持紧凑密度",
+        help="固定布局的源主图裁切比例；受源高度限制，不单独放大主图",
     )
     render.add_argument("--overwrite", action="store_true")
     render.set_defaults(func=command_render)
@@ -815,6 +798,8 @@ def main():
     scripted.set_defaults(func=command_render_script)
 
     args = parser.parse_args()
+    if args.command == "render" and args.layout is None:
+        args.layout = "fixed" if args.aspect is not None or args.hero_fraction is not None else "natural"
     if hasattr(args, "band_top") and not 0 <= args.band_top < args.band_bottom <= 1:
         raise SystemExit("字幕区域必须满足 0 <= top < bottom <= 1")
     if getattr(args, "width", None) is not None and args.width <= 0:
