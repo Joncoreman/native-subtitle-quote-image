@@ -29,10 +29,12 @@
 - **Agent 能用，脚本也能单独跑**：在 Codex、Claude Code 等 Agent 里用一句话调用；也可以直接运行 Python 脚本。
 
 <p align="center">
-  <img src="examples/demo-output-overview.jpg" alt="一次任务的成套输出总览" width="720">
+  <img src="examples/demo-output-overview.jpg" alt="v2.3.0 原比例布局的三张后期中文字幕示例总览" width="960">
   <br>
-  <sub>一次任务的成套输出：多张 3:4 长图，外加一张总览图方便挑选。</sub>
+  <sub>v2.3.0 实际渲染：原比例布局，人物不拉伸；本组中文为后期脚本字幕，并非视频原生字幕。</sub>
 </p>
+
+查看完整示例：[编程模型](examples/gallery/smaller-coding-models.jpg) · [能力与价值](examples/gallery/agi-capability-to-value.jpg) · [任务时长](examples/gallery/task-duration.jpg)。[来源与复现方法](examples/README.md)
 
 <div align="right"><a href="#readme-top">↑ 回到顶部</a></div>
 
