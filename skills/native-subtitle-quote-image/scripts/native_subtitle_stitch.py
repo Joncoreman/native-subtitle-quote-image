@@ -12,7 +12,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 try:
     import imageio_ffmpeg
@@ -310,9 +310,86 @@ def save_stack(parts, out_path):
     print("原比例布局: 仅裁切与等比缩放，高度随内容计算，条间距 0")
 
 
+def subtitle_extent(band):
+    """估计字幕条内文字的左右边界 (left, right)；找不到可信文字时返回 None。
+
+    烧录字幕通常是低饱和的亮色笔画，旁边有描边、阴影或更暗的背景。
+    只用于决定两侧能裁多少：宁可把背景误判成文字而少裁，也不能漏掉文字。
+    """
+    rgb = band.convert("RGB")
+    width, height = rgb.size
+    gray = rgb.convert("L")
+    bright = gray.point(lambda p: 255 if p >= 200 else 0)
+    neutral = rgb.convert("HSV").getchannel("S").point(lambda p: 255 if p <= 70 else 0)
+    contrast = ImageChops.subtract(gray, gray.filter(ImageFilter.MinFilter(5)))
+    edged = contrast.point(lambda p: 255 if p >= 60 else 0)
+    mask = ImageChops.multiply(ImageChops.multiply(bright, neutral), edged)
+    # BOX 缩成一行即每列的文字像素占比。
+    counts = [value * height / 255 for value in mask.resize((width, 1), Image.Resampling.BOX).tobytes()]
+    minimum = max(1.5, height * 0.03)
+    gap = max(6, round(width * 0.04))
+    clusters = []
+    for x, count in enumerate(counts):
+        if count < minimum:
+            continue
+        if clusters and x - clusters[-1][1] <= gap:
+            clusters[-1][1] = x
+            clusters[-1][2] += count
+        else:
+            clusters.append([x, x, count])
+    if not clusters:
+        return None
+    strongest = max(mass for _, _, mass in clusters)
+    kept = [(left, right) for left, right, mass in clusters if mass >= strongest * 0.25]
+    left, right = min(k[0] for k in kept), max(k[1] for k in kept) + 1
+    if right - left < width * 0.02:
+        return None
+    return left, right
+
+
+def fit_fixed_canvas(stack, extents, size, fit="crop", crop_center=0.5):
+    """把整张拼图放进固定画布；所有部分始终同一缩放倍数。
+
+    fit="crop" 时先统一裁去两侧，最多裁到字幕安全边界，剩余差额再留黑边；
+    任一字幕边界无法确认时不裁切。返回 (画布, 说明)。
+    """
+    target_w, target_h = size
+    source_w, source_h = stack.size
+    wanted_w = round(source_h * target_w / target_h)
+    if fit != "crop" or wanted_w >= source_w:
+        note = "比例不匹配处留黑边" if fit == "crop" else "按 --fit pad 留黑边，未裁切"
+        return ImageOps.pad(stack, size, method=Image.Resampling.LANCZOS, color="black"), note
+    unknown = [index for index, extent in enumerate(extents, 1) if extent is None]
+    if unknown:
+        listed = "、".join(str(index) for index in unknown)
+        note = f"第 {listed} 句未能确认字幕左右边界，整图留黑边，未裁切"
+        return ImageOps.pad(stack, size, method=Image.Resampling.LANCZOS, color="black"), note
+    margin = max(4, round(source_w * 0.02))
+    safe_left = max(0, min(e[0] for e in extents) - margin)
+    safe_right = min(source_w, max(e[1] for e in extents) + margin)
+    crop_w = max(wanted_w, safe_right - safe_left)
+    if crop_w >= source_w:
+        note = "字幕接近全宽，未裁切，整图留黑边"
+        return ImageOps.pad(stack, size, method=Image.Resampling.LANCZOS, color="black"), note
+    desired = round(source_w * crop_center - crop_w / 2)
+    # 窗口必须同时容纳所有字幕并留在画面内，再尽量靠近期望中心。
+    lowest = max(0, safe_right - crop_w)
+    highest = min(source_w - crop_w, safe_left)
+    x0 = min(max(desired, lowest), highest)
+    cropped = stack.crop((x0, 0, x0 + crop_w, source_h))
+    removed = (source_w - crop_w) / source_w
+    if crop_w == wanted_w:
+        canvas = cropped.resize(size, Image.Resampling.LANCZOS)
+        note = f"两侧统一裁去 {removed:.0%}，字幕全部保留，无黑边"
+    else:
+        canvas = ImageOps.pad(cropped, size, method=Image.Resampling.LANCZOS, color="black")
+        note = f"字幕较宽，两侧只裁去 {removed:.0%}，其余留黑边"
+    return canvas, note
+
+
 def render_one(
     video, times, out_path, aspect, out_width, top, bottom, hero_fraction,
-    layout="natural",
+    layout="natural", fit="crop", crop_center=0.5,
 ):
     times = normalize_times(times)
     first = grab_frame(video, times[0])
@@ -332,15 +409,15 @@ def render_one(
     else:
         width = out_width or 1440
         aw, ah = aspect
-        canvas = ImageOps.pad(
-            source_stack, (width, round(width * ah / aw)),
-            method=Image.Resampling.LANCZOS, color="black",
+        extents = [subtitle_extent(band) for band in [first_band, *bands]]
+        canvas, fit_note = fit_fixed_canvas(
+            source_stack, extents, (width, round(width * ah / aw)), fit, crop_center,
         )
     canvas.save(out_path, quality=93, subsampling=0)
     print(f"完成: {out_path} ({canvas.width}x{canvas.height})")
     print(f"原生字幕: 整图统一等比缩放，字幕条 {len(bands)} 个，条间距 0")
     if layout == "fixed":
-        print("固定画布: 比例不匹配时留黑边，不裁掉字幕或单独放大主图")
+        print(f"固定画布: {fit_note}")
 
 
 def scripted_render_one(
@@ -669,6 +746,8 @@ def command_render(args):
             args.band_bottom,
             args.hero_fraction,
             args.layout,
+            args.fit or "crop",
+            0.5 if args.crop_center is None else args.crop_center,
         )
 
     if manifest_path != manifest_target:
@@ -765,6 +844,16 @@ def main():
         type=float,
         help="固定布局的源主图裁切比例；受源高度限制，不单独放大主图",
     )
+    render.add_argument(
+        "--fit",
+        choices=("crop", "pad"),
+        help="固定布局如何适配画布：crop（默认）统一裁两侧到字幕安全边界，pad 只留黑边",
+    )
+    render.add_argument(
+        "--crop-center",
+        type=float,
+        help="统一裁两侧时裁切窗口的水平中心，0–1，默认 0.5；始终不裁到字幕",
+    )
     render.add_argument("--overwrite", action="store_true")
     render.set_defaults(func=command_render)
 
@@ -798,8 +887,10 @@ def main():
     scripted.set_defaults(func=command_render_script)
 
     args = parser.parse_args()
+    fixed_only = ("aspect", "hero_fraction", "fit", "crop_center")
     if args.command == "render" and args.layout is None:
-        args.layout = "fixed" if args.aspect is not None or args.hero_fraction is not None else "natural"
+        explicit = any(getattr(args, name) is not None for name in fixed_only)
+        args.layout = "fixed" if explicit else "natural"
     if hasattr(args, "band_top") and not 0 <= args.band_top < args.band_bottom <= 1:
         raise SystemExit("字幕区域必须满足 0 <= top < bottom <= 1")
     if getattr(args, "width", None) is not None and args.width <= 0:
@@ -810,6 +901,15 @@ def main():
         args.aspect is not None or args.hero_fraction is not None
     ):
         raise SystemExit("--layout natural 不接受 --aspect 或 --hero-fraction；高度由内容决定")
+    if getattr(args, "layout", None) == "natural" and (
+        getattr(args, "fit", None) is not None or getattr(args, "crop_center", None) is not None
+    ):
+        raise SystemExit("--layout natural 不接受 --fit 或 --crop-center；它们只用于固定画布")
+    if getattr(args, "crop_center", None) is not None:
+        if not 0 <= args.crop_center <= 1:
+            raise SystemExit("--crop-center 必须在 0–1 之间")
+        if args.fit == "pad":
+            raise SystemExit("--crop-center 只用于 --fit crop")
     if hasattr(args, "aspect") and args.aspect is None:
         args.aspect = parse_aspect("3:4")
     if hasattr(args, "band_center") and not 0.1 <= args.band_center <= 0.98:
