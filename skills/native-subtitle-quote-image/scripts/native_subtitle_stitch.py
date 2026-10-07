@@ -25,6 +25,10 @@ except ImportError:
 
 # 每张图最多 1 个主画面 + 6 个字幕条；再多字幕条会被压到不可读。
 MAX_TIMES_PER_IMAGE = 7
+# 缩略图上亮度变化超过 DIFF_LEVEL 的像素占比低于此值，视为同一画面。
+# 真实访谈相邻句子的整帧差异通常在 5% 以上；静态封面重编码后接近 0。
+DUPLICATE_PIXEL_RATIO = 0.005
+DIFF_LEVEL = 12
 
 
 def ffmpeg(args, context="FFmpeg 处理失败"):
@@ -108,6 +112,35 @@ def grab_frame(path, seconds):
     finally:
         if os.path.exists(tmp):
             os.unlink(tmp)
+
+
+def changed_ratio(a, b, width=160):
+    """两张图在灰度缩略图上明显变化的像素占比。"""
+    height = max(1, round(a.height * width / a.width))
+    a = a.convert("L").resize((width, height), Image.Resampling.BILINEAR)
+    b = b.convert("L").resize((width, height), Image.Resampling.BILINEAR)
+    diff = ImageChops.difference(a, b).point(lambda v: 255 if v > DIFF_LEVEL else 0)
+    return diff.histogram()[255] / (width * height)
+
+
+def ensure_distinct_frames(frames, times, bands=None):
+    """拦截静态封面视频：所有时间点画面相同，或原生字幕条重复。"""
+    if len(frames) < 2:
+        return
+    if all(changed_ratio(frames[0], frame) < DUPLICATE_PIXEL_RATIO for frame in frames[1:]):
+        listed = "、".join(f"{t:.2f}s" for t in times)
+        raise SystemExit(
+            f"所有时间点（{listed}）取到的画面几乎相同，源视频可能是静态封面图或画面冻结。"
+            "请先用 sample 检查画面；确认要这样出图时加 --allow-duplicate-frames。"
+        )
+    if bands:
+        for index in range(1, len(bands)):
+            if changed_ratio(bands[index - 1], bands[index]) < DUPLICATE_PIXEL_RATIO:
+                raise SystemExit(
+                    f"{times[index - 1]:.2f}s 与 {times[index]:.2f}s 的字幕条几乎相同，"
+                    "可能是同一句字幕重复或这段画面没有字幕。请用 sample 或 band 核对时间点；"
+                    "确认无误时加 --allow-duplicate-frames。"
+                )
 
 
 def parse_aspect(value):
@@ -389,12 +422,15 @@ def fit_fixed_canvas(stack, extents, size, fit="crop", crop_center=0.5):
 
 def render_one(
     video, times, out_path, aspect, out_width, top, bottom, hero_fraction,
-    layout="natural", fit="crop", crop_center=0.5,
+    layout="natural", fit="crop", crop_center=0.5, check_duplicates=False,
 ):
     times = normalize_times(times)
-    first = grab_frame(video, times[0])
+    frames = [grab_frame(video, seconds) for seconds in times]
+    first = frames[0]
     first_band, _, subtitle_bottom = crop_band(first, top, bottom)
-    bands = [crop_band(grab_frame(video, seconds), top, bottom)[0] for seconds in times[1:]]
+    bands = [crop_band(frame, top, bottom)[0] for frame in frames[1:]]
+    if check_duplicates:
+        ensure_distinct_frames(frames, times, [first_band, *bands])
     hero_source_height = subtitle_bottom
     if hero_fraction is not None:
         # 显式比例只决定源画面裁切窗口，不能改变第一句字幕的缩放倍数。
@@ -433,12 +469,15 @@ def scripted_render_one(
     layout="fixed",
     frame_top=0.0,
     frame_bottom=1.0,
+    check_duplicates=False,
 ):
-    def source_frame(seconds):
-        frame = grab_frame(video, seconds)
-        return crop_band(frame, frame_top, frame_bottom)[0]
-
-    first_frame = source_frame(lines[0]["t"])
+    frames = [
+        crop_band(grab_frame(video, line["t"]), frame_top, frame_bottom)[0]
+        for line in lines
+    ]
+    if check_duplicates:
+        ensure_distinct_frames(frames, [line["t"] for line in lines])
+    first_frame = frames[0]
     out_width = out_width or (first_frame.width if layout == "natural" else 1440)
     if layout == "natural":
         hero = scale_to_width(first_frame, out_width)
@@ -451,8 +490,7 @@ def scripted_render_one(
             font_path, base_font, round(out_width * 0.92),
         )
         parts = [hero]
-        for line in lines[1:]:
-            frame = source_frame(line["t"])
+        for line, frame in zip(lines[1:], frames[1:]):
             height = min(frame.height, max(1, round(frame.width * 0.05625)))
             center = round(frame.height * band_center)
             y0 = max(0, min(frame.height - height, center - height // 2))
@@ -492,8 +530,7 @@ def scripted_render_one(
     )
 
     strips = []
-    for line, strip_height in zip(lines[1:], strip_heights):
-        frame = source_frame(line["t"])
+    for line, frame, strip_height in zip(lines[1:], frames[1:], strip_heights):
         source_height = max(
             1, round(frame.width * strip_height / out_width)
         )
@@ -748,6 +785,7 @@ def command_render(args):
             args.layout,
             args.fit or "crop",
             0.5 if args.crop_center is None else args.crop_center,
+            check_duplicates=not args.allow_duplicate_frames,
         )
 
     if manifest_path != manifest_target:
@@ -787,6 +825,7 @@ def command_render_script(args):
         args.layout,
         args.frame_top,
         args.frame_bottom,
+        check_duplicates=not args.allow_duplicate_frames,
     )
 
 
@@ -854,6 +893,11 @@ def main():
         type=float,
         help="统一裁两侧时裁切窗口的水平中心，0–1，默认 0.5；始终不裁到字幕",
     )
+    render.add_argument(
+        "--allow-duplicate-frames",
+        action="store_true",
+        help="跳过重复画面检查（默认遇到静态封面或重复字幕条会中止）",
+    )
     render.add_argument("--overwrite", action="store_true")
     render.set_defaults(func=command_render)
 
@@ -883,6 +927,11 @@ def main():
     )
     scripted.add_argument("--font", help="中文字体文件；未指定时尝试系统字体")
     scripted.add_argument("--font-size", type=int, help="基础字号，过长台词仍会自动缩小")
+    scripted.add_argument(
+        "--allow-duplicate-frames",
+        action="store_true",
+        help="跳过重复画面检查（默认遇到静态封面或重复字幕条会中止）",
+    )
     scripted.add_argument("--overwrite", action="store_true")
     scripted.set_defaults(func=command_render_script)
 

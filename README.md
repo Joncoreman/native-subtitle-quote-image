@@ -244,6 +244,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 - 原生单行字幕默认从视频高度的 `0.78–0.96` 区域开始预览。
 - 每张图最多 7 个时间点（1 个主画面 + 6 个字幕条），两种模式相同；台词更多时拆成多张图。
 - 默认不覆盖已有图片；确实要替换时加 `--overwrite`。
+- 出图前会检查重复画面：所有时间点画面几乎相同（例如源视频只是一张静态封面图），或原生模式相邻两条字幕条几乎相同时，直接报错、不出图。确认无误时加 `--allow-duplicate-frames`。
 - 完整参数用 `--help` 查看。
 
 <div align="right"><a href="#readme-top">↑ 回到顶部</a></div>

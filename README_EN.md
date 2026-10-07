@@ -243,6 +243,7 @@ Defaults worth knowing:
 - Native one-line subtitles are previewed from the `0.78–0.96` band of the source height.
 - Each image takes at most 7 timestamps (1 hero + 6 strips) in both modes; split longer passages into several images.
 - Existing images are never overwritten unless you pass `--overwrite`.
+- Before rendering, both modes check for duplicate frames. If every timestamp yields nearly the same picture (for example, the source is a static cover image) or, in native mode, two adjacent subtitle strips are nearly identical, the command stops without writing images. Pass `--allow-duplicate-frames` once you have confirmed it is intended.
 - Run `--help` for all options.
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>

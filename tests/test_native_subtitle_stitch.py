@@ -401,6 +401,64 @@ class SideCropTests(unittest.TestCase):
         self.assertSubtitlesInside(left)
 
 
+class DuplicateFrameTests(unittest.TestCase):
+    @staticmethod
+    def frame(offset):
+        image = Image.new("RGB", (320, 180), (40, 40, 40))
+        ImageDraw.Draw(image).rectangle((offset, 40, offset + 60, 120), fill=(230, 200, 60))
+        return image
+
+    def test_identical_frames_are_rejected(self):
+        frames = [self.frame(20)] * 4
+        with self.assertRaises(SystemExit) as raised:
+            MODULE.ensure_distinct_frames(frames, [1, 2, 3, 4])
+        self.assertIn("静态封面", str(raised.exception))
+
+    def test_moving_frames_pass(self):
+        frames = [self.frame(20 + 50 * index) for index in range(4)]
+        MODULE.ensure_distinct_frames(frames, [1, 2, 3, 4])
+
+    def test_repeated_native_subtitle_band_is_rejected(self):
+        frames = [self.frame(20 + 50 * index) for index in range(3)]
+        bands = [self.frame(20), self.frame(120), self.frame(120)]
+        with self.assertRaises(SystemExit) as raised:
+            MODULE.ensure_distinct_frames(frames, [1, 2, 3], bands)
+        self.assertIn("2.00s 与 3.00s", str(raised.exception))
+
+    def test_cli_stops_on_static_video_unless_allowed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            video = tmp_path / "static.mp4"
+            subprocess.run(
+                [
+                    MODULE.FFMPEG, "-hide_banner", "-loglevel", "error", "-y",
+                    "-f", "lavfi", "-i", "color=c=gray:size=640x360:rate=10",
+                    "-t", "3", "-c:v", "mpeg4", "-pix_fmt", "yuv420p", str(video),
+                ],
+                check=True,
+                capture_output=True,
+            )
+            manifest = tmp_path / "manifest.json"
+            manifest.write_text(
+                json.dumps({"images": [{"title": "static", "times": [0.5, 1.5, 2.5]}]}),
+                encoding="utf-8",
+            )
+            command = [
+                sys.executable, str(SCRIPT), "render", str(video),
+                "--manifest", str(manifest), "--out-dir", str(tmp_path / "out"),
+            ]
+            blocked = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(blocked.returncode, 0)
+            self.assertIn("静态封面", blocked.stderr)
+            self.assertFalse((tmp_path / "out" / "01_static.jpg").exists())
+
+            allowed = subprocess.run(
+                [*command, "--allow-duplicate-frames"], capture_output=True, text=True
+            )
+            self.assertEqual(allowed.returncode, 0, allowed.stderr)
+            self.assertTrue((tmp_path / "out" / "01_static.jpg").is_file())
+
+
 class CliIntegrationTests(unittest.TestCase):
     def test_sample_band_and_render_with_synthetic_video(self):
         with tempfile.TemporaryDirectory() as tmp:
