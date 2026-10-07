@@ -9,6 +9,7 @@
   <p>
     <a href="#quick-start"><strong>Quick start</strong></a> &nbsp;·&nbsp;
     <a href="#what-it-does">What it does</a> &nbsp;·&nbsp;
+    <a href="#gallery">Gallery</a> &nbsp;·&nbsp;
     <a href="#two-subtitle-modes">Two modes</a> &nbsp;·&nbsp;
     <a href="README.md">中文</a>
   </p>
@@ -27,6 +28,31 @@
 - **Two subtitle modes, never mixed**: native mode only crops subtitles already burned into the frame; scripted mode draws your reviewed copy onto real frames and labels it as post-produced.
 - **Compact layout**: native subtitles are stacked as source pixels and scaled together, without enlarging the first line separately. Scripted fixed layouts keep about 70% for the hero. Strips sit flush with no gaps.
 - **Agent-first, script-friendly**: call it with one sentence in Codex, Claude Code, or another agent, or run the Python scripts directly.
+
+## Gallery
+
+Selected archived work: **Chinese interviews, a Korean monologue, English/Korean versions of the same footage, and a landscape two-person composition**. Click any image for full size.
+
+**All six use post-rendered scripted subtitles**, including edited or translated copy. These are archived outputs, not newly rendered with the current version, verbatim quotations, or native-subtitle examples.
+
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>Chinese interview · Chen Shu</strong><br><sub>Work deeply, live simply · 5 lines · 3:4</sub><br><a href="examples/gallery/chen-shu-simple-life.jpg"><img src="examples/gallery/chen-shu-simple-life.jpg" alt="Chen Shu interview with Chinese scripted subtitles about work and simple living" width="420"></a></td>
+    <td width="50%" align="center"><strong>Korean monologue · UnJaded Jade</strong><br><sub>Life does not unfold all at once · 6 lines · 3:4</sub><br><a href="examples/gallery/jade-twenties-ko.jpg"><img src="examples/gallery/jade-twenties-ko.jpg" alt="UnJaded Jade with Korean scripted subtitles about life in your twenties" width="420"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><strong>English copy · Jordan Welch</strong><br><sub>Shared timestamps, English copy · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch with English scripted subtitles about AI services" width="420"></a></td>
+    <td width="50%" align="center"><strong>Korean copy · Jordan Welch</strong><br><sub>Shared timestamps, Korean localization · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="The same Jordan Welch footage with Korean scripted subtitles about AI services" width="420"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><strong>Interview close-up · Chinese copy</strong><br><sub>Growing into yourself at thirty · 5 lines · Natural proportions</sub><br><a href="examples/gallery/interview-thirties-zh.jpg"><img src="examples/gallery/interview-thirties-zh.jpg" alt="Interview close-up with post-rendered Chinese subtitles about turning thirty" width="420"></a></td>
+    <td width="50%" align="center"><strong>Two-person interview · Chinese copy</strong><br><sub>Reading and peace of mind · 5 lines · Natural proportions</sub><br><a href="examples/gallery/interview-reading-zh.jpg"><img src="examples/gallery/interview-reading-zh.jpg" alt="Two-person interview in natural proportions with post-rendered Chinese subtitles about reading" width="420"></a></td>
+  </tr>
+</table>
+
+[Sources, lines, and timestamps](examples/README.md#精选历史成品--curated-archive)
+
+### Natural proportions from landscape video
 
 <p align="center">
   <img src="examples/demo-output-overview.jpg" alt="Three v2.3.0 natural-layout examples with post-rendered Chinese subtitles" width="960">

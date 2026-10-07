@@ -1,5 +1,31 @@
 # README 示例 / README examples
 
+README 共展示 9 张图：6 张历史作品，以及 3 张 v2.3.0 原比例示例。所有案例均为 **后期脚本字幕（scripted）**。
+
+## 精选历史成品 / Curated archive
+
+| 案例 / Example | 字幕 / Copy | 来源 / Source | 台词与时间点 / Script |
+| --- | --- | --- | --- |
+| [陈数：工作投入，生活简单](gallery/chen-shu-simple-life.jpg) | 中文整理配文 · 5 句 | [网易谈心社 / Bilibili](https://www.bilibili.com/video/BV1Ym4y1W7CJ/) | [JSON](scripts/chen-shu-simple-life.json) |
+| [UnJaded Jade：人生不能同时全部展开](gallery/jade-twenties-ko.jpg) | 韩文本地化 · 6 句 | [YouTube](https://www.youtube.com/watch?v=8kYXvq_h9Kk) | [JSON](scripts/jade-twenties-ko.json) |
+| [Jordan Welch：AI 服务（英文）](gallery/jordan-ai-services-en.jpg) | 英文整理配文 · 6 句 | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-en.json) |
+| [Jordan Welch：AI 服务（韩文）](gallery/jordan-ai-services-ko.jpg) | 韩文本地化 · 6 句 | [同一视频](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-ko.json) |
+
+| [三十岁，也许更像自己](gallery/interview-thirties-zh.jpg) | 中文翻译配文 · 5 句 | [YouTube](https://www.youtube.com/watch?v=LVw88ErSjYw) | [JSON](scripts/interview-thirties-zh.json) |
+| [读书，让心里松一点](gallery/interview-reading-zh.jpg) | 中文翻译配文 · 5 句 | [同一视频](https://www.youtube.com/watch?v=LVw88ErSjYw) | [JSON](scripts/interview-reading-zh.json) |
+
+前四张为 1080 × 1440，六张均直接复制既有 JPG，未改动像素、重新压缩或拉伸。Jordan Welch 两张使用相同的 6 个时间点，可对照英韩配文。陈数脚本同时保留存档中的 `source_text`，便于区分原文记录与整理配文。
+
+两张横屏访谈为 1280 × 806；存档记录为 1280 × 720 源帧裁至 `(0, 0, 1280, 518)`，像素缩放为 `(1, 1)`。保留特写或双人同框，中文仍是后期翻译字幕。
+
+来源链接取自本地制作记录，未重新核验视频在线状态或逐字翻译；这些图片展示排版效果，不作为人物的逐字引语。历史渲染版本及完整参数未确定，所附 JSON 用于追溯台词和时间点，不保证逐像素复现历史成品。结构化记录见 [gallery-manifest.json](gallery-manifest.json)。
+
+These six JPGs (four at 1080 × 1440, two at 1280 × 806) are copied unchanged from archived outputs. They demonstrate Chinese, English, and Korean scripted copy; the Jordan Welch pair shares the same timestamps. Source links come from archived production metadata and were not rechecked online. Chen Shu's script retains archived `source_text` alongside the edited copy. The two landscape interview examples preserve source geometry; their Chinese text is still post-rendered translation. The original render versions and complete settings are unknown, so the JSON files document lines and timestamps rather than guarantee pixel-identical reproduction. These are not verified verbatim quotations.
+
+Third-party footage, likenesses, logos, and text remain subject to their respective rights; the repository's MIT license does not grant rights to this material. Source videos are not included.
+
+## v2.3.0 原比例示例 / Natural-layout examples
+
 这组图由 v2.3.0 的 `render-script` 从真实视频重新渲染。沿用此前公开示例的来源、时间点及中文台词，不代表对视频观点或翻译准确性的独立核验。
 
 **字幕来源：后期中文字幕（scripted），不是原生字幕。** 原视频未随仓库分发；画面、节目标识及内容的权利仍归各自权利人，MIT 许可不授予第三方视频素材的使用权。处理或重新发布素材前，请自行确认所需授权。

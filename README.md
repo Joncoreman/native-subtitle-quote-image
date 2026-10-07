@@ -9,6 +9,7 @@
   <p>
     <a href="#快速开始"><strong>快速开始</strong></a> &nbsp;·&nbsp;
     <a href="#能做什么">了解能力</a> &nbsp;·&nbsp;
+    <a href="#成品案例">成品案例</a> &nbsp;·&nbsp;
     <a href="#两种字幕模式">两种模式</a> &nbsp;·&nbsp;
     <a href="README_EN.md">English</a>
   </p>
@@ -27,6 +28,31 @@
 - **两种字幕，从不混用**：原生模式只裁切画面里本来就有的字幕；脚本模式把你审核过的台词画到真实画面上，并标明是后期字幕。
 - **版式紧凑**：原生字幕先拼源像素，再统一缩放，第一句不会被单独放大；脚本固定布局的主图约占 70%。字幕条之间没有空隙。
 - **Agent 能用，脚本也能单独跑**：在 Codex、Claude Code 等 Agent 里用一句话调用；也可以直接运行 Python 脚本。
+
+## 成品案例
+
+从既有作品中精选的 **中文访谈、韩文口播、英韩同源对照与横屏双人构图**。点击图片查看原图。
+
+**以下 6 张均为后期脚本字幕**（含整理、翻译配文），沿用历史成品，未按当前版本重新渲染；不作为逐字引语或原生字幕示例。
+
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>中文访谈 · 陈数</strong><br><sub>工作投入，生活简单 · 5 句 · 3:4</sub><br><a href="examples/gallery/chen-shu-simple-life.jpg"><img src="examples/gallery/chen-shu-simple-life.jpg" alt="陈数访谈中文脚本字幕拼图：工作投入，生活简单" width="420"></a></td>
+    <td width="50%" align="center"><strong>韩文口播 · UnJaded Jade</strong><br><sub>人生不能同时全部展开 · 6 句 · 3:4</sub><br><a href="examples/gallery/jade-twenties-ko.jpg"><img src="examples/gallery/jade-twenties-ko.jpg" alt="UnJaded Jade 韩文脚本字幕拼图：人生不能同时全部展开" width="420"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><strong>英文配文 · Jordan Welch</strong><br><sub>同一组时间点，英文表达 · 6 句 · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch 英文脚本字幕拼图：AI 服务" width="420"></a></td>
+    <td width="50%" align="center"><strong>韩文配文 · Jordan Welch</strong><br><sub>同一组时间点，韩文本地化 · 6 句 · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="Jordan Welch 同源韩文脚本字幕拼图：AI 服务" width="420"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><strong>人物特写 · 中文翻译配文</strong><br><sub>三十岁，也许更像自己 · 5 句 · 原比例</sub><br><a href="examples/gallery/interview-thirties-zh.jpg"><img src="examples/gallery/interview-thirties-zh.jpg" alt="原比例访谈特写，配后期中文字幕：三十岁，也许更像自己" width="420"></a></td>
+    <td width="50%" align="center"><strong>双人访谈 · 中文翻译配文</strong><br><sub>读书，让心里松一点 · 5 句 · 原比例</sub><br><a href="examples/gallery/interview-reading-zh.jpg"><img src="examples/gallery/interview-reading-zh.jpg" alt="保留双人同框的原比例访谈，配后期中文字幕：读书，让心里松一点" width="420"></a></td>
+  </tr>
+</table>
+
+[查看来源、台词与时间点](examples/README.md#精选历史成品--curated-archive)
+
+### 横屏原比例案例
 
 <p align="center">
   <img src="examples/demo-output-overview.jpg" alt="v2.3.0 原比例布局的三张后期中文字幕示例总览" width="960">
