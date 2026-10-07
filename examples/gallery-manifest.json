@@ -20,21 +20,21 @@
       "sha256": "3e50945ce09e74e4de333f69cfb907beef97f131dc7b7425caa053305bbf635b"
     },
     {
-      "id": "kat-chan-ai-creativity",
-      "title": "Kat Chan｜好创意要偏离平均值",
+      "id": "rick-rubin-creative-clouds",
+      "title": "里克·鲁宾｜创意更像一片变化的云",
       "language": "zh",
       "section": "scripted",
       "subtitle_mode": "scripted",
-      "image": "gallery/zh/kat-chan-ai-creativity.jpg",
-      "script": "scripts/zh/kat-chan-ai-creativity.json",
+      "image": "gallery/zh/rick-rubin-creative-clouds.jpg",
+      "script": "scripts/zh/rick-rubin-creative-clouds.json",
       "width": 1080,
       "height": 1440,
-      "source_url": "https://www.youtube.com/watch?v=C5WYoNE6U_0",
-      "source_note": "Chinese post-rendered translation drawn on frames of an English podcast; timeline from a local Whisper transcript. Archived 2026-09-29 batch output.",
+      "source_url": "https://www.youtube.com/watch?v=QP8Kpf1UQwM",
+      "source_note": "Chinese post-rendered edited translation drawn on frames of an English podcast (Huberman Lab); includes third-person summary lines. Archived output, 2026-08-28 batch.",
       "render_version": null,
-      "origin": "archived output; uniformly downscaled from 1440x1920 to 1080x1440; no crop or pixel edits",
-      "source_sha256": "83c0a50795318f48dc087140a5e3d6cedf192812181d6b23d278d5dbba5bc5e8",
-      "sha256": "c37e8ece1d1c2b14eaed48e33b276c6c2de645f765c562926fa1137cc753df8a"
+      "origin": "archived output; copied unchanged",
+      "source_sha256": "1ed1835ec79633675fdf32087b7cb4d60043d8811847272f705cc0dc9256dfca",
+      "sha256": "1ed1835ec79633675fdf32087b7cb4d60043d8811847272f705cc0dc9256dfca"
     },
     {
       "id": "chen-shu-simple-life",

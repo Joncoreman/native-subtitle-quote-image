@@ -37,7 +37,7 @@
 <table>
   <tr>
     <td width="33%" align="center" valign="top"><strong>《大巴上的女孩》</strong><br><sub>原生字幕 · 生命属于你自己</sub><br><a href="examples/gallery/zh/girls-on-the-bus-native.jpg"><img src="examples/gallery/zh/girls-on-the-bus-native.jpg" alt="原生字幕模式：剧集《大巴上的女孩》片段，母亲角色的主画面与 4 条字幕条；5 句中英双语字幕（含主画面上的第一句）都直接裁自视频画面，未识别、未重绘" width="280"></a></td>
-    <td width="33%" align="center" valign="top"><strong>Kat Chan</strong><br><sub>脚本字幕 · 好创意要偏离平均值</sub><br><a href="examples/gallery/zh/kat-chan-ai-creativity.jpg"><img src="examples/gallery/zh/kat-chan-ai-creativity.jpg" alt="脚本字幕模式：Kat Chan 在播客录音室讲话的主画面，下方 5 条后期绘制的中文译写字幕，内容关于 AI 与创意" width="280"></a></td>
+    <td width="33%" align="center" valign="top"><strong>里克·鲁宾</strong><br><sub>脚本字幕 · 创意像一片变化的云</sub><br><a href="examples/gallery/zh/rick-rubin-creative-clouds.jpg"><img src="examples/gallery/zh/rick-rubin-creative-clouds.jpg" alt="脚本字幕模式：音乐制作人里克·鲁宾在播客录音室微笑的主画面，下方 5 条后期绘制的中文译写字幕，内容关于创意像一片变化的云" width="280"></a></td>
     <td width="33%" align="center" valign="top"><strong>陈数</strong><br><sub>脚本字幕 · 工作投入，生活简单</sub><br><a href="examples/gallery/zh/chen-shu-simple-life.jpg"><img src="examples/gallery/zh/chen-shu-simple-life.jpg" alt="脚本字幕模式：陈数访谈主画面，下方 5 条依据原字幕整理后重新绘制的中文台词" width="280"></a></td>
   </tr>
 </table>
