@@ -404,6 +404,13 @@ GitHub Actions가 push와 pull request마다 Python 3.10과 3.13에서 검증합
   <a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="프로젝트의 Trendshift 배지" width="250" height="55"/></a>
 </p>
 
+## 만든 사람
+
+| 플랫폼 | 계정 |
+| --- | --- |
+| 𝕏 Twitter | [@ChengYi3629](https://x.com/ChengYi3629) |
+| 📕 샤오훙수(小红书) | [程意](https://www.xiaohongshu.com/user/profile/648c0e99000000001001f148) |
+
 ## 라이선스
 
 코드와 Skill 지침은 [MIT 라이선스](LICENSE)로 공개합니다. 예시 이미지는 결과물의 형태를 보여 주기 위한 것입니다. 입력 영상, 생성 이미지와 그 안에 나오는 제3자 콘텐츠는 이 라이선스로 추가 사용 권한을 얻지 않습니다.
