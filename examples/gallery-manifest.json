@@ -60,64 +60,6 @@
       "render_version": null,
       "origin": "archived output; copied without re-rendering",
       "sha256": "39a133411bf8c0eca89cc475aae0d471db29de961ac09faf48843384f46e9cb3"
-    },
-    {
-      "id": "interview-thirties-zh",
-      "title": "三十岁，也许更像自己",
-      "image": "gallery/interview-thirties-zh.jpg",
-      "script": "scripts/interview-thirties-zh.json",
-      "subtitle_mode": "scripted",
-      "language": "zh",
-      "width": 1280,
-      "height": 806,
-      "source_url": "https://www.youtube.com/watch?v=LVw88ErSjYw",
-      "source_note": "Source URL and geometry from archived render log dated 2026-10-01. Chinese text is post-rendered translation.",
-      "render_version": null,
-      "origin": "archived output; copied without re-rendering",
-      "source_size": [
-        1280,
-        720
-      ],
-      "frame_crop": [
-        0,
-        0,
-        1280,
-        518
-      ],
-      "pixel_scale": [
-        1,
-        1
-      ],
-      "sha256": "4014fd8f527cb5e205d80d4a57b47bd334039c4dc427eed2323e748666d5d0bd"
-    },
-    {
-      "id": "interview-reading-zh",
-      "title": "读书，让心里松一点",
-      "image": "gallery/interview-reading-zh.jpg",
-      "script": "scripts/interview-reading-zh.json",
-      "subtitle_mode": "scripted",
-      "language": "zh",
-      "width": 1280,
-      "height": 806,
-      "source_url": "https://www.youtube.com/watch?v=LVw88ErSjYw",
-      "source_note": "Source URL and geometry from archived render log dated 2026-10-01. Chinese text is post-rendered translation.",
-      "render_version": null,
-      "origin": "archived output; copied without re-rendering",
-      "source_size": [
-        1280,
-        720
-      ],
-      "frame_crop": [
-        0,
-        0,
-        1280,
-        518
-      ],
-      "pixel_scale": [
-        1,
-        1
-      ],
-      "sha256": "6dc320ae168e11afda1cc079cf829b0efafd134e1b87ff35fa4b20ab5576c7de"
     }
   ]
 }

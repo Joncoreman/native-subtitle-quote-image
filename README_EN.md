@@ -31,9 +31,9 @@
 
 ## Gallery
 
-Selected archived work: **Chinese interviews, a Korean monologue, English/Korean versions of the same footage, and a landscape two-person composition**. Click any image for full size.
+Selected archived work: **a Chinese interview, a Korean monologue, and English/Korean versions of the same footage**. Click any image for full size.
 
-**All six use post-rendered scripted subtitles**, including edited or translated copy. These are archived outputs, not newly rendered with the current version, verbatim quotations, or native-subtitle examples.
+**All four use post-rendered scripted subtitles**, including edited or translated copy. These are archived outputs, not newly rendered with the current version, verbatim quotations, or native-subtitle examples.
 
 <table>
   <tr>
@@ -43,10 +43,6 @@ Selected archived work: **Chinese interviews, a Korean monologue, English/Korean
   <tr>
     <td width="50%" align="center"><strong>English copy · Jordan Welch</strong><br><sub>Shared timestamps, English copy · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch with English scripted subtitles about AI services" width="420"></a></td>
     <td width="50%" align="center"><strong>Korean copy · Jordan Welch</strong><br><sub>Shared timestamps, Korean localization · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="The same Jordan Welch footage with Korean scripted subtitles about AI services" width="420"></a></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><strong>Interview close-up · Chinese copy</strong><br><sub>Growing into yourself at thirty · 5 lines · Natural proportions</sub><br><a href="examples/gallery/interview-thirties-zh.jpg"><img src="examples/gallery/interview-thirties-zh.jpg" alt="Interview close-up with post-rendered Chinese subtitles about turning thirty" width="420"></a></td>
-    <td width="50%" align="center"><strong>Two-person interview · Chinese copy</strong><br><sub>Reading and peace of mind · 5 lines · Natural proportions</sub><br><a href="examples/gallery/interview-reading-zh.jpg"><img src="examples/gallery/interview-reading-zh.jpg" alt="Two-person interview in natural proportions with post-rendered Chinese subtitles about reading" width="420"></a></td>
   </tr>
 </table>
 

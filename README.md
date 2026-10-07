@@ -31,9 +31,9 @@
 
 ## 成品案例
 
-从既有作品中精选的 **中文访谈、韩文口播、英韩同源对照与横屏双人构图**。点击图片查看原图。
+从既有作品中精选的 **中文访谈、韩文口播、英韩同源对照**。点击图片查看原图。
 
-**以下 6 张均为后期脚本字幕**（含整理、翻译配文），沿用历史成品，未按当前版本重新渲染；不作为逐字引语或原生字幕示例。
+**以下 4 张均为后期脚本字幕**（含整理、翻译配文），沿用历史成品，未按当前版本重新渲染；不作为逐字引语或原生字幕示例。
 
 <table>
   <tr>
@@ -43,10 +43,6 @@
   <tr>
     <td width="50%" align="center"><strong>英文配文 · Jordan Welch</strong><br><sub>同一组时间点，英文表达 · 6 句 · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch 英文脚本字幕拼图：AI 服务" width="420"></a></td>
     <td width="50%" align="center"><strong>韩文配文 · Jordan Welch</strong><br><sub>同一组时间点，韩文本地化 · 6 句 · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="Jordan Welch 同源韩文脚本字幕拼图：AI 服务" width="420"></a></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><strong>人物特写 · 中文翻译配文</strong><br><sub>三十岁，也许更像自己 · 5 句 · 原比例</sub><br><a href="examples/gallery/interview-thirties-zh.jpg"><img src="examples/gallery/interview-thirties-zh.jpg" alt="原比例访谈特写，配后期中文字幕：三十岁，也许更像自己" width="420"></a></td>
-    <td width="50%" align="center"><strong>双人访谈 · 中文翻译配文</strong><br><sub>读书，让心里松一点 · 5 句 · 原比例</sub><br><a href="examples/gallery/interview-reading-zh.jpg"><img src="examples/gallery/interview-reading-zh.jpg" alt="保留双人同框的原比例访谈，配后期中文字幕：读书，让心里松一点" width="420"></a></td>
   </tr>
 </table>
 
