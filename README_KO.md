@@ -369,12 +369,6 @@ GitHub Actions가 push와 pull request마다 Python 3.10과 3.13에서 검증합
   <a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="프로젝트의 Trendshift 배지" width="250" height="55"/></a>
 </p>
 
-## AI 협업 기록
-
-<a href="https://github.com/codex"><img src="https://avatars.githubusercontent.com/u/267193182?v=4" width="48" height="48" alt="Codex GitHub 아바타" /></a>
-
-OpenAI의 AI 코딩 도우미 [Codex](https://github.com/codex)는 [원본 비율 레이아웃](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/9)과 [원본 자막의 동일 비율 확대·축소 및 회귀 테스트](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/11) 구현에 참여했습니다. 프로젝트는 [Chengyi](https://github.com/chengyi-ai)가 관리합니다. 이 기록은 AI를 활용한 작업을 설명하며 OpenAI의 공식 보증을 의미하지 않습니다.
-
 ## 라이선스
 
 코드와 Skill 지침은 [MIT 라이선스](LICENSE)로 공개합니다. 예시 이미지는 결과물의 형태를 보여 주기 위한 자료이며, 입력 영상·생성 이미지·제3자 콘텐츠에 대한 추가 사용 권한을 부여하지 않습니다.

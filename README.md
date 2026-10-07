@@ -418,12 +418,6 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
   <a href="https://trendshift.io/repositories/169845?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-169845" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/169845/daily?language=Python" alt="chengyi-ai%2Fnative-subtitle-quote-image | Trendshift" width="250" height="55"/></a>
 </p>
 
-## AI 协作署名
-
-<a href="https://github.com/codex"><img src="https://avatars.githubusercontent.com/u/267193182?v=4" width="48" height="48" alt="Codex 的 GitHub 头像" /></a>
-
-[Codex](https://github.com/codex)（OpenAI AI 编程助手）参与了[原比例布局](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/9)、[原生字幕统一缩放与回归测试](https://github.com/chengyi-ai/native-subtitle-quote-image/pull/11)的实现。项目由 [程意](https://github.com/chengyi-ai)维护；AI 协作署名记录辅助工作，不代表 OpenAI 对本项目的官方背书。
-
 ## 开源许可
 
 代码与 Skill 指令采用 [MIT License](LICENSE)。示例图片只用于展示输出效果；输入视频、生成图片及其中出现的第三方内容，不因本许可证获得额外授权。
