@@ -11,7 +11,8 @@
     <a href="#what-it-does">What it does</a> &nbsp;·&nbsp;
     <a href="#gallery">Gallery</a> &nbsp;·&nbsp;
     <a href="#two-subtitle-modes">Two modes</a> &nbsp;·&nbsp;
-    <a href="README.md">中文</a>
+    <a href="README.md">中文</a> &nbsp;·&nbsp;
+    <a href="README_KO.md">한국어</a>
   </p>
 
   <p>
@@ -31,32 +32,17 @@
 
 ## Gallery
 
-Selected archived work: **a Chinese interview, a Korean monologue, and English/Korean versions of the same footage**. Click any image for full size.
+An English-language example from the archive. Click the image for full size.
 
-**All four use post-rendered scripted subtitles**, including edited or translated copy. These are archived outputs, not newly rendered with the current version, verbatim quotations, or native-subtitle examples.
-
-<table>
-  <tr>
-    <td width="50%" align="center"><strong>Chinese interview · Chen Shu</strong><br><sub>Work deeply, live simply · 5 lines · 3:4</sub><br><a href="examples/gallery/chen-shu-simple-life.jpg"><img src="examples/gallery/chen-shu-simple-life.jpg" alt="Chen Shu interview with Chinese scripted subtitles about work and simple living" width="420"></a></td>
-    <td width="50%" align="center"><strong>Korean monologue · UnJaded Jade</strong><br><sub>Life does not unfold all at once · 6 lines · 3:4</sub><br><a href="examples/gallery/jade-twenties-ko.jpg"><img src="examples/gallery/jade-twenties-ko.jpg" alt="UnJaded Jade with Korean scripted subtitles about life in your twenties" width="420"></a></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><strong>English copy · Jordan Welch</strong><br><sub>Shared timestamps, English copy · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch with English scripted subtitles about AI services" width="420"></a></td>
-    <td width="50%" align="center"><strong>Korean copy · Jordan Welch</strong><br><sub>Shared timestamps, Korean localization · 6 lines · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="The same Jordan Welch footage with Korean scripted subtitles about AI services" width="420"></a></td>
-  </tr>
-</table>
-
-[Sources, lines, and timestamps](examples/README.md#精选历史成品--curated-archive)
-
-### Natural proportions from landscape video
+**Post-rendered scripted subtitles**: this image uses edited English copy and is an archived output, not a fresh render with the current version or a verified verbatim quotation.
 
 <p align="center">
-  <img src="examples/demo-output-overview.jpg" alt="Three v2.3.0 natural-layout examples with post-rendered Chinese subtitles" width="960">
-  <br>
-  <sub>Rendered with v2.3.0 in natural layout, without stretching people. Chinese text in this set is post-rendered scripted subtitles, not native video subtitles.</sub>
+  <strong>English copy · Jordan Welch</strong><br>
+  <sub>AI services · 6 lines · 3:4</sub><br>
+  <a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch with English scripted subtitles about AI services" width="420"></a>
 </p>
 
-Full-size examples: [Coding models](examples/gallery/smaller-coding-models.jpg) · [Capability and value](examples/gallery/agi-capability-to-value.jpg) · [Task duration](examples/gallery/task-duration.jpg). [Sources and reproduction](examples/README.md)
+[Source, lines, and timestamps](examples/README.md#english-archived-example)
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 

@@ -1,16 +1,27 @@
 # README 示例 / README examples
 
-README 共展示 7 张图：4 张历史作品，以及 3 张 v2.3.0 原比例示例。所有案例均为 **后期脚本字幕（scripted）**。
+README 共展示 7 张图：4 张历史作品，以及 3 张 v2.3.0 原比例示例。所有案例均为 **后期脚本字幕（scripted）**。图片按字幕语言分别展示在 [中文版](../README.md)、[English](../README_EN.md) 和 [한국어](../README_KO.md) README 中。
 
-## 精选历史成品 / Curated archive
+## 中文历史案例
 
-| 案例 / Example | 字幕 / Copy | 来源 / Source | 台词与时间点 / Script |
+| 案例 | 字幕 | 来源 | 台词与时间点 |
 | --- | --- | --- | --- |
 | [陈数：工作投入，生活简单](gallery/chen-shu-simple-life.jpg) | 中文整理配文 · 5 句 | [网易谈心社 / Bilibili](https://www.bilibili.com/video/BV1Ym4y1W7CJ/) | [JSON](scripts/chen-shu-simple-life.json) |
-| [UnJaded Jade：人生不能同时全部展开](gallery/jade-twenties-ko.jpg) | 韩文本地化 · 6 句 | [YouTube](https://www.youtube.com/watch?v=8kYXvq_h9Kk) | [JSON](scripts/jade-twenties-ko.json) |
-| [Jordan Welch：AI 服务（英文）](gallery/jordan-ai-services-en.jpg) | 英文整理配文 · 6 句 | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-en.json) |
-| [Jordan Welch：AI 服务（韩文）](gallery/jordan-ai-services-ko.jpg) | 韩文本地化 · 6 句 | [同一视频](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-ko.json) |
 
+## English archived example
+
+| Example | Copy | Source | Lines and timestamps |
+| --- | --- | --- | --- |
+| [Jordan Welch: AI services](gallery/jordan-ai-services-en.jpg) | Edited English copy · 6 lines | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-en.json) |
+
+## 한국어 보관 예시
+
+| 예시 | 자막 | 출처 | 문구와 타임스탬프 |
+| --- | --- | --- | --- |
+| [UnJaded Jade: 삶이 한꺼번에 펼쳐지지 않을 때](gallery/jade-twenties-ko.jpg) | 한국어 번역 문구 · 6줄 | [YouTube](https://www.youtube.com/watch?v=8kYXvq_h9Kk) | [JSON](scripts/jade-twenties-ko.json) |
+| [Jordan Welch: AI 서비스](gallery/jordan-ai-services-ko.jpg) | 한국어 번역 문구 · 6줄 | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-ko.json) |
+
+## 历史成品说明 / Archive notes
 
 四张均为 1080 × 1440，直接复制既有 JPG，未改动像素、重新压缩或拉伸。Jordan Welch 两张使用相同的 6 个时间点，可对照英韩配文。陈数脚本同时保留存档中的 `source_text`，便于区分原文记录与整理配文。
 
