@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""重新生成 README 首屏横幅（中文、英文各一张），需要本机安装 Chrome 或 Chromium。
+"""重新生成 README 首屏横幅（中文、英文、韩文各一张），需要本机安装 Chrome 或 Chromium。
 
 横幅自带深色背景，GitHub 浅色、深色主题共用一张。
 改标题：编辑下方 COPY；改边缘插画：替换 assets/banner-ornaments.png。
@@ -34,6 +34,11 @@ COPY = {
         "title_size": 70,
         "font": "'Kalam', cursive",
     },
+    "ko": {
+        "title": "원본 자막 콜라주",
+        "title_size": 86,
+        "font": "'Jua', 'Noto Sans KR', sans-serif",
+    },
 }
 
 CHROME_CANDIDATES = [
@@ -48,7 +53,7 @@ CHROME_COMMANDS = ["google-chrome", "google-chrome-stable", "chromium", "chromiu
 def build_html(lang, background_src="background.png"):
     copy = COPY[lang]
     return f"""<!doctype html><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Noto+Sans+SC:wght@700&family=ZCOOL+KuaiLe&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Kalam:wght@700&family=Noto+Sans+KR:wght@700&family=Noto+Sans+SC:wght@700&family=ZCOOL+KuaiLe&display=block" rel="stylesheet">
 <style>
 html,body{{margin:0;background:transparent}}
 .card{{position:relative;width:{WIDTH}px;height:{HEIGHT}px;overflow:hidden;

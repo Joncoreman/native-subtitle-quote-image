@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate repository packaging invariants without external dependencies."""
 
+import hashlib
 import json
 import re
 import sys
@@ -31,8 +32,8 @@ def main():
         README_EN,
         README_KO,
         ROOT / "assets" / "native-subtitle-quote-image-icon.png",
-        ROOT / "examples" / "gallery" / "agi-capability-to-value.jpg",
-        ROOT / "examples" / "gallery" / "smaller-coding-models.jpg",
+        ROOT / "examples" / "gallery-manifest.json",
+        ROOT / "assets" / "banner-ko.webp",
         PLUGIN,
         SKILL_FILE,
         VERSION_FILE,
@@ -98,6 +99,7 @@ def main():
         README,
         README_EN,
         README_KO,
+        ROOT / "examples" / "README.md",
         SKILL_FILE,
         SKILL_DIR / "references" / "yt-dlp-and-transcripts.md",
         SKILL_DIR / "references" / "end-to-end-workflow.md",
@@ -125,6 +127,50 @@ def main():
                 continue
             if not (ROOT / source).is_file():
                 errors.append(f"{readme.name} 图片不存在: {source}")
+    readme_languages = {README: "zh", README_EN: "en", README_KO: "ko"}
+    readme_images = {}
+    for readme, lang in readme_languages.items():
+        text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
+        shown = set(re.findall(r"examples/gallery/[^\"')\s]+", text))
+        readme_images[lang] = shown
+        for source in sorted(shown):
+            if not source.startswith(f"examples/gallery/{lang}/"):
+                errors.append(f"{readme.name} 只能展示 {lang} 字幕案例: {source}")
+
+    manifest_path = ROOT / "examples" / "gallery-manifest.json"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"gallery-manifest.json 无法解析: {exc}")
+        manifest = {}
+    manifest_images = {lang: set() for lang in readme_languages.values()}
+    for example in manifest.get("examples", []):
+        lang = example.get("language")
+        manifest_images.setdefault(lang, set()).add(f"examples/{example.get('image')}")
+        if example.get("script") and not example["script"].startswith(f"scripts/{lang}/"):
+            errors.append(f"案例脚本不在对应语言目录: {example.get('id')}")
+        image_path = ROOT / "examples" / str(example.get("image", ""))
+        if image_path.is_file() and hashlib.sha256(image_path.read_bytes()).hexdigest() != example.get("sha256"):
+            errors.append(f"案例图片 SHA-256 与 manifest 不一致: {example.get('id')}")
+        if lang not in readme_languages.values():
+            errors.append(f"案例语言无效: {example.get('id')}")
+        if not str(example.get("image", "")).startswith(f"gallery/{lang}/"):
+            errors.append(f"案例图片不在对应语言目录: {example.get('id')}")
+        for key in ("image", "script"):
+            if example.get(key) and not (ROOT / "examples" / example[key]).is_file():
+                errors.append(f"案例文件不存在: {example[key]}")
+
+    for lang, images in manifest_images.items():
+        if len(images) != 3:
+            errors.append(f"{lang} 案例应为 3 张，实际 {len(images)} 张")
+        if readme_images.get(lang, set()) != images:
+            errors.append(f"{lang} README 展示的案例与 manifest 不一致")
+    listed = {path for images in manifest_images.values() for path in images}
+    for image in sorted((ROOT / "examples" / "gallery").rglob("*.jpg")):
+        relative = image.relative_to(ROOT).as_posix()
+        if relative not in listed:
+            errors.append(f"案例图片未登记在 manifest: {relative}")
+
     if "~/.codex/skills" not in readme_text:
         errors.append("README 缺少 Codex 默认 Skill 安装目录")
     for document in (README, README_EN, README_KO, SKILL_FILE):

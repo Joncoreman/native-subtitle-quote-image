@@ -1,9 +1,8 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/native-subtitle-quote-image-icon.png" alt="Native Subtitle Quote Image 아이콘" width="80">
+  <img src="assets/banner-ko.webp" alt="원본 자막 콜라주: 필름, 자막 띠, 타임라인, 콜라주 액자가 제목을 둘러싼 손그림 배너" width="880">
 
-  <h1>영상 자막 콜라주</h1>
   <p><strong>실제 영상 프레임을 원본 자막 또는 스크립트 자막 이미지로</strong><br>
   <sub>원본 자막은 영상의 픽셀 그대로 · 스크립트 자막은 후편집 문구로 명시</sub></p>
 
@@ -33,18 +32,19 @@
 
 ## 완성 예시
 
-한국어 자막이 들어간 기존 작품입니다. 이미지를 누르면 원본 크기로 볼 수 있습니다.
-
-**후편집 스크립트 자막**: 두 이미지 모두 한국어 번역 문구를 사용한 과거 결과물입니다. 현재 버전으로 새로 렌더링한 이미지나 검증된 직역 인용문이 아닙니다.
+한국어 자막 결과물만 모았습니다. 모두 3:4, 5줄입니다. 중국어와 영어 예시는 [中文](README.md#成品案例), [English](README_EN.md#gallery) README에서 볼 수 있습니다. 이미지를 누르면 원본 크기로 열립니다.
 
 <table>
   <tr>
-    <td width="50%" align="center"><strong>UnJaded Jade · 성장 이야기</strong><br><sub>삶이 한꺼번에 펼쳐지지 않을 때 · 6줄 · 3:4</sub><br><a href="examples/gallery/jade-twenties-ko.jpg"><img src="examples/gallery/jade-twenties-ko.jpg" alt="20대의 삶에 관한 UnJaded Jade 영상에 한국어 스크립트 자막을 넣은 콜라주" width="420"></a></td>
-    <td width="50%" align="center"><strong>Jordan Welch · AI 서비스</strong><br><sub>고객이 AI 서비스에 비용을 지불하는 이유 · 6줄 · 3:4</sub><br><a href="examples/gallery/jordan-ai-services-ko.jpg"><img src="examples/gallery/jordan-ai-services-ko.jpg" alt="AI 서비스에 관한 Jordan Welch 영상에 한국어 스크립트 자막을 넣은 콜라주" width="420"></a></td>
+    <td width="33%" align="center" valign="top"><strong>마수드 후세인</strong><br><sub>스크립트 자막 · 시작의 언덕</sub><br><a href="examples/gallery/ko/masud-husain-starting-hill.jpg"><img src="examples/gallery/ko/masud-husain-starting-hill.jpg" alt="스크립트 자막 모드: 어두운 팟캐스트 스튜디오에서 말하는 마수드 후세인의 장면 아래, 행동을 시작하는 부담에 관한 한국어 번역 자막 5줄을 그려 넣은 콜라주" width="280"></a></td>
+    <td width="33%" align="center" valign="top"><strong>코디 산체스</strong><br><sub>스크립트 자막 · 3-2-1 말하기</sub><br><a href="examples/gallery/ko/codie-sanchez-321-speaking.jpg"><img src="examples/gallery/ko/codie-sanchez-321-speaking.jpg" alt="스크립트 자막 모드: 스튜디오에서 손을 펼치며 말하는 코디 산체스의 장면 아래, 3초 멈추기·포인트 두 개·질문 하나로 말하는 법에 관한 한국어 번역 자막 5줄을 그려 넣은 콜라주" width="280"></a></td>
+    <td width="33%" align="center" valign="top"><strong>이나야 맥밀란</strong><br><sub>스크립트 자막 · 돈의 운영체제</sub><br><a href="examples/gallery/ko/inaya-mcmillan-money-program.jpg"><img src="examples/gallery/ko/inaya-mcmillan-money-program.jpg" alt="스크립트 자막 모드: 카메라를 바라보는 크리에이터 이나야 맥밀란의 장면 아래, 돈에 대한 내면의 프로그램에 관한 한국어 번역 자막 5줄을 그려 넣은 콜라주" width="280"></a></td>
   </tr>
 </table>
 
-[출처, 자막 문구와 타임스탬프](examples/README.md#한국어-보관-예시)
+세 이미지 모두 **스크립트 자막**입니다. 검토한 한국어 번역 문구를 실제 프레임에 그려 넣은 결과물이며, 영상의 원래 자막이나 발언을 그대로 옮긴 인용문이 아닙니다. 원본 자막 예시는 중국어 README에서 볼 수 있습니다.
+
+[출처, 문구와 타임스탬프](examples/README.md#한국어-예시)
 
 <div align="right"><a href="#readme-top">↑ 맨 위로</a></div>
 
@@ -114,7 +114,7 @@ $native-subtitle-quote-image를 사용해 이 영상에 이미 새겨진 자막�
 | **명령어** | `render` | `render-script` |
 
 > [!IMPORTANT]
-> 원본 모드의 문자는 영상 픽셀에서만 가져옵니다. 스크립트 모드의 문자는 검토한 JSON에서만 가져옵니다.
+> 원본 모드의 문자는 영상 픽셀에서만 가져옵니다. 스크립트 모드의 문자는 검토한 JSON에서만 가져오며, 원본 자막처럼 보이게 하지 않습니다.
 > 원본 자막을 요청했는데 영상에 켜고 끌 수 있는 자막 트랙만 있다면, Agent는 한계를 설명하고 사용자가 동의한 뒤 스크립트 모드로 전환합니다.
 
 ### 작업 흐름
@@ -137,13 +137,15 @@ flowchart LR
 2. **링크 전체 처리**: 처리 권한이 있는 영상을 `yt-dlp`로 확보하고 메타데이터와 보조 자막 트랙을 확인한 뒤 모드를 결정합니다.
 3. **콘텐츠 제작**: 영상을 읽고 주제를 정해 글이나 게시물을 작성한 뒤 자막 이미지를 만듭니다. 다른 콘텐츠 Skill이 분석과 글쓰기를 맡고, 이 Skill은 타임스탬프·실제 프레임·자막 출처 표시·검수를 맡습니다.
 
+<div align="right"><a href="#readme-top">↑ 맨 위로</a></div>
+
 ## 한 문장으로 요청하기
 
 | 상황 | Agent에게 할 요청 |
 |---|---|
 | 영상에 자막이 이미 새겨져 있음 | $native-subtitle-quote-image를 사용해 영상의 원본 자막을 그대로 살린 콜라주를 만들어 줘. |
 | YouTube 링크가 있음 | $native-subtitle-quote-image로 이 링크를 처리해 줘. 다운로드 권한과 영상에 새겨진 자막을 먼저 확인하고, 주제 3개를 골라 콜라주를 만든 뒤 이미지별로 검수해 줘. |
-| 글과 이미지를 함께 제작 | 타임스탬프가 있는 전사문에서 주제를 정하고 글을 쓴 다음, $native-subtitle-quote-image로 핵심 요점에 맞는 실제 프레임을 골라 줘. 원본 또는 스크립트 자막 모드를 명확히 정해 줘. |
+| 글과 이미지를 함께 제작 | 타임스탬프가 있는 전사문에서 주제를 정하고 글을 쓴 다음, $native-subtitle-quote-image로 핵심 요점에 맞는 실제 프레임을 골라 줘. 원본 또는 스크립트 자막 모드를 먼저 정하고, 두 모드를 섞지 마. |
 | 검토한 한국어 문구가 있음 | $native-subtitle-quote-image의 스크립트 모드로 이 한국어 문구와 타임스탬프를 실제 프레임에 넣어 줘. 빈틈없는 3:4 이미지를 만들고 각 결과를 검수해 줘. |
 
 > [!TIP]
@@ -208,16 +210,16 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 `0.72`는 예시이며 영상별로 확인해야 합니다. 기본값 `--frame-top 0 --frame-bottom 1`은 전체 프레임을 유지합니다. `--band-center`는 자른 뒤의 프레임을 기준으로 합니다. natural 레이아웃은 `--aspect`나 `--hero-fraction`과 함께 사용할 수 없습니다. 원본 비율로 만든 스크립트 자막도 후편집 자막입니다.
 
-**원본 자막 기본 레이아웃(v2.2.2)**: `render`에서 레이아웃과 비율을 생략하면 원본 너비를 유지하고 내용에 맞춰 높이를 계산합니다. `--aspect 3:4 --width 1440`을 명시하면 1440×1920으로 출력하지만 콜라주 전체를 같은 비율로 확대·축소합니다. 원본 모드의 `--hero-fraction`은 원본 프레임 범위 안에서 주 이미지의 잘라낼 높이만 조절합니다. 스크립트 모드는 기본적으로 고정 3:4를 사용합니다. 가로와 세로를 서로 다르게 늘려 비율을 맞추지 마세요.
+**원본 자막 기본 레이아웃(v2.2.2)**: `render`에서 레이아웃과 비율을 생략하면 원본 너비를 유지하고 내용에 맞춰 높이를 계산합니다. `--aspect 3:4 --width 1440`을 명시하면 1440×1920으로 출력하되, 자막을 온전히 남기도록 콜라주 전체를 같은 비율로 확대·축소하며 주 이미지와 자막 띠를 따로 늘려 채우지 않습니다(v2.2.2는 검은 여백으로 캔버스를 맞췄고, v2.3.0부터는 기본으로 양옆을 먼저 자릅니다. 아래 참고). 원본 모드의 `--hero-fraction`은 원본 프레임 범위 안에서 주 이미지의 잘라낼 높이만 조절합니다. 스크립트 모드는 기본적으로 고정 3:4를 사용합니다. 가로와 세로를 서로 다르게 늘려 비율을 맞추지 마세요.
 
-**가로 영상을 3:4로 만들 때 여백 줄이기(v2.3.0)**: 원본 자막 고정 캔버스의 기본값은 `--fit crop`입니다. 각 자막의 좌우 경계를 감지한 뒤 모든 자막이 안전하게 남는 범위에서 콜라주 양옆을 함께 자르고, 부족한 부분만 여백으로 채웁니다. 한 줄이라도 경계를 감지하지 못하면 자르지 않고 여백을 추가합니다. 인물이 한쪽에 있으면 `--crop-center 0.4`처럼 위치를 조절할 수 있습니다. v2.2.2의 여백 방식은 `--fit pad`로 선택합니다. 렌더링 후 자막 양 끝이 온전히 보이는지 확인하세요.
+**가로 영상을 3:4로 만들 때 여백 줄이기(v2.3.0)**: 원본 자막 고정 캔버스의 기본값은 `--fit crop`입니다. 각 자막의 좌우 경계를 감지한 뒤 모든 자막이 안전하게 남는 범위에서 콜라주 양옆을 함께 자르고, 부족한 부분만 검은 여백으로 채웁니다. 모든 자막은 같은 배율을 유지합니다. 한 줄이라도 경계를 감지하지 못하면 자르지 않고 여백을 추가합니다. 인물이 한쪽에 있으면 `--crop-center 0.4`처럼 자르는 위치를 옮길 수 있으며, 자르는 범위에는 항상 모든 자막이 들어갑니다. v2.2.2의 여백 방식은 `--fit pad`로 선택합니다. 렌더링 후 자막 양 끝이 온전히 보이는지 확인하세요.
 
 <details>
 <summary><code>script.json</code> 형식</summary>
 
 <br>
 
-`text`는 검토한 한 줄 문구여야 하며 `t`는 실제 영상의 시간점으로, 반드시 순서대로 증가해야 합니다.
+`text`는 검토한 한 줄 문구여야 하며 `t`는 실제 영상의 타임스탬프로, 앞 줄보다 반드시 커야 합니다.
 
 ```json
 {
@@ -239,7 +241,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 - 두 렌더러 모두 자막 띠 수에 따라 주 이미지 높이를 조절합니다. [시각 구성 가이드](skills/native-subtitle-quote-image/references/visual-style.md)를 참고하세요.
 - 원본 한 줄 자막은 영상 높이의 `0.78–0.96` 영역부터 확인합니다.
-- 이미지당 최대 7개 시간점(주 이미지 1개 + 자막 띠 6개)을 사용합니다. 더 긴 내용은 여러 장으로 나눕니다.
+- 이미지 한 장에는 타임스탬프를 최대 7개(주 이미지 1개 + 자막 띠 6개)까지 씁니다. 더 긴 내용은 여러 장으로 나눕니다.
 - 기존 파일은 `--overwrite`를 지정해야 덮어씁니다.
 - 전체 옵션은 `--help`로 확인합니다.
 
@@ -250,7 +252,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 | 적합한 경우 | 적합하지 않은 경우 |
 |---|---|
 | CC를 꺼도 영상에 자막이 남아 있고 이를 그대로 쓰고 싶음 | 원본 자막을 원하지만 영상에 별도 자막 트랙만 있음 |
-| 확인 가능한 시간점과 검토한 문구가 있음 | 문구나 번역을 확인하지 않았거나 영상에 없는 발언을 만들고 싶음 |
+| 확인 가능한 타임스탬프와 검토한 문구가 있음 | 문구나 번역을 확인하지 않았거나 영상에 없는 발언을 만들고 싶음 |
 | 영상과 결과물을 처리·게시할 권한이 있음 | 저화질 영상을 실제 고화질처럼 바꾸고 싶음 |
 
 직접 촬영하고 자막을 넣은 영상, 허가받은 자료 또는 재사용이 명확히 허용된 영상을 우선 사용하세요. 공개 게시 전에 필요한 사용 권한을 확인하세요.
@@ -266,11 +268,28 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 
 **찾기 쉬운 자료**: 직접 편집해 자막을 영상에 새긴 파일, 제작자가 자막을 넣은 인터뷰·발표 영상 등입니다. 다른 사람이 재게시한 클립은 사용 권한을 확인해야 합니다.
 
-**대안**: 스크립트 모드로 전환하세요. 자막 트랙이나 Whisper 전사문으로 시간점을 찾고, 검토한 문구를 `script.json`에 넣어 `render-script`로 만듭니다. 결과물은 후편집 자막으로 표시됩니다.
+**대안**: 스크립트 모드로 전환하세요. 자막 트랙이나 Whisper 전사문으로 타임스탬프를 찾고, 검토한 문구를 `script.json`에 넣어 `render-script`로 만듭니다. 결과물은 후편집 자막으로 표시됩니다.
 
 </details>
 
+<div align="right"><a href="#readme-top">↑ 맨 위로</a></div>
+
 ## 추가 안내
+
+<details>
+<summary><strong>프로젝트 상태와 기술 정보</strong></summary>
+
+<p>
+  <img src="https://img.shields.io/badge/python-3.10%2B-ffd43b?logo=python&logoColor=white&labelColor=black&style=flat-square" alt="Python 3.10+">
+  <a href="skills/native-subtitle-quote-image"><img src="https://img.shields.io/badge/agent%20skills-open%20format-f97316?labelColor=black&style=flat-square" alt="공개 Agent Skills 형식"></a>
+  <a href=".codex-plugin/plugin.json"><img src="https://img.shields.io/badge/codex-plugin-10a37f?labelColor=black&style=flat-square" alt="Codex plugin"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/releases"><img src="https://img.shields.io/github/release-date/chengyi-ai/native-subtitle-quote-image?labelColor=black&style=flat-square" alt="릴리스 날짜"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/commits/main"><img src="https://img.shields.io/github/last-commit/chengyi-ai/native-subtitle-quote-image?color=7c3aed&labelColor=black&style=flat-square" alt="최근 커밋"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/network/members"><img src="https://img.shields.io/github/forks/chengyi-ai/native-subtitle-quote-image?color=8ae8ff&labelColor=black&style=flat-square" alt="GitHub forks"></a>
+  <a href="https://github.com/chengyi-ai/native-subtitle-quote-image/issues"><img src="https://img.shields.io/github/issues/chengyi-ai/native-subtitle-quote-image?color=ff80eb&labelColor=black&style=flat-square" alt="GitHub issues"></a>
+</p>
+
+</details>
 
 <details>
 <summary><strong>필요한 구성 요소</strong></summary>
@@ -333,6 +352,21 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 </details>
 
 <details>
+<summary><strong>상단 배너 수정</strong></summary>
+
+<br>
+
+상단 배너는 `scripts/render_banners.py`로 만들며, 중국어·영어·한국어 WebP가 하나씩 `assets/`에 있습니다. 배너에 어두운 배경이 포함되어 있어 GitHub 라이트 테마와 다크 테마에서 같은 이미지를 씁니다. 제목은 스크립트 맨 위의 `COPY`를 고치고, 가장자리 일러스트는 `assets/banner-ornaments.png`를 교체한 다음 아래 명령을 실행합니다.
+
+```bash
+python3 scripts/render_banners.py
+```
+
+로컬에 Chrome 또는 Chromium이 필요하며, 렌더링할 때 Google Fonts에서 폰트를 불러옵니다. 브라우저를 찾지 못하면 `--chrome /path/to/chrome`으로 지정하세요.
+
+</details>
+
+<details>
 <summary><strong>검증 명령</strong></summary>
 
 <br>
@@ -377,6 +411,6 @@ OpenAI의 AI 코딩 도우미 [Codex](https://github.com/codex)는 [원본 비�
 
 ## 라이선스
 
-코드와 Skill 지침은 [MIT 라이선스](LICENSE)로 공개합니다. 예시 이미지는 결과물의 형태를 보여 주기 위한 자료이며, 입력 영상·생성 이미지·제3자 콘텐츠에 대한 추가 사용 권한을 부여하지 않습니다.
+코드와 Skill 지침은 [MIT 라이선스](LICENSE)로 공개합니다. 예시 이미지는 결과물의 형태를 보여 주기 위한 것입니다. 입력 영상, 생성 이미지와 그 안에 나오는 제3자 콘텐츠는 이 라이선스로 추가 사용 권한을 얻지 않습니다.
 
 <div align="right"><a href="#readme-top">↑ 맨 위로</a></div>
