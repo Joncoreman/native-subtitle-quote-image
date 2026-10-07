@@ -11,12 +11,12 @@ Each README shows only the three images whose subtitles match its language. Imag
 | 案例 | 字幕模式 | 来源 | 记录 |
 | --- | --- | --- | --- |
 | [《大巴上的女孩》：生命属于你自己](gallery/zh/girls-on-the-bus-native.jpg) | 原生字幕 · 中英双语 · 5 句 | [Bilibili 搬运视频](https://www.bilibili.com/video/BV1jT42117zW/) | [时间点与转录](scripts/zh/girls-on-the-bus-native.json) |
-| [Kat Chan：好创意要偏离平均值](gallery/zh/kat-chan-ai-creativity.jpg) | 脚本字幕 · 中文翻译 · 5 句 | [YouTube](https://www.youtube.com/watch?v=C5WYoNE6U_0) | [台词与时间点](scripts/zh/kat-chan-ai-creativity.json) |
+| [里克·鲁宾：创意像一片变化的云](gallery/zh/rick-rubin-creative-clouds.jpg) | 脚本字幕 · 中文翻译 · 5 句 | [YouTube](https://www.youtube.com/watch?v=QP8Kpf1UQwM) | [台词与时间点](scripts/zh/rick-rubin-creative-clouds.json) |
 | [陈数：工作投入，生活简单](gallery/zh/chen-shu-simple-life.jpg) | 脚本字幕 · 据原字幕整理 · 5 句 | [网易谈心社 / Bilibili](https://www.bilibili.com/video/BV1Ym4y1W7CJ/) | [台词与时间点](scripts/zh/chen-shu-simple-life.json) |
 
 - **原生字幕**：《大巴上的女孩》一图中的 5 句字幕，都是烧录在 Bilibili 搬运版画面里的非官方中英双语字幕，直接从画面像素裁切，未识别、未重绘。左上角是视频平台水印。JSON 里的文字只是人工转录，方便检索和核对，不参与渲染。
-- **脚本字幕**：Kat Chan 一图的中文依据英文原声的时间轴后加；陈数一图依据视频原有中文字幕整理压缩后重新绘制，JSON 同时保留了 `source_text` 原文记录。两者都不是视频原字幕，也不作为人物的逐字引语。
-- 三张均为 1080 × 1440。前两张由 1440 × 1920 的存档成品统一等比缩小，未裁切、未改动画面内容；陈数一图直接复制。来源链接取自本地制作记录，未重新核验视频的在线状态。
+- **脚本字幕**：里克·鲁宾一图的中文是英文播客内容的整理翻译，其中两句是第三人称转述；陈数一图依据视频原有中文字幕整理压缩后重新绘制，JSON 同时保留了 `source_text` 原文记录。两者都不是视频原字幕，也不作为人物的逐字引语。
+- 三张均为 1080 × 1440。《大巴上的女孩》一图由 1440 × 1920 的存档成品统一等比缩小，未裁切、未改动画面内容；另外两张直接复制。来源链接取自本地制作记录，未重新核验视频的在线状态。
 
 ## English examples
 
