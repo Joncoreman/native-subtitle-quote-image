@@ -9,8 +9,10 @@
   <p>
     <a href="#快速开始"><strong>快速开始</strong></a> &nbsp;·&nbsp;
     <a href="#能做什么">了解能力</a> &nbsp;·&nbsp;
+    <a href="#成品案例">成品案例</a> &nbsp;·&nbsp;
     <a href="#两种字幕模式">两种模式</a> &nbsp;·&nbsp;
-    <a href="README_EN.md">English</a>
+    <a href="README_EN.md">English</a> &nbsp;·&nbsp;
+    <a href="README_KO.md">한국어</a>
   </p>
 
   <p>
@@ -27,6 +29,22 @@
 - **两种字幕，从不混用**：原生模式只裁切画面里本来就有的字幕；脚本模式把你审核过的台词画到真实画面上，并标明是后期字幕。
 - **版式紧凑**：原生字幕先拼源像素，再统一缩放，第一句不会被单独放大；脚本固定布局的主图约占 70%。字幕条之间没有空隙。
 - **Agent 能用，脚本也能单独跑**：在 Codex、Claude Code 等 Agent 里用一句话调用；也可以直接运行 Python 脚本。
+
+## 成品案例
+
+中文案例：陈数访谈与下方的技术访谈原比例示例。点击图片查看原图。
+
+**后期脚本字幕**：陈数图使用整理配文，沿用历史成品，未按当前版本重新渲染；下方 3 张技术访谈图由 v2.3.0 渲染。
+
+<p align="center">
+  <strong>中文访谈 · 陈数</strong><br>
+  <sub>工作投入，生活简单 · 5 句 · 3:4</sub><br>
+  <a href="examples/gallery/chen-shu-simple-life.jpg"><img src="examples/gallery/chen-shu-simple-life.jpg" alt="陈数访谈中文脚本字幕拼图：工作投入，生活简单" width="420"></a>
+</p>
+
+[查看来源、台词与时间点](examples/README.md#中文历史案例)
+
+### 横屏原比例案例
 
 <p align="center">
   <img src="examples/demo-output-overview.jpg" alt="v2.3.0 原比例布局的三张后期中文字幕示例总览" width="960">

@@ -17,6 +17,7 @@ UPDATE_CHECK = SKILL_DIR / "scripts" / "check_update.py"
 VERSION_FILE = SKILL_DIR / "VERSION"
 README = ROOT / "README.md"
 README_EN = ROOT / "README_EN.md"
+README_KO = ROOT / "README_KO.md"
 PLUGIN = ROOT / ".codex-plugin" / "plugin.json"
 EXPECTED_NAME = "native-subtitle-quote-image"
 EXPECTED_VERSION = "2.3.0"
@@ -28,6 +29,7 @@ def main():
         ROOT / "LICENSE",
         README,
         README_EN,
+        README_KO,
         ROOT / "assets" / "native-subtitle-quote-image-icon.png",
         ROOT / "examples" / "gallery" / "agi-capability-to-value.jpg",
         ROOT / "examples" / "gallery" / "smaller-coding-models.jpg",
@@ -95,6 +97,7 @@ def main():
     public_docs = [
         README,
         README_EN,
+        README_KO,
         SKILL_FILE,
         SKILL_DIR / "references" / "yt-dlp-and-transcripts.md",
         SKILL_DIR / "references" / "end-to-end-workflow.md",
@@ -115,7 +118,7 @@ def main():
                 )
 
     readme_text = README.read_text(encoding="utf-8") if README.is_file() else ""
-    for readme in (README, README_EN):
+    for readme in (README, README_EN, README_KO):
         text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
         for source in re.findall(r'<img\s+[^>]*src="([^"]+)"', text):
             if source.startswith(("http://", "https://")):
@@ -124,7 +127,7 @@ def main():
                 errors.append(f"{readme.name} 图片不存在: {source}")
     if "~/.codex/skills" not in readme_text:
         errors.append("README 缺少 Codex 默认 Skill 安装目录")
-    for document in (README, README_EN, SKILL_FILE):
+    for document in (README, README_EN, README_KO, SKILL_FILE):
         text = document.read_text(encoding="utf-8") if document.is_file() else ""
         if "render-script" not in text:
             errors.append(f"{document.relative_to(ROOT)} 未说明脚本字幕模式")

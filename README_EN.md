@@ -9,8 +9,10 @@
   <p>
     <a href="#quick-start"><strong>Quick start</strong></a> &nbsp;·&nbsp;
     <a href="#what-it-does">What it does</a> &nbsp;·&nbsp;
+    <a href="#gallery">Gallery</a> &nbsp;·&nbsp;
     <a href="#two-subtitle-modes">Two modes</a> &nbsp;·&nbsp;
-    <a href="README.md">中文</a>
+    <a href="README.md">中文</a> &nbsp;·&nbsp;
+    <a href="README_KO.md">한국어</a>
   </p>
 
   <p>
@@ -28,13 +30,19 @@
 - **Compact layout**: native subtitles are stacked as source pixels and scaled together, without enlarging the first line separately. Scripted fixed layouts keep about 70% for the hero. Strips sit flush with no gaps.
 - **Agent-first, script-friendly**: call it with one sentence in Codex, Claude Code, or another agent, or run the Python scripts directly.
 
+## Gallery
+
+An English-language example from the archive. Click the image for full size.
+
+**Post-rendered scripted subtitles**: this image uses edited English copy and is an archived output, not a fresh render with the current version or a verified verbatim quotation.
+
 <p align="center">
-  <img src="examples/demo-output-overview.jpg" alt="Three v2.3.0 natural-layout examples with post-rendered Chinese subtitles" width="960">
-  <br>
-  <sub>Rendered with v2.3.0 in natural layout, without stretching people. Chinese text in this set is post-rendered scripted subtitles, not native video subtitles.</sub>
+  <strong>English copy · Jordan Welch</strong><br>
+  <sub>AI services · 6 lines · 3:4</sub><br>
+  <a href="examples/gallery/jordan-ai-services-en.jpg"><img src="examples/gallery/jordan-ai-services-en.jpg" alt="Jordan Welch with English scripted subtitles about AI services" width="420"></a>
 </p>
 
-Full-size examples: [Coding models](examples/gallery/smaller-coding-models.jpg) · [Capability and value](examples/gallery/agi-capability-to-value.jpg) · [Task duration](examples/gallery/task-duration.jpg). [Sources and reproduction](examples/README.md)
+[Source, lines, and timestamps](examples/README.md#english-archived-example)
 
 <div align="right"><a href="#readme-top">↑ Back to top</a></div>
 

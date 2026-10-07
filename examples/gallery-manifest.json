@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "examples": [
+    {
+      "id": "chen-shu-simple-life",
+      "title": "陈数｜工作投入，生活简单",
+      "image": "gallery/chen-shu-simple-life.jpg",
+      "script": "scripts/chen-shu-simple-life.json",
+      "subtitle_mode": "scripted",
+      "language": "zh",
+      "width": 1080,
+      "height": 1440,
+      "source_url": "https://www.bilibili.com/video/BV1Ym4y1W7CJ/",
+      "source_note": "网易谈心社 interview; source URL from archived production notes dated 2026-09-06.",
+      "render_version": null,
+      "origin": "archived output; copied without re-rendering",
+      "sha256": "07030c31527d40c905e0c46b52ec68a903b900120efd9549454454bbee16f323"
+    },
+    {
+      "id": "jade-twenties-ko",
+      "title": "UnJaded Jade｜人生不能同时全部展开",
+      "image": "gallery/jade-twenties-ko.jpg",
+      "script": "scripts/jade-twenties-ko.json",
+      "subtitle_mode": "scripted",
+      "language": "ko",
+      "width": 1080,
+      "height": 1440,
+      "source_url": "https://www.youtube.com/watch?v=8kYXvq_h9Kk",
+      "source_note": "Source URL from archived production metadata.",
+      "render_version": null,
+      "origin": "archived output; copied without re-rendering",
+      "sha256": "075023722af9dc08bc8fbceb8d1e2a3047ce4d8f69b11861f3088a93764b1e9b"
+    },
+    {
+      "id": "jordan-ai-services-en",
+      "title": "Jordan Welch｜AI 服务（英文）",
+      "image": "gallery/jordan-ai-services-en.jpg",
+      "script": "scripts/jordan-ai-services-en.json",
+      "subtitle_mode": "scripted",
+      "language": "en",
+      "width": 1080,
+      "height": 1440,
+      "source_url": "https://www.youtube.com/watch?v=RzFHcZA6uxA",
+      "source_note": "Source URL from archived production metadata.",
+      "render_version": null,
+      "origin": "archived output; copied without re-rendering",
+      "sha256": "5d0b235e3b55f410f51b4c16a895d095df452bcdb57754f8f81a5c5545a8ff79"
+    },
+    {
+      "id": "jordan-ai-services-ko",
+      "title": "Jordan Welch｜AI 服务（韩文）",
+      "image": "gallery/jordan-ai-services-ko.jpg",
+      "script": "scripts/jordan-ai-services-ko.json",
+      "subtitle_mode": "scripted",
+      "language": "ko",
+      "width": 1080,
+      "height": 1440,
+      "source_url": "https://www.youtube.com/watch?v=RzFHcZA6uxA",
+      "source_note": "Source URL from archived production metadata.",
+      "render_version": null,
+      "origin": "archived output; copied without re-rendering",
+      "sha256": "39a133411bf8c0eca89cc475aae0d471db29de961ac09faf48843384f46e9cb3"
+    }
+  ]
+}
