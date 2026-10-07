@@ -243,6 +243,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 - 원본 한 줄 자막은 영상 높이의 `0.78–0.96` 영역부터 확인합니다.
 - 이미지 한 장에는 타임스탬프를 최대 7개(주 이미지 1개 + 자막 띠 6개)까지 씁니다. 더 긴 내용은 여러 장으로 나눕니다.
 - 기존 파일은 `--overwrite`를 지정해야 덮어씁니다.
+- 렌더링 전에 중복 화면을 검사합니다. 모든 타임스탬프의 화면이 거의 같거나(예: 원본 영상이 정지된 표지 이미지뿐인 경우), 원본 자막 모드에서 이웃한 자막 띠 두 개가 거의 같으면 이미지를 만들지 않고 중단합니다. 의도한 결과라면 `--allow-duplicate-frames`를 추가하세요.
 - 전체 옵션은 `--help`로 확인합니다.
 
 <div align="right"><a href="#readme-top">↑ 맨 위로</a></div>
