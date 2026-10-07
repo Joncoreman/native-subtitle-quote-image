@@ -1,66 +1,49 @@
-# README 示例 / README examples
+# README 示例 / README examples / README 예시
 
-README 共展示 7 张图：4 张历史作品，以及 3 张 v2.3.0 原比例示例。所有案例均为 **后期脚本字幕（scripted）**。图片按字幕语言分别展示在 [中文版](../README.md)、[English](../README_EN.md) 和 [한국어](../README_KO.md) README 中。
+每个 README 只展示字幕语言与之相同的 3 张图：[中文](../README.md#成品案例)、[English](../README_EN.md#gallery)、[한국어](../README_KO.md#완성-예시)。图片按语言放在 `gallery/zh/`、`gallery/en/`、`gallery/ko/`，台词与时间点在 `scripts/<语言>/`，结构化记录（尺寸、来源、SHA-256）见 [gallery-manifest.json](gallery-manifest.json)。
 
-## 中文历史案例
+Each README shows only the three images whose subtitles match its language. Images live in `gallery/<lang>/`, line scripts in `scripts/<lang>/`, and structured records (size, source, SHA-256) in [gallery-manifest.json](gallery-manifest.json).
 
-| 案例 | 字幕 | 来源 | 台词与时间点 |
+각 README에는 자막 언어가 같은 이미지 3장만 표시됩니다. 이미지는 `gallery/<lang>/`, 문구와 타임스탬프는 `scripts/<lang>/`, 구조화된 기록(크기, 출처, SHA-256)은 [gallery-manifest.json](gallery-manifest.json)에 있습니다.
+
+## 中文案例
+
+| 案例 | 字幕模式 | 来源 | 记录 |
 | --- | --- | --- | --- |
-| [陈数：工作投入，生活简单](gallery/chen-shu-simple-life.jpg) | 中文整理配文 · 5 句 | [网易谈心社 / Bilibili](https://www.bilibili.com/video/BV1Ym4y1W7CJ/) | [JSON](scripts/chen-shu-simple-life.json) |
+| [《大巴上的女孩》：生命属于你自己](gallery/zh/girls-on-the-bus-native.jpg) | 原生字幕 · 中英双语 · 5 句 | [Bilibili 搬运视频](https://www.bilibili.com/video/BV1jT42117zW/) | [时间点与转录](scripts/zh/girls-on-the-bus-native.json) |
+| [Kat Chan：好创意要偏离平均值](gallery/zh/kat-chan-ai-creativity.jpg) | 脚本字幕 · 中文翻译 · 5 句 | [YouTube](https://www.youtube.com/watch?v=C5WYoNE6U_0) | [台词与时间点](scripts/zh/kat-chan-ai-creativity.json) |
+| [陈数：工作投入，生活简单](gallery/zh/chen-shu-simple-life.jpg) | 脚本字幕 · 据原字幕整理 · 5 句 | [网易谈心社 / Bilibili](https://www.bilibili.com/video/BV1Ym4y1W7CJ/) | [台词与时间点](scripts/zh/chen-shu-simple-life.json) |
 
-## English archived example
+- **原生字幕**：《大巴上的女孩》一图中的 5 句字幕，都是烧录在 Bilibili 搬运版画面里的非官方中英双语字幕，直接从画面像素裁切，未识别、未重绘。左上角是视频平台水印。JSON 里的文字只是人工转录，方便检索和核对，不参与渲染。
+- **脚本字幕**：Kat Chan 一图的中文依据英文原声的时间轴后加；陈数一图依据视频原有中文字幕整理压缩后重新绘制，JSON 同时保留了 `source_text` 原文记录。两者都不是视频原字幕，也不作为人物的逐字引语。
+- 三张均为 1080 × 1440。前两张由 1440 × 1920 的存档成品统一等比缩小，未裁切、未改动画面内容；陈数一图直接复制。来源链接取自本地制作记录，未重新核验视频的在线状态。
 
-| Example | Copy | Source | Lines and timestamps |
+## English examples
+
+| Example | Subtitle mode | Source | Record |
 | --- | --- | --- | --- |
-| [Jordan Welch: AI services](gallery/jordan-ai-services-en.jpg) | Edited English copy · 6 lines | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-en.json) |
+| [Mikayla Johnson: Define the outcome first](gallery/en/mikayla-johnson-define-outcome.jpg) | Scripted · edited English · 5 lines | [YouTube](https://www.youtube.com/watch?v=5JOL8qYed-c) | [Lines and timestamps](scripts/en/mikayla-johnson-define-outcome.json) |
+| [Rick Rubin: Be yourself, not a mask](gallery/en/rick-rubin-be-yourself.jpg) | Scripted · edited English · 5 lines | [YouTube](https://www.youtube.com/watch?v=butCyO_LccY) | [Lines and timestamps](scripts/en/rick-rubin-be-yourself.json) |
+| [Darby Saxbe: Share the load early](gallery/en/darby-saxbe-shared-care.jpg) | Scripted · edited English · 5 lines | [YouTube](https://www.youtube.com/watch?v=Ppyt3MptX5k) | [Lines and timestamps](scripts/en/darby-saxbe-shared-care.json) |
 
-## 한국어 보관 예시
+- All three are **scripted subtitles**: condensed or paraphrased English drawn onto real frames, not the videos' original captions and not verbatim quotations. The Rick Rubin card includes a third-person summary line, and the last Darby Saxbe line comes from a later point in the same video.
+- All three are 1080 × 1440 archived outputs, copied unchanged. Source links come from local production records and were not rechecked online.
 
-| 예시 | 자막 | 출처 | 문구와 타임스탬프 |
+## 한국어 예시
+
+| 예시 | 자막 모드 | 출처 | 기록 |
 | --- | --- | --- | --- |
-| [UnJaded Jade: 삶이 한꺼번에 펼쳐지지 않을 때](gallery/jade-twenties-ko.jpg) | 한국어 번역 문구 · 6줄 | [YouTube](https://www.youtube.com/watch?v=8kYXvq_h9Kk) | [JSON](scripts/jade-twenties-ko.json) |
-| [Jordan Welch: AI 서비스](gallery/jordan-ai-services-ko.jpg) | 한국어 번역 문구 · 6줄 | [YouTube](https://www.youtube.com/watch?v=RzFHcZA6uxA) | [JSON](scripts/jordan-ai-services-ko.json) |
+| [마수드 후세인: 모든 행동 앞에는 시작의 언덕이 있다](gallery/ko/masud-husain-starting-hill.jpg) | 스크립트 자막 · 한국어 번역 · 5줄 | [YouTube](https://www.youtube.com/watch?v=58-k4F7-AoA) | [문구와 타임스탬프](scripts/ko/masud-husain-starting-hill.json) |
+| [코디 산체스: 3-2-1 말하기](gallery/ko/codie-sanchez-321-speaking.jpg) | 스크립트 자막 · 한국어 번역 · 5줄 | [YouTube](https://www.youtube.com/watch?v=t260757b_vU) | [문구와 타임스탬프](scripts/ko/codie-sanchez-321-speaking.json) |
+| [이나야 맥밀란: 돈의 운영체제](gallery/ko/inaya-mcmillan-money-program.jpg) | 스크립트 자막 · 한국어 번역 · 5줄 | [YouTube](https://www.youtube.com/watch?v=U81bsDC8oP0) | [문구와 타임스탬프](scripts/ko/inaya-mcmillan-money-program.json) |
 
-## 历史成品说明 / Archive notes
+- 세 이미지 모두 **스크립트 자막**입니다. 영어 영상의 내용을 한국어로 옮겨 실제 프레임에 그려 넣은 것이며, 영상의 원래 자막이나 발언을 그대로 옮긴 인용문이 아닙니다.
+- 모두 1080 × 1440 보관 결과물을 그대로 복사했습니다. 출처 링크는 로컬 제작 기록에서 가져왔으며 온라인 상태는 다시 확인하지 않았습니다.
 
-四张均为 1080 × 1440，直接复制既有 JPG，未改动像素、重新压缩或拉伸。Jordan Welch 两张使用相同的 6 个时间点，可对照英韩配文。陈数脚本同时保留存档中的 `source_text`，便于区分原文记录与整理配文。
+## 权利说明 / Rights / 권리 안내
 
-来源链接取自本地制作记录，未重新核验视频在线状态或逐字翻译；这些图片展示排版效果，不作为人物的逐字引语。历史渲染版本及完整参数未确定，所附 JSON 用于追溯台词和时间点，不保证逐像素复现历史成品。结构化记录见 [gallery-manifest.json](gallery-manifest.json)。
+示例图只用于展示输出效果。画面、人物肖像、节目标识与台词的权利归各自权利人；仓库的 MIT 许可证不授予这些素材的使用权，原视频也不随仓库分发。
 
-These four 1080 × 1440 JPGs are copied unchanged from archived outputs. They demonstrate Chinese, English, and Korean scripted copy; the Jordan Welch pair shares the same timestamps. Source links come from archived production metadata and were not rechecked online. Chen Shu's script retains archived `source_text` alongside the edited copy. The original render versions and complete settings are unknown, so the JSON files document lines and timestamps rather than guarantee pixel-identical reproduction. These are not verified verbatim quotations.
+The example images only demonstrate the output format. Footage, likenesses, logos, and text remain subject to their respective rights holders; the repository's MIT license does not grant rights to this material, and source videos are not included.
 
-Third-party footage, likenesses, logos, and text remain subject to their respective rights; the repository's MIT license does not grant rights to this material. Source videos are not included.
-
-## v2.3.0 原比例示例 / Natural-layout examples
-
-这组图由 v2.3.0 的 `render-script` 从真实视频重新渲染。沿用此前公开示例的来源、时间点及中文台词，不代表对视频观点或翻译准确性的独立核验。
-
-**字幕来源：后期中文字幕（scripted），不是原生字幕。** 原视频未随仓库分发；画面、节目标识及内容的权利仍归各自权利人，MIT 许可不授予第三方视频素材的使用权。处理或重新发布素材前，请自行确认所需授权。
-
-| 输出 | 来源 | 参数 |
-| --- | --- | --- |
-| [编程模型](gallery/smaller-coding-models.jpg) | [Matt Wolfe](https://www.youtube.com/watch?v=ACYAYsVMmT8) | natural / width 1440 |
-| [能力与价值](gallery/agi-capability-to-value.jpg) | [80,000 Hours](https://www.youtube.com/watch?v=31Uhv12ZLHU) | natural / width 1440 |
-| [任务时长](gallery/task-duration.jpg) | [80,000 Hours](https://www.youtube.com/watch?v=31Uhv12ZLHU) | natural / width 1440 |
-
-每张 6 个时间点、1440 × 1215；主画面保留源视频 16:9，不强制裁成竖屏、不做非等比拉伸；字幕条之间无空隙。全部时间点和台词在 `render_examples.py` 中。总览由同版工具的 `contact_sheet` 生成。
-
-## 复现 / Reproduce
-
-自行准备有权处理的视频：
-
-```text
-source/
-  ACYAYsVMmT8/video.mp4
-  31Uhv12ZLHU/video.mp4
-```
-
-在仓库根目录运行（使用新的输出目录，工具默认拒绝覆盖成品）：
-
-```bash
-python3 examples/render_examples.py --source-dir /path/to/source --out-dir /path/to/new-output
-```
-
-需要 Pillow、FFmpeg 和中文字体；本次使用 macOS `STHeiti Medium.ttc`。不同字体可能导致字形变化。
-
-These examples use **post-rendered Chinese scripted subtitles**, not burned-in native subtitles. They were rebuilt with v2.3.0 using the previously published examples' sources and lines. Source videos are not bundled; third-party footage and logos are not covered by the MIT license. Ensure you have the required rights before using or republishing them. The command above reads local videos and produces images plus line JSON files in a new output directory.
+예시 이미지는 결과물의 형태를 보여 주기 위한 것입니다. 영상, 인물의 초상, 로고, 문구에 대한 권리는 각 권리자에게 있으며, 이 저장소의 MIT 라이선스는 해당 자료의 사용 권한을 부여하지 않습니다. 원본 영상은 포함되어 있지 않습니다.

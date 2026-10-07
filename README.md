@@ -32,27 +32,20 @@
 
 ## 成品案例
 
-中文案例：陈数访谈与下方的技术访谈原比例示例。点击图片查看原图。
+本页只展示中文字幕作品，均为 3:4、5 句。英文和韩文作品分别在 [English](README_EN.md#gallery) 与 [한국어](README_KO.md#완성-예시) README 中。点击图片查看原图。
 
-**后期脚本字幕**：陈数图使用整理配文，沿用历史成品，未按当前版本重新渲染；下方 3 张技术访谈图由 v2.3.0 渲染。
+<table>
+  <tr>
+    <td width="33%" align="center" valign="top"><strong>《大巴上的女孩》</strong><br><sub>原生字幕 · 生命属于你自己</sub><br><a href="examples/gallery/zh/girls-on-the-bus-native.jpg"><img src="examples/gallery/zh/girls-on-the-bus-native.jpg" alt="原生字幕模式：剧集《大巴上的女孩》片段，母亲角色的主画面与 4 条字幕条；5 句中英双语字幕（含主画面上的第一句）都直接裁自视频画面，未识别、未重绘" width="280"></a></td>
+    <td width="33%" align="center" valign="top"><strong>Kat Chan</strong><br><sub>脚本字幕 · 好创意要偏离平均值</sub><br><a href="examples/gallery/zh/kat-chan-ai-creativity.jpg"><img src="examples/gallery/zh/kat-chan-ai-creativity.jpg" alt="脚本字幕模式：Kat Chan 在播客录音室讲话的主画面，下方 5 条后期绘制的中文译写字幕，内容关于 AI 与创意" width="280"></a></td>
+    <td width="33%" align="center" valign="top"><strong>陈数</strong><br><sub>脚本字幕 · 工作投入，生活简单</sub><br><a href="examples/gallery/zh/chen-shu-simple-life.jpg"><img src="examples/gallery/zh/chen-shu-simple-life.jpg" alt="脚本字幕模式：陈数访谈主画面，下方 5 条依据原字幕整理后重新绘制的中文台词" width="280"></a></td>
+  </tr>
+</table>
 
-<p align="center">
-  <strong>中文访谈 · 陈数</strong><br>
-  <sub>工作投入，生活简单 · 5 句 · 3:4</sub><br>
-  <a href="examples/gallery/chen-shu-simple-life.jpg"><img src="examples/gallery/chen-shu-simple-life.jpg" alt="陈数访谈中文脚本字幕拼图：工作投入，生活简单" width="420"></a>
-</p>
+- **原生字幕**：第一张的字幕是视频里已烧录的非官方中英双语字幕（随 Bilibili 搬运版烧录在画面里），直接从画面像素裁切，未识别、未重绘；左上角是原视频平台的水印。
+- **脚本字幕**：后两张的中文是后期绘制的整理或翻译台词，不是视频原字幕，也不作为人物的逐字引语。
 
-[查看来源、台词与时间点](examples/README.md#中文历史案例)
-
-### 横屏原比例案例
-
-<p align="center">
-  <img src="examples/demo-output-overview.jpg" alt="v2.3.0 原比例布局的三张后期中文字幕示例总览" width="960">
-  <br>
-  <sub>v2.3.0 实际渲染：原比例布局，人物不拉伸；本组中文为后期脚本字幕，并非视频原生字幕。</sub>
-</p>
-
-查看完整示例：[编程模型](examples/gallery/smaller-coding-models.jpg) · [能力与价值](examples/gallery/agi-capability-to-value.jpg) · [任务时长](examples/gallery/task-duration.jpg)。[来源与复现方法](examples/README.md)
+[查看来源、台词与时间点](examples/README.md#中文案例)
 
 <div align="right"><a href="#readme-top">↑ 回到顶部</a></div>
 
@@ -371,7 +364,7 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 
 <br>
 
-首屏横幅由 `scripts/render_banners.py` 生成，中英文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改标题时编辑脚本顶部的 `COPY`，改边缘插画时替换 `assets/banner-ornaments.png`，然后运行：
+首屏横幅由 `scripts/render_banners.py` 生成，中文、英文、韩文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改标题时编辑脚本顶部的 `COPY`，改边缘插画时替换 `assets/banner-ornaments.png`，然后运行：
 
 ```bash
 python3 scripts/render_banners.py
