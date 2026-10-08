@@ -58,6 +58,13 @@ cd native-subtitle-quote-image
 mkdir -p ~/.codex/skills && cp -R skills/native-subtitle-quote-image ~/.codex/skills/
 ```
 
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.codex\skills" | Out-Null
+Copy-Item -Recurse skills\native-subtitle-quote-image "$HOME\.codex\skills\"
+```
+
 <details>
 <summary>Using Claude Code, the Codex Skill Installer, or another agent?</summary>
 
@@ -67,6 +74,13 @@ mkdir -p ~/.codex/skills && cp -R skills/native-subtitle-quote-image ~/.codex/sk
 
 ```bash
 mkdir -p ~/.claude/skills && cp -R skills/native-subtitle-quote-image ~/.claude/skills/
+```
+
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null
+Copy-Item -Recurse skills\native-subtitle-quote-image "$HOME\.claude\skills\"
 ```
 
 **Codex Skill Installer**: ask `$skill-installer` in Codex to install this directory:
