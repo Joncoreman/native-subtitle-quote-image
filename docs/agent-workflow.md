@@ -53,16 +53,17 @@
 1. **Agent 凭据**（Settings → Secrets and variables → Actions → Secrets，二选一）
    - `ANTHROPIC_API_KEY`：Anthropic API key；或
    - `CLAUDE_CODE_OAUTH_TOKEN`：在本地运行 `claude setup-token` 生成。
-2. **可选 Secrets**
+2. **允许 Actions 创建 PR**（Settings → Actions → General → Workflow permissions）：勾选 **Allow GitHub Actions to create and approve pull requests** 并保存。不打开时 Agent 能推送分支，但建 PR 会报 `GitHub Actions is not permitted to create or approve pull requests`；配置了 `AGENT_GITHUB_TOKEN` 则不依赖这个开关。
+3. **可选 Secrets**
    - `AGENT_GITHUB_TOKEN`：fine-grained PAT 或 GitHub App token（权限 Contents、Pull requests、Issues 读写）。配置后 Agent 建的 PR 会正常触发 CI；不配置时工作流会用 `workflow_dispatch` 补触发 Validate 与 Agent Review。
    - `RELEASE_TOKEN`：能绕过 `main` 分支保护的 token，供发版时推送版本提交和 tag。`main` 未开保护时可不配。
-3. **Variables**
+4. **Variables**
    - `AGENT_AUTO_IMPLEMENT`：`true` 开启自动编码，默认关闭。
    - `AGENT_MODEL`：可选，指定 Agent 使用的模型；留空用默认值。
-4. **标签**：Actions 页手动运行一次 **Sync Labels**（之后修改 `.github/labels.json` 会自动同步）。
-5. **@claude 交互**：在本地 Claude Code 里运行 `/install-github-app`，或安装 [Claude GitHub App](https://github.com/apps/claude)。
-6. **分支保护**（Settings → Branches → `main`）：要求 PR、至少 1 个审批、必需检查 `validate (3.10)`、`validate (3.13)`、`check`（Release Label）。
-7. **Discussions**（可选）：开启后建一个名为 `Ideas` 或 `Feedback` 的分类，新帖会自动转为 issue。
+5. **标签**：Actions 页手动运行一次 **Sync Labels**（之后修改 `.github/labels.json` 会自动同步）。
+6. **@claude 交互**：在本地 Claude Code 里运行 `/install-github-app`，或安装 [Claude GitHub App](https://github.com/apps/claude)。
+7. **分支保护**（Settings → Branches → `main`）：要求 PR、至少 1 个审批、必需检查 `validate (3.10)`、`validate (3.13)`、`check`（Release Label）。
+8. **Discussions**（可选）：开启后建一个名为 `Ideas` 或 `Feedback` 的分类，新帖会自动转为 issue。
 
 ## 接入社媒 / 社区反馈
 
@@ -105,6 +106,7 @@ GITHUB_TOKEN=... python scripts/submit_feedback.py \
 | 重新评估某个 issue | 在 issue 下评论 `/triage` |
 | 让 Agent 实现某个 issue | 加 `agent:implement` 标签 |
 | 让 Agent 按审查意见修改 PR | 在 PR 下评论 `@claude 请按上面的意见修改` |
+| Agent 报 “not permitted to create or approve pull requests” | 按「一次性配置」第 2 步打开开关，再给 issue 重新加 `agent:implement` |
 | Agent 失败后接手 | 查看 `agent:failed` 的 issue 与运行日志，在草稿 PR 上继续 |
 | 合并后不发版 | PR 用 `release:skip` |
 | 手动发版 | Actions → Release → Run workflow，选 patch / minor / major |
