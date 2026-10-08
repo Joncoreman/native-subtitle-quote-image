@@ -66,6 +66,16 @@ New-Item -ItemType Directory -Force "$HOME\.codex\skills" | Out-Null
 Copy-Item -Recurse skills\native-subtitle-quote-image "$HOME\.codex\skills\"
 ```
 
+> 升级时请先删除旧目录再复制，否则新版本已删除的旧文件会残留（Claude Code 把 `.codex` 换成 `.claude`）：
+>
+> ```bash
+> rm -rf ~/.codex/skills/native-subtitle-quote-image
+> ```
+>
+> ```powershell
+> Remove-Item -Recurse -Force "$HOME\.codex\skills\native-subtitle-quote-image"
+> ```
+
 <details>
 <summary>用 Claude Code、Codex Skill Installer 或其他 Agent？</summary>
 
