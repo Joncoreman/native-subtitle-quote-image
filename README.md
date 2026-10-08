@@ -398,6 +398,10 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 - [从读视频、选题到交付的完整工作流](skills/native-subtitle-quote-image/references/end-to-end-workflow.md)
 - [紧凑型主图、字幕条密度与视觉质检](skills/native-subtitle-quote-image/references/visual-style.md)
 
+## 反馈与贡献
+
+欢迎在 [Issues](https://github.com/chengyi-ai/native-subtitle-quote-image/issues) 提问题或建议，也可以在社交媒体上直接找作者反馈。新 issue 会由 Agent 自动评估可行性，符合条件的需求由 Agent 编码、测试并提交 PR，维护者审查合并后自动发版。完整流程见 [Agent 工作流说明](docs/agent-workflow.md)。
+
 ## Star History
 
 <a href="https://www.star-history.com/?repos=chengyi-ai%2Fnative-subtitle-quote-image&type=date&legend=top-right">

@@ -10,3 +10,6 @@ venv/
 band-preview.jpg
 candidate-contact-sheet.jpg
 final_contact_sheet.jpg
+.agent-in/
+.agent-out/
+dist/
