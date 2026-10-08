@@ -1,0 +1,22 @@
+name: Release Label
+
+# 合并前确认 PR 恰好带一个 release:* 标签，决定合并后是否发版、发哪一级。
+on:
+  pull_request:
+    types: [opened, reopened, labeled, unlabeled, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: |
+          count=$(echo "$LABELS" | grep -o '"release:[a-z]*"' | wc -l)
+          if [ "$count" -ne 1 ]; then
+            echo "::error::请给 PR 加且只加一个标签：release:patch / release:minor / release:major / release:skip（当前 ${count} 个）"
+            exit 1
+          fi
