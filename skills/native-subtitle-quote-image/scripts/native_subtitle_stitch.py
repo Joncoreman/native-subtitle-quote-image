@@ -188,9 +188,31 @@ def contains_cjk(text):
     return any(start <= char <= end for char in text for start, end in ranges)
 
 
-def load_subtitle_font(path, size, text):
+KOREAN_FONT_CANDIDATES = [
+    "/System/Library/Fonts/AppleSDGothicNeo.ttc",
+    "C:/Windows/Fonts/malgun.ttf",
+]
+
+
+def contains_hangul(text):
+    ranges = (
+        ("\u1100", "\u11ff"),  # 谚文字母
+        ("\u3130", "\u318f"),  # 谚文兼容字母
+        ("\uac00", "\ud7af"),  # 谚文音节
+    )
+    return any(start <= char <= end for char in text for start, end in ranges)
+
+
+def font_candidates(path, text):
     candidates = [path] if path else []
+    if contains_hangul(text):
+        candidates.extend(KOREAN_FONT_CANDIDATES)
     candidates.extend(FONT_CANDIDATES)
+    return candidates
+
+
+def load_subtitle_font(path, size, text):
+    candidates = font_candidates(path, text)
     if not contains_cjk(text):
         candidates.append("DejaVuSans.ttf")
     for candidate in candidates:

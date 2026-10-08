@@ -258,7 +258,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 }
 ```
 
-脚本会自动尝试常见的系统 CJK 字体，找不到时用 `--font /path/to/font.ttc` 指定。台词太长就拆句，不要靠缩小字号硬塞。
+脚本会自动尝试常见的系统 CJK 字体（台词含韩文时优先 Apple SD Gothic Neo / Malgun Gothic），找不到时用 `--font /path/to/font.ttc` 指定。台词太长就拆句，不要靠缩小字号硬塞。
 
 </details>
 

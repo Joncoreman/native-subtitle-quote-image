@@ -257,7 +257,7 @@ Every `text` value must be reviewed, single-line copy, and every `t` must be a s
 }
 ```
 
-The script tries common system CJK fonts. If none is found, pass `--font /path/to/font.ttc`. Split overly long copy instead of forcing it into an unreadably small font.
+The script tries common system CJK fonts (Apple SD Gothic Neo / Malgun Gothic first when the copy contains Hangul). If none is found, pass `--font /path/to/font.ttc`. Split overly long copy instead of forcing it into an unreadably small font.
 
 </details>
 
