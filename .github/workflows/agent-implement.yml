@@ -27,7 +27,10 @@ jobs:
   preflight:
     # 标签触发只认维护者添加的 agent:implement（只有有分类权限的人能加标签）。
     # 同时检查 Agent 凭据：未配置时整条流程跳过，而不是让每个 issue / PR 都报红。
+    # 被 Agent Triage 以 workflow_call 调用时，event_name 仍是调用方的 issues（opened），
+    # 所以先看 inputs.issue_number：workflow_call / workflow_dispatch 都会带上它。
     if: >-
+      inputs.issue_number ||
       github.event_name != 'issues' ||
       (github.event.label.name == 'agent:implement' && github.event.issue.state == 'open')
     runs-on: ubuntu-latest
