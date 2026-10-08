@@ -19,13 +19,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  review:
+  preflight:
     # fork 来的 PR 拿不到密钥，草稿 PR 等转正后再审。
+    # 同时检查 Agent 凭据：未配置时整条流程跳过，而不是让每个 issue / PR 都报红。
     if: >-
       github.event_name == 'workflow_dispatch' || (
         !github.event.pull_request.draft &&
         github.event.pull_request.head.repo.full_name == github.repository
       )
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - id: check
+        env:
+          HAS_CREDENTIALS: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+        run: |
+          echo "ready=${HAS_CREDENTIALS}" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_CREDENTIALS" != "true" ]; then
+            echo "::notice::未配置 ANTHROPIC_API_KEY 或 CLAUDE_CODE_OAUTH_TOKEN，跳过 Agent 步骤。配置方法见 docs/agent-workflow.md"
+          fi
+
+  review:
+    needs: preflight
+    if: needs.preflight.outputs.ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

@@ -24,11 +24,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  implement:
+  preflight:
     # 标签触发只认维护者添加的 agent:implement（只有有分类权限的人能加标签）。
+    # 同时检查 Agent 凭据：未配置时整条流程跳过，而不是让每个 issue / PR 都报红。
     if: >-
       github.event_name != 'issues' ||
       (github.event.label.name == 'agent:implement' && github.event.issue.state == 'open')
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - id: check
+        env:
+          HAS_CREDENTIALS: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+        run: |
+          echo "ready=${HAS_CREDENTIALS}" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_CREDENTIALS" != "true" ]; then
+            echo "::notice::未配置 ANTHROPIC_API_KEY 或 CLAUDE_CODE_OAUTH_TOKEN，跳过 Agent 步骤。配置方法见 docs/agent-workflow.md"
+          fi
+
+  implement:
+    needs: preflight
+    if: needs.preflight.outputs.ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:

@@ -34,8 +34,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  triage:
+  preflight:
     # issue_comment 只响应维护者的 /triage；带 agent:skip 的 issue 不处理。
+    # 同时检查 Agent 凭据：未配置时整条流程跳过，而不是让每个 issue / PR 都报红。
     if: >-
       (github.event_name != 'issue_comment' || (
         !github.event.issue.pull_request &&
@@ -44,6 +45,22 @@ jobs:
       )) &&
       !contains(github.event.issue.labels.*.name, 'agent:skip') &&
       github.event.issue.user.type != 'Bot'
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - id: check
+        env:
+          HAS_CREDENTIALS: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+        run: |
+          echo "ready=${HAS_CREDENTIALS}" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_CREDENTIALS" != "true" ]; then
+            echo "::notice::未配置 ANTHROPIC_API_KEY 或 CLAUDE_CODE_OAUTH_TOKEN，跳过 Agent 步骤。配置方法见 docs/agent-workflow.md"
+          fi
+
+  triage:
+    needs: preflight
+    if: needs.preflight.outputs.ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
