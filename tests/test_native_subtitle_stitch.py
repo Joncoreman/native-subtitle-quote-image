@@ -104,6 +104,42 @@ class HelperTests(unittest.TestCase):
         self.assertTrue(MODULE.contains_cjk("한글"))
         self.assertFalse(MODULE.contains_cjk("English"))
 
+    def test_hangul_detection(self):
+        self.assertTrue(MODULE.contains_hangul("한글"))
+        self.assertTrue(MODULE.contains_hangul("ㅋㅋ"))
+        self.assertFalse(MODULE.contains_hangul("中文"))
+        self.assertFalse(MODULE.contains_hangul("かな"))
+        self.assertFalse(MODULE.contains_hangul("English"))
+
+    def test_font_candidates_put_korean_fonts_first_for_hangul(self):
+        result = MODULE.font_candidates(None, "안녕하세요")
+        self.assertEqual(
+            result, MODULE.KOREAN_FONT_CANDIDATES + MODULE.FONT_CANDIDATES
+        )
+        self.assertLess(
+            result.index("/System/Library/Fonts/AppleSDGothicNeo.ttc"),
+            result.index("/System/Library/Fonts/PingFang.ttc"),
+        )
+        self.assertLess(
+            result.index("C:/Windows/Fonts/malgun.ttf"),
+            result.index("C:/Windows/Fonts/msyh.ttc"),
+        )
+
+    def test_font_candidates_keep_user_font_first(self):
+        result = MODULE.font_candidates("custom.ttf", "안녕하세요")
+        self.assertEqual(result[0], "custom.ttf")
+        self.assertEqual(result[1:3], MODULE.KOREAN_FONT_CANDIDATES)
+
+    def test_font_candidates_unchanged_for_chinese_and_japanese(self):
+        for text in ("中文台词", "かな"):
+            self.assertEqual(
+                MODULE.font_candidates(None, text), MODULE.FONT_CANDIDATES
+            )
+        self.assertEqual(
+            MODULE.font_candidates("custom.ttf", "中文"),
+            ["custom.ttf"] + MODULE.FONT_CANDIDATES,
+        )
+
     def test_environment_check_local_mode_is_machine_readable(self):
         proc = subprocess.run(
             [sys.executable, str(ENV_SCRIPT), "--json"],

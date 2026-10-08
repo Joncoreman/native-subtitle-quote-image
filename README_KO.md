@@ -257,7 +257,7 @@ python3 skills/native-subtitle-quote-image/scripts/native_subtitle_stitch.py ren
 }
 ```
 
-스크립트는 일반적인 시스템 CJK 폰트를 자동으로 찾습니다. 찾지 못하면 `--font /path/to/font.ttc`로 지정하세요. 문구가 너무 길면 글씨를 줄이기보다 문구를 나누거나 여러 장으로 구성하세요.
+스크립트는 일반적인 시스템 CJK 폰트를 자동으로 찾으며, 한글 문구에는 Apple SD Gothic Neo / Malgun Gothic을 먼저 시도합니다. 찾지 못하면 `--font /path/to/font.ttc`로 지정하세요. 문구가 너무 길면 글씨를 줄이기보다 문구를 나누거나 여러 장으로 구성하세요.
 
 </details>
 
