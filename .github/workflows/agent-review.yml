@@ -66,6 +66,8 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
+          # Agent Implement 用默认 token 补触发审查时，发起者是 github-actions 机器人。
+          allowed_bots: github-actions
           prompt: |
             仓库：${{ github.repository }}，PR 编号：${{ env.PR }}。
             阅读 .github/agent/review.md 并按其审查这个 PR。
