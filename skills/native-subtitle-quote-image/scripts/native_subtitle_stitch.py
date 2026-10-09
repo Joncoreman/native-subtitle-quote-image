@@ -175,17 +175,26 @@ FONT_CANDIDATES = [
 ]
 
 
-def contains_cjk(text):
-    ranges = (
-        ("\u1100", "\u11ff"),  # 谚文字母
-        ("\u3040", "\u30ff"),  # 平假名与片假名
-        ("\u3130", "\u318f"),  # 谚文兼容字母
-        ("\u3400", "\u9fff"),  # CJK 统一表意文字
-        ("\uac00", "\ud7af"),  # 谚文音节
-        ("\uf900", "\ufaff"),  # CJK 兼容表意文字
-        ("\uff66", "\uff9d"),  # 半角片假名
-    )
+HANGUL_RANGES = (
+    ("ᄀ", "ᇿ"),  # 谚文字母
+    ("㄰", "㆏"),  # 谚文兼容字母
+    ("가", "힯"),  # 谚文音节
+)
+
+OTHER_CJK_RANGES = (
+    ("぀", "ヿ"),  # 平假名与片假名
+    ("㐀", "鿿"),  # CJK 统一表意文字
+    ("豈", "﫿"),  # CJK 兼容表意文字
+    ("ｦ", "ﾝ"),  # 半角片假名
+)
+
+
+def _in_ranges(text, ranges):
     return any(start <= char <= end for char in text for start, end in ranges)
+
+
+def contains_cjk(text):
+    return _in_ranges(text, HANGUL_RANGES + OTHER_CJK_RANGES)
 
 
 KOREAN_FONT_CANDIDATES = [
@@ -195,12 +204,7 @@ KOREAN_FONT_CANDIDATES = [
 
 
 def contains_hangul(text):
-    ranges = (
-        ("\u1100", "\u11ff"),  # 谚文字母
-        ("\u3130", "\u318f"),  # 谚文兼容字母
-        ("\uac00", "\ud7af"),  # 谚文音节
-    )
-    return any(start <= char <= end for char in text for start, end in ranges)
+    return _in_ranges(text, HANGUL_RANGES)
 
 
 def font_candidates(path, text):
