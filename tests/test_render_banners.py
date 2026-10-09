@@ -17,36 +17,30 @@ class BannerHtmlTests(unittest.TestCase):
         for lang, copy in MODULE.COPY.items():
             with self.subTest(lang=lang):
                 html = MODULE.build_html(lang)
-                self.assertIn(copy["title"], html)
-                self.assertIn("background.png", html)
+                for line in copy["lines"]:
+                    self.assertIn(line, html)
+                for name in MODULE.wall_images():
+                    self.assertIn(f"gallery/{name}", html)
 
-    def test_background_exists(self):
-        self.assertTrue(MODULE.BACKGROUND.is_file(), MODULE.BACKGROUND)
-
-    def test_committed_banners_exist(self):
-        for lang in MODULE.COPY:
-            path = ROOT / "assets" / f"banner-{lang}.webp"
-            self.assertTrue(path.is_file(), path)
-
-    def test_social_html_uses_gallery_and_copy(self):
-        html = MODULE.build_social_html()
-        for line in MODULE.SOCIAL["lines"]:
-            self.assertIn(line, html)
-        for name in MODULE.social_images():
-            self.assertIn(f"gallery/{name}", html)
-
-    def test_social_wall_images_exist(self):
-        for name in MODULE.social_images():
+    def test_wall_images_exist(self):
+        for name in MODULE.wall_images():
             path = MODULE.GALLERY_DIR / name
             self.assertTrue(path.is_file(), path)
 
-    def test_committed_social_preview(self):
-        path = ROOT / "assets" / "social-preview.jpg"
-        self.assertTrue(path.is_file(), path)
-        # GitHub 社交预览图上限 1MB，推荐 2:1。
-        self.assertLess(path.stat().st_size, 1_000_000)
-        with MODULE.Image.open(path) as image:
-            self.assertEqual(image.width, image.height * 2)
+    def test_committed_banners(self):
+        for lang in MODULE.COPY:
+            with self.subTest(lang=lang):
+                path = ROOT / "assets" / f"banner-{lang}.jpg"
+                self.assertTrue(path.is_file(), path)
+                # 中文版兼作 GitHub 社交预览图：上限 1MB，推荐 2:1。
+                self.assertLess(path.stat().st_size, 1_000_000)
+                with MODULE.Image.open(path) as image:
+                    self.assertEqual(image.size, (MODULE.WIDTH * MODULE.SCALE, MODULE.HEIGHT * MODULE.SCALE))
+
+    def test_readmes_use_banners(self):
+        for readme, lang in (("README.md", "zh"), ("README_EN.md", "en"), ("README_KO.md", "ko")):
+            with self.subTest(readme=readme):
+                self.assertIn(f'src="assets/banner-{lang}.jpg"', (ROOT / readme).read_text(encoding="utf-8"))
 
 
 class FindChromeTests(unittest.TestCase):

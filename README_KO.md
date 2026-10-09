@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/banner-ko.webp" alt="원본 자막 콜라주: 필름, 자막 띠, 타임라인, 콜라주 액자가 제목을 둘러싼 손그림 배너" width="880">
+  <img src="assets/banner-ko.jpg" alt="원본 자막 콜라주 대표 이미지: 어두운 배경에 중국어·영어·한국어 완성 이미지를 깔고 왼쪽에 제목 「영상 한 편을 자막 콜라주로」를 얹은 배너" width="880">
 
   <p><strong>실제 영상 프레임을 원본 자막 또는 스크립트 자막 이미지로</strong><br>
   <sub>원본 자막은 영상의 픽셀 그대로 · 스크립트 자막은 후편집 문구로 명시</sub></p>
@@ -377,19 +377,19 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 </details>
 
 <details>
-<summary><strong>상단 배너 수정</strong></summary>
+<summary><strong>대표 이미지 수정</strong></summary>
 
 <br>
 
-상단 배너는 `scripts/render_banners.py`로 만들며, 중국어·영어·한국어 WebP가 하나씩 `assets/`에 있습니다. 배너에 어두운 배경이 포함되어 있어 GitHub 라이트 테마와 다크 테마에서 같은 이미지를 씁니다. 제목은 스크립트 맨 위의 `COPY`를 고치고, 가장자리 일러스트는 `assets/banner-ornaments.png`를 교체한 다음 아래 명령을 실행합니다.
+대표 이미지는 `scripts/render_banners.py`로 만들며, 중국어·영어·한국어 2560×1280 JPG가 하나씩 `assets/`에 있습니다. `examples/gallery`의 완성 예시를 어두운 배경에 깔아 GitHub 라이트 테마와 다크 테마에서 같은 이미지를 씁니다. 문구는 스크립트 맨 위의 `COPY`를, 배경에 쓸 예시는 `WALL`을 고친 다음 아래 명령을 실행합니다.
 
 ```bash
 python3 scripts/render_banners.py
 ```
 
-로컬에 Chrome 또는 Chromium이 필요하며, 렌더링할 때 Google Fonts에서 폰트를 불러옵니다. 브라우저를 찾지 못하면 `--chrome /path/to/chrome`으로 지정하세요.
+로컬에 Chrome 또는 Chromium이 필요하며, 렌더링할 때 Google Fonts에서 폰트를 불러옵니다. 브라우저를 찾지 못하면 `--chrome /path/to/chrome`으로 지정하세요. Linux에서 이미지 아래쪽이 잘리면 `chrome-headless-shell`로 렌더링하세요.
 
-같은 명령으로 대표 이미지 `assets/social-preview.jpg`(2560×1280)도 만듭니다. 완성 예시를 배경에 깔고 제목을 얹은 이미지이며, 문구는 스크립트의 `SOCIAL`에서 고칩니다. 대표 이미지만 다시 만들 때는 `--social`을 붙이세요. 만든 뒤 저장소 Settings → General → Social preview에 올리면 저장소 링크를 공유할 때 이 이미지가 보입니다. Linux에서 이미지 아래쪽이 잘리면 `chrome-headless-shell`로 렌더링하세요.
+중국어 대표 이미지 `assets/banner-zh.jpg`는 저장소 소셜 미리보기로도 씁니다. 저장소 Settings → General → Social preview에 올리면 저장소 링크를 공유할 때 이 이미지가 보입니다.
 
 </details>
 
