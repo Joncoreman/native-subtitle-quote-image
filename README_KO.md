@@ -389,6 +389,8 @@ python3 scripts/render_banners.py
 
 로컬에 Chrome 또는 Chromium이 필요하며, 렌더링할 때 Google Fonts에서 폰트를 불러옵니다. 브라우저를 찾지 못하면 `--chrome /path/to/chrome`으로 지정하세요.
 
+같은 명령으로 대표 이미지 `assets/social-preview.jpg`(2560×1280)도 만듭니다. 완성 예시를 배경에 깔고 제목을 얹은 이미지이며, 문구는 스크립트의 `SOCIAL`에서 고칩니다. 대표 이미지만 다시 만들 때는 `--social`을 붙이세요. 만든 뒤 저장소 Settings → General → Social preview에 올리면 저장소 링크를 공유할 때 이 이미지가 보입니다. Linux에서 이미지 아래쪽이 잘리면 `chrome-headless-shell`로 렌더링하세요.
+
 </details>
 
 <details>

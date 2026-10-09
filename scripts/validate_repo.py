@@ -34,6 +34,7 @@ def main():
         ROOT / "assets" / "native-subtitle-quote-image-icon.png",
         ROOT / "examples" / "gallery-manifest.json",
         ROOT / "assets" / "banner-ko.webp",
+        ROOT / "assets" / "social-preview.jpg",
         PLUGIN,
         SKILL_FILE,
         VERSION_FILE,

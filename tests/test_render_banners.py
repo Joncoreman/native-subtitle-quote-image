@@ -28,6 +28,26 @@ class BannerHtmlTests(unittest.TestCase):
             path = ROOT / "assets" / f"banner-{lang}.webp"
             self.assertTrue(path.is_file(), path)
 
+    def test_social_html_uses_gallery_and_copy(self):
+        html = MODULE.build_social_html()
+        for line in MODULE.SOCIAL["lines"]:
+            self.assertIn(line, html)
+        for name in MODULE.social_images():
+            self.assertIn(f"gallery/{name}", html)
+
+    def test_social_wall_images_exist(self):
+        for name in MODULE.social_images():
+            path = MODULE.GALLERY_DIR / name
+            self.assertTrue(path.is_file(), path)
+
+    def test_committed_social_preview(self):
+        path = ROOT / "assets" / "social-preview.jpg"
+        self.assertTrue(path.is_file(), path)
+        # GitHub 社交预览图上限 1MB，推荐 2:1。
+        self.assertLess(path.stat().st_size, 1_000_000)
+        with MODULE.Image.open(path) as image:
+            self.assertEqual(image.width, image.height * 2)
+
 
 class FindChromeTests(unittest.TestCase):
     def test_explicit_path_wins(self):

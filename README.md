@@ -397,6 +397,8 @@ python3 scripts/render_banners.py
 
 需要本机装有 Chrome 或 Chromium，渲染时会从 Google Fonts 加载字体。找不到浏览器时，用 `--chrome /path/to/chrome` 指定。
 
+同一条命令还会生成头图 `assets/social-preview.jpg`（2560×1280），背景铺满成品案例，文字在脚本的 `SOCIAL` 里改；只重做头图时加 `--social`。生成后在仓库 Settings → General → Social preview 上传，分享仓库链接时就会显示这张图。Linux 上若图片底部被截掉一截，改用 `chrome-headless-shell` 渲染。
+
 </details>
 
 <details>

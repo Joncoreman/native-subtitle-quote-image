@@ -396,6 +396,8 @@ python3 scripts/render_banners.py
 
 This needs Chrome or Chromium installed locally and loads fonts from Google Fonts. If the browser isn't found, pass `--chrome /path/to/chrome`.
 
+The same command also produces the cover image `assets/social-preview.jpg` (2560×1280), with gallery examples tiled behind the title; edit its text in `SOCIAL` in the script, and pass `--social` to rebuild only the cover. Upload it under the repository's Settings → General → Social preview so shared links show it. On Linux, if the bottom of the image is cut off, render with `chrome-headless-shell` instead.
+
 </details>
 
 <details>
