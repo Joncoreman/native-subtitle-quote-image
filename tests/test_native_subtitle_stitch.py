@@ -111,6 +111,14 @@ class HelperTests(unittest.TestCase):
         self.assertFalse(MODULE.contains_hangul("かな"))
         self.assertFalse(MODULE.contains_hangul("English"))
 
+    def test_hangul_is_always_cjk(self):
+        for sample in ("한글", "ㅋㅋ", "ᄀ"):
+            self.assertTrue(MODULE.contains_hangul(sample))
+            self.assertTrue(MODULE.contains_cjk(sample))
+        for start, end in MODULE.HANGUL_RANGES:
+            self.assertTrue(MODULE.contains_cjk(start))
+            self.assertTrue(MODULE.contains_cjk(end))
+
     def test_font_candidates_put_korean_fonts_first_for_hangul(self):
         result = MODULE.font_candidates(None, "안녕하세요")
         self.assertEqual(
