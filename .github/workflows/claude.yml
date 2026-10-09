@@ -49,9 +49,12 @@ jobs:
       id-token: write
       actions: read
     steps:
+      # Claude 推送提交时沿用 checkout 留下的凭据；用默认 GITHUB_TOKEN 推送不会触发 PR 检查，
+      # 所以配置了 AGENT_GITHUB_TOKEN 时优先用它，修改后的 PR 会正常重跑 CI 与 Agent Review。
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          token: ${{ secrets.AGENT_GITHUB_TOKEN || github.token }}
 
       - uses: actions/setup-python@v7
         with:
