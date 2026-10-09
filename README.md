@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="assets/banner-zh.webp" alt="原生字幕拼图：视频胶片、字幕条、时间轴和拼图画框环绕标题的手绘横幅" width="880">
+  <img src="assets/banner-zh.jpg" alt="原生字幕拼图头图：深色背景上铺满中英韩成品长图，左侧标题「一段视频，拼成字幕长图」" width="880">
 
   <p><strong>把真实视频帧，做成保留原字幕或绘制台词的长图</strong><br>
   <sub>原生字幕不重绘 · 脚本字幕不冒充原字幕</sub></p>
@@ -385,17 +385,19 @@ python3 skills/native-subtitle-quote-image/scripts/check_update.py --force --ver
 </details>
 
 <details>
-<summary><strong>修改首屏横幅</strong></summary>
+<summary><strong>修改头图</strong></summary>
 
 <br>
 
-首屏横幅由 `scripts/render_banners.py` 生成，中文、英文、韩文各一张 WebP，放在 `assets/` 里。横幅自带深色背景，GitHub 浅色和深色主题共用。改标题时编辑脚本顶部的 `COPY`，改边缘插画时替换 `assets/banner-ornaments.png`，然后运行：
+头图由 `scripts/render_banners.py` 生成，中文、英文、韩文各一张 2560×1280 的 JPG，放在 `assets/` 里。背景铺满 `examples/gallery` 的成品案例，自带深色底，GitHub 浅色和深色主题共用。改文字时编辑脚本顶部的 `COPY`，改背景墙用哪些案例时编辑 `WALL`，然后运行：
 
 ```bash
 python3 scripts/render_banners.py
 ```
 
-需要本机装有 Chrome 或 Chromium，渲染时会从 Google Fonts 加载字体。找不到浏览器时，用 `--chrome /path/to/chrome` 指定。
+需要本机装有 Chrome 或 Chromium，渲染时会从 Google Fonts 加载字体。找不到浏览器时，用 `--chrome /path/to/chrome` 指定。Linux 上若图片底部被截掉一截，改用 `chrome-headless-shell` 渲染。
+
+中文头图 `assets/banner-zh.jpg` 同时用作仓库社交预览图：在仓库 Settings → General → Social preview 上传，分享仓库链接时就会显示。
 
 </details>
 
